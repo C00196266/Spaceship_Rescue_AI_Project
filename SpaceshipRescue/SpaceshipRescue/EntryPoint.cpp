@@ -3,9 +3,9 @@
 int main() {
 	bool running = true;
 
-	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Spaceship Rescue");
-	sf::View view = window.getDefaultView();
-	window.setView(view);
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "Spaceship Rescue");
+	//sf::View view = window.getDefaultView();
+	//window.setView(view);
 
 	sf::Clock clock;
 	sf::Time timer;

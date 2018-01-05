@@ -16,5 +16,5 @@ void World::render(sf::RenderWindow &window) {
 
 void World::update(float deltaTime) {
 
-	player.Update();
+	player.update(deltaTime);
 }

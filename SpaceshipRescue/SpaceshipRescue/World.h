@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Enemy.h"
 #include "Player.h"
 #include "SpaceStation.h"
 
@@ -14,4 +14,12 @@ public:
 
 	Player player;
 	SpaceStation m_spaceStation;
+
+	Enemy sampleEnemy;
+
+	std::vector<Enemy> enemyVector;
+
+	std::vector<Enemy>::iterator enemyIterator;
 };
+
+

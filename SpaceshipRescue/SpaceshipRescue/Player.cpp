@@ -28,8 +28,10 @@ void Player::Init()
 
 	//initialization logic for player
 	keyUp = true;
-	m_pos = sf::Vector2f(0, 0);
-	m_view = sf::View(m_pos, sf::Vector2f(360, 240));
+//	m_pos = sf::Vector2f(0, 0);
+	m_position = sf::Vector2f(0, 0);
+
+	m_view = sf::View(m_position, sf::Vector2f(360, 240));
 	m_texture.loadFromFile("playertrans.png");
 	m_texture.setSmooth(true);
 	m_pTexture = &m_texture;
@@ -58,7 +60,7 @@ void Player::Init()
 	m_sprite.setLooped(true);
 
 	m_sprite.setOrigin(24, 23.5f);
-	m_pos = sf::Vector2f(240, 300);
+	m_position = sf::Vector2f(240, 300);
 
 	m_sprite.setRotation(180);
 
@@ -79,10 +81,6 @@ void Player::Draw(sf::RenderWindow &window)
 	window.setView(m_view);
 }
 
-sf::Vector2f Player::GetPosition()
-{
-	return m_pos;
-}
 
 void Player::update(float time)
 {
@@ -91,7 +89,7 @@ void Player::update(float time)
 
 	m_sprite.update(sf::seconds(0.05));
 
-	m_sprite.setPosition(m_pos);
+	m_sprite.setPosition(m_position);
 
 
 
@@ -154,7 +152,7 @@ void Player::update(float time)
 	m_sprite.setPosition(m_position); //set position of sprite
 	
 	//if (m_position.x > 0 && m_position.x < 1000) {
-		m_view.setCenter(m_position);
+	m_view.setCenter(m_position);
 	//}
 }
 

@@ -4,7 +4,6 @@
 class Player {
 private:
 	sf::View m_view;
-	sf::Vector2f m_pos;
 	sf::Vector2f m_bufferVector;
 	sf::Texture m_texture;
 	sf::Texture* m_pTexture;
@@ -46,18 +45,18 @@ public:
 
 	void update(float time);
 
-	sf::Vector2f getPosition();
 	bool getAlive();
 	float getHealth();
-
+	sf::Vector2f getPosition();
+	sf::Vector2f getVelocity();
 
 	void setPosition(sf::Vector2f position);
 	void setAlive(bool alive);
 	void setHealth(float healthChange);
 	void setVelocity(sf::Vector2f velocity);
 
-	sf::Vector2f getVelocity();
-	sf::Vector2f GetPosition();
+
+
 };
 
 

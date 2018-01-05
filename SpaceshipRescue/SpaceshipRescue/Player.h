@@ -1,5 +1,4 @@
-#include "SFML\Graphics.hpp"
-#include "AnimatedSprite.hpp"
+#include "stdafx.h"
 
 //Class definition for the Player game object
 class Player {
@@ -16,7 +15,6 @@ private:
 	AnimatedSprite m_sprite;
 	Animation m_animation;
 	bool keyUp;
-
 
 	sf::Vector2f maxVelo;
 	sf::Vector2f minVelo;

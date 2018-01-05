@@ -3,7 +3,7 @@
 int main() {
 	bool running = true;
 
-	sf::RenderWindow window(sf::VideoMode(1080, 560), "Spaceship Rescue");
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "Spaceship Rescue");
 	sf::View view = window.getDefaultView();
 	window.setView(view);
 
@@ -42,7 +42,6 @@ int main() {
 			if (timeSinceLastUpdate > timePerFrame) {
 				world.update(timeSinceLastUpdate.asSeconds());
 
-				//window.setView(view); // viewport
 				world.render(window);
 
 				window.display();

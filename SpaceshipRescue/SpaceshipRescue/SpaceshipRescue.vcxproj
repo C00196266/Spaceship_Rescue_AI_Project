@@ -129,15 +129,23 @@
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
+    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SpaceStation.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.hpp" />
     <ClInclude Include="Animation.hpp" />
+    <ClInclude Include="Floor.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SpaceStation.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="Wall.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

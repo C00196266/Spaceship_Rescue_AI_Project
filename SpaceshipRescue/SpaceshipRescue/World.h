@@ -1,6 +1,7 @@
 #pragma once
 
-#include "stdafx.h"
+#include "Player.h"
+#include "SpaceStation.h"
 
 class World {
 public:
@@ -12,4 +13,5 @@ public:
 	void update(float deltaTime);
 
 	Player player;
+	SpaceStation m_spaceStation;
 };

@@ -10,7 +10,7 @@ void World::init() {
 
 
 void World::render(sf::RenderWindow &window) {
-
+	m_spaceStation.render(window);
 	player.Draw(window);
 }
 

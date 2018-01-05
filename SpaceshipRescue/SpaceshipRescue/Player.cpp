@@ -65,7 +65,7 @@ void Player::Init()
 	m_sprite.setAnimation(m_animation);
 	m_sprite.setScale(0.3, 0.3); //was 0.2
 
-
+	m_view.zoom(2.0f);
 	m_view.setCenter(m_sprite.getPosition());
 }
 
@@ -152,8 +152,10 @@ void Player::update(float time)
 	//m_position += m_velocity;
 
 	m_sprite.setPosition(m_position); //set position of sprite
-
-
+	
+	//if (m_position.x > 0 && m_position.x < 1000) {
+		m_view.setCenter(m_position);
+	//}
 }
 
 

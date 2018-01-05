@@ -3,7 +3,7 @@
 int main() {
 	bool running = true;
 
-	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Spaceship Rescue");
+	sf::RenderWindow window(sf::VideoMode(1080, 560), "Spaceship Rescue");
 	sf::View view = window.getDefaultView();
 	window.setView(view);
 
@@ -14,6 +14,9 @@ int main() {
 	const sf::Time timePerFrame = sf::seconds(1.0f / FPS);
 
 	World world;
+
+	world.init();
+
 
 	// The main loop - ends as soon as the window is closed
 	while (running == true)

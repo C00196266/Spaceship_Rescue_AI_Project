@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Wall.h"
-#include "Floor.h"
+#include "SpaceStation.h"
 
 class World {
 public:
@@ -11,6 +10,5 @@ public:
 
 	void update(float deltaTime);
 private:
-	std::vector<Wall*> m_walls;
-	std::vector<Floor*> m_floors;
+	SpaceStation m_spaceStation;
 };

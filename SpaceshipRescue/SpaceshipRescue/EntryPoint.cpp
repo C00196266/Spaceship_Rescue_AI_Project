@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "World.h"
 
 int main() {
 	bool running = true;
@@ -12,6 +12,8 @@ int main() {
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	const float FPS = 60.0f;
 	const sf::Time timePerFrame = sf::seconds(1.0f / FPS);
+
+	World world;
 
 	// The main loop - ends as soon as the window is closed
 	while (running == true)
@@ -35,7 +37,10 @@ int main() {
 
 			// Displays contents of current frame in the window
 			if (timeSinceLastUpdate > timePerFrame) {
+				world.update(timeSinceLastUpdate.asSeconds());
+
 				//window.setView(view); // viewport
+				world.render(window);
 
 				window.display();
 

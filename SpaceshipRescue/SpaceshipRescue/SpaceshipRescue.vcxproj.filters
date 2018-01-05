@@ -45,6 +45,15 @@
     <ClCompile Include="Wall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Arc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -72,6 +81,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Wall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Arc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AStar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

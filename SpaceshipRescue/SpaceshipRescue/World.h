@@ -7,6 +7,9 @@ public:
 	World();
 
 	void render(sf::RenderWindow &window);
+	void init();
 
 	void update(float deltaTime);
+
+	Player player;
 };

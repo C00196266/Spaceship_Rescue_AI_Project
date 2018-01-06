@@ -131,8 +131,12 @@
     <ClCompile Include="Nest.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="SeekerMissile.cpp" />
+    <ClCompile Include="Arc.cpp" />
+    <ClCompile Include="AStar.cpp" />
+    <ClCompile Include="NodeLayout.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SpaceStation.cpp" />
     <ClCompile Include="stdafx.cpp" />
@@ -146,7 +150,12 @@
     <ClInclude Include="Nest.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="SeekerMissile.h" />
+    <ClInclude Include="Arc.h" />
+    <ClInclude Include="AStar.h" />
+    <ClInclude Include="NodeCostComparer.h" />
+    <ClInclude Include="NodeLayout.h" />
     <ClInclude Include="Floor.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SpaceStation.h" />
     <ClInclude Include="stdafx.h" />

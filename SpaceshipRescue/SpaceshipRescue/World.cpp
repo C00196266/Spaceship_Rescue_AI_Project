@@ -21,6 +21,7 @@ void World::init() {
 	m_radar.setViewport(sf::FloatRect(0.75f, -0.05f, 0.25f, 0.25f));
 
 	m_radar.setSize(3996, 2496);
+	aStar = new AStar(m_spaceStation.getNodeLayout());
 }
 
 
@@ -59,8 +60,10 @@ void World::render(sf::RenderWindow &window)
 }
 
 
-void World::update(float deltaTime)
-{
+void World::update(float deltaTime) {
+	std::vector<Node*> path;
+
+	aStar->calculatePath(m_spaceStation.getNodeLayout().getNodes()[23], m_spaceStation.getNodeLayout().getNodes()[6], path);
 
 	player.update(deltaTime);
 

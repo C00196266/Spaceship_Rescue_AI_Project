@@ -52,6 +52,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
+	   <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Arc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -90,6 +102,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Projectile.h">
+	  <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Arc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeLayout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AStar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeCostComparer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

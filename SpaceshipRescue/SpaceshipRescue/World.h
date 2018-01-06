@@ -2,6 +2,7 @@
 #include "SeekerMissile.h"
 #include "SpaceStation.h"
 #include "Nest.h"
+#include "AStar.h"
 
 class World {
 public:
@@ -18,7 +19,7 @@ public:
 	SpaceStation m_spaceStation;
 
 	Nest m_nest;
-
+	AStar* aStar;
 	//SeekerMissile sampleSeekerMissile;
 	//SeekerMissile sample2;
 
@@ -30,6 +31,10 @@ public:
 	//std::vector<SeekerMissile> seekerMissileVector;
 
 	//std::vector<SeekerMissile>::iterator seekerMissileIterator;
+private:
+	/*Player player;
+	SpaceStation m_spaceStation;
+	*/
 };
 
 

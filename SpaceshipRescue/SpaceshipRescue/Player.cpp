@@ -57,6 +57,10 @@ void Player::Init()
 	m_sprite.setAnimation(m_animation);
 	m_sprite.setLooped(true);
 
+	sf::Int32 msec = 50;
+
+	m_sprite.setFrameTime(sf::milliseconds(msec)); //convert to time
+
 	m_sprite.setOrigin(24, 23.5f);
 	m_position = sf::Vector2f(240, 300);
 

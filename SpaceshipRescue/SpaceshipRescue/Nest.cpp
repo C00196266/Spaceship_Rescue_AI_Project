@@ -61,14 +61,22 @@ void Nest::update(float deltaTime, Player player)
 
 	int count = 0;
 
+	
+
 	for (seekerMissileIterator = seekerMissileVector.begin(); seekerMissileIterator != seekerMissileVector.end(); seekerMissileIterator++)
 	{
 		if (seekerMissileIterator->getAlive())
 		{
+
 			seekerMissileIterator->update(count, player.getPosition(), deltaTime);
+
 		}
 		else
 		{
+			seekerMissileIterator->setPosition(m_position);
+			seekerMissileIterator->setAlive(true); //rebirth
+
+
 			//seekerMissileVector.erase(seekerMissileIterator);
 		}
 		count++; //compromised by isalive atm

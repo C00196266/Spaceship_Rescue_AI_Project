@@ -20,7 +20,9 @@ public:
 	
 	void update(float i, sf::Vector2f target, float deltaTime);
 	
-	
+	sf::Time lifetime;
+	sf::Clock lifeClock;
+
 	sf::Vector2f getPosition();
 	bool getAlive();
 	float getHealth();
@@ -38,6 +40,7 @@ public:
 	
 	void setPosition(sf::Vector2f position);
 	void setAlive(bool alive);
+
 	void setHealth(float healthChange);
 	void setVelocity(sf::Vector2f velocity);
 	float getOrient(float orientation, sf::Vector2f velocity, sf::Vector2f target);

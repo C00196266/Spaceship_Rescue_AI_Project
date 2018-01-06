@@ -24,6 +24,9 @@ void SeekerMissile::initialise(int i)
 	offSetX = m_image.getGlobalBounds().width / 2.0f;
 	offSetY = m_image.getGlobalBounds().height / 2.0f;
 
+	lifetime = sf::Time::Zero;
+	lifeClock.restart();
+
 	//currentWaypoint = 0; //head to first waypoint at first.
 	//int hund = 100;
 	//m_waypoint.reserve(5);
@@ -46,13 +49,29 @@ void SeekerMissile::Draw(sf::RenderWindow &window)
 	}
 }
 
+void SeekerMissile::setAlive(bool alive)
+{
+	m_isAlive = alive;
+}
+
 //if enemies are alive, they should be doing stuff
 void SeekerMissile::update(float i, sf::Vector2f target, float deltaTime)
 {
+	lifetime += lifeClock.getElapsedTime();
+
+
+	if (lifetime.asMilliseconds() > 250000)
+	{
+		std::cout << "timeout" << endl;
+
+		m_isAlive = false;
+
+		lifeClock.restart();
+		lifetime = sf::Time::Zero;
+	}
+
 	if (m_isAlive)
 	{
-
-
 		delta = deltaTime;
 
 		Seek(target);
@@ -119,13 +138,15 @@ float SeekerMissile::Arrive(sf::Vector2f target)
 	mag = sqrt(mag);
 
 
-	if (mag < 10)//target.getRadius())
+	if (mag < 20)//target.getRadius())
 	{
 		m_isAlive = false;
 
 
 		cout << "kaboom" << endl;
 
+		lifeClock.restart();
+		lifetime = sf::Time::Zero;
 
 		return 0; 
 	}

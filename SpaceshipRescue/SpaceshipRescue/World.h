@@ -1,7 +1,7 @@
 #pragma once
 #include "SeekerMissile.h"
-#include "Player.h"
 #include "SpaceStation.h"
+#include "Nest.h"
 
 class World {
 public:
@@ -17,14 +17,19 @@ public:
 	Player player;
 	SpaceStation m_spaceStation;
 
+	Nest m_nest;
+
 	//SeekerMissile sampleSeekerMissile;
 	//SeekerMissile sample2;
 
-	SeekerMissile seekerMissileArray[50];
 
-	std::vector<SeekerMissile> seekerMissileVector;
 
-	std::vector<SeekerMissile>::iterator seekerMissileIterator;
+
+	//SeekerMissile seekerMissileArray[50];
+
+	//std::vector<SeekerMissile> seekerMissileVector;
+
+	//std::vector<SeekerMissile>::iterator seekerMissileIterator;
 };
 
 

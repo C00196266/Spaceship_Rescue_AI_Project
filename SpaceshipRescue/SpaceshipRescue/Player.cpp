@@ -76,7 +76,7 @@ void Player::Init()
 void Player::Draw(sf::RenderWindow &window)
 {
 
-	window.draw(m_sprite, sf::BlendAdd);
+	window.draw(m_sprite);// , sf::BlendAdd);
 
 	window.setView(m_view);
 }

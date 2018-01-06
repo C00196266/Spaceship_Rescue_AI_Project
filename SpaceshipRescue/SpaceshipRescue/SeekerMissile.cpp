@@ -16,9 +16,9 @@ void SeekerMissile::initialise(int i)
 	m_image.setOrigin(sf::Vector2f(m_image.getGlobalBounds().width / 2.0f, (m_image.getGlobalBounds().height / 2.0f)));
 
 	minSpeed = 0;
-	maxSpeed = 8.2f;
-	speed = 8.2f;
-	m_image.setScale(0.5f, 0.5f);
+	maxSpeed = 2;//8.2f;
+	speed = 2;//8.2f;
+	m_image.setScale(0.2f, 0.2f);
 	m_image.rotate(180);
 
 	offSetX = m_image.getGlobalBounds().width / 2.0f;
@@ -42,7 +42,7 @@ void SeekerMissile::Draw(sf::RenderWindow &window)
 {
 	if (m_isAlive)
 	{
-		window.draw(m_image, sf::BlendAdd);
+		window.draw(m_image);// , sf::BlendAdd);
 	}
 }
 

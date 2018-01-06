@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Projectile.h"
 
 //Class definition for the Player game object
 class Player {
@@ -14,6 +15,16 @@ private:
 	AnimatedSprite m_sprite;
 	Animation m_animation;
 	bool keyUp;
+
+	Projectile* bulletArray[30];
+
+	std::vector<Projectile*> bulletVector;
+
+//	Projectile ProjectileArray[50];
+
+	//std::vector<Projectile> ProjectileVector;
+
+	std::vector<Projectile*>::iterator bulletIterator;
 
 	sf::Vector2f maxVelo;
 	sf::Vector2f minVelo;

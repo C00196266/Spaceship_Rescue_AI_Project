@@ -26,6 +26,8 @@ void Player::Init()
 
 
 
+
+
 	//initialization logic for player
 	keyUp = true;
 
@@ -82,7 +84,32 @@ void Player::Draw(sf::RenderWindow &window)
 
 	window.draw(m_sprite);// , sf::BlendAdd);
 
+	//int count = 0;
+	//for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); bulletIterator++)
+	//{
+	//	(bulletIterator*)->
+
+	//	if (bulletIterator->getAlive())
+	//	{
+
+	//		bulletIterator->Draw(window);
+	//	//	count++;
+	//	}
+	//}
+
+	for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator) 
+	{
+		if ((*bulletIterator)->getAlive())
+		{
+			(*bulletIterator)->Draw(window);
+		}
+	}
+
 	window.setView(m_view);
+
+
+
+
 }
 
 
@@ -116,6 +143,7 @@ void Player::update(float time)
 			speed += 0.1;
 		}
 	}
+	
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
 	{
@@ -136,6 +164,19 @@ void Player::update(float time)
 		angle -= 5;
 		m_sprite.rotate(5);
 	}
+	
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+	{
+
+		float mag = m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y;
+
+		mag = sqrt(mag); //length of vector
+
+		bulletVector.push_back(new Projectile(m_position, m_sprite.getRotation(), mag, m_velocity));
+
+		std::cout << "bang" << endl;
+	}
 
 	if (angle > 360)
 	{
@@ -149,6 +190,29 @@ void Player::update(float time)
 	m_sprite.setPosition(m_position); //set position of sprite
 
 	m_view.setCenter(m_position);
+	
+
+	int count = 0;
+
+	for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
+	{
+		if ((*bulletIterator)->getAlive())
+		{
+			(*bulletIterator)->update(0, sf::Vector2f(0, 0), time);
+			cout << "bull update" << endl;
+		}
+	}
+
+	//int count = 0;
+	//for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); bulletIterator++)
+	//{
+	//	if (bulletIterator->getAlive())
+	//	{
+
+	//		bulletIterator->update(count, m_position, time);
+	//		count++;
+	//	}
+	//}
 }
 
 

@@ -1,4 +1,23 @@
-#include "AStar.h"
+#include "SearchAlgorithm.h"
+
+SearchAlgorithm::SearchAlgorithm(std::vector<sf::Vector2f> &nodeData) {
+	m_noOfNodes = nodeData.size() + 1;
+
+	m_nodes = new Node*[m_noOfNodes];
+
+	for (int i = 0; i < nodeData.size(); i++) {
+		m_nodes[i] = new Node(nodeData.at(i), i);
+		m_nodes[i]->setMarked(false);
+	}
+}
+
+
+//void SearchAlgorithm::addNode(Node n) {
+//void SearchAlgorithm::addNode(std::vector<sf::Vector2f> nodeData) {
+//	if (m_nodes[nodeData.getID()] == NULL) {
+//		m_nodes[nodeData.getID()] = new Node(nodeData.getPos(), nodeData.getID());
+//	}
+//}
 
 //template<class NodeType, class ArcType>
 //void AStar<NodeType, ArcType>::ucs(Node* pStart, Node* pDest, std::vector<Node *>& path) {

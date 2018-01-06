@@ -6,18 +6,21 @@
 class Node {
 public:
 	Node() {}
-	Node(sf::Vector2f pos, std::string id);
+	Node(sf::Vector2f pos, int id);
 
-	void addArc(Arc arc);
+	//void addArc(Arc arc);
 
 	sf::Vector2f getPos();
 
-	std::string getID();
+	int getID();
+
+	bool getMarked();
+	void setMarked(bool marked);
 
 private:
-	std::string m_id;
-
+	int m_id;
 	sf::Vector2f m_pos;
+	bool m_marked; // if the node has been visited
 	
-	std::vector<Arc> m_arcs;
+	std::list<Arc> m_arcs;
 };

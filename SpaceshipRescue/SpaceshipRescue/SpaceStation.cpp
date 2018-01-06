@@ -3,9 +3,9 @@
 SpaceStation::SpaceStation() {
 	layout = (int*)layoutArray;
 
-	for (int column = 0; column < 78; column++)
+	for (int row = 0; row < 53; row++)
 	{
-		for (int row = 0; row < 53; row++)
+		for (int column = 0; column < 78; column++)
 		{
 			if (layout[78 * (row)+column] == 0) {
 				m_floors.push_back(new Floor(sf::Vector2f(column * 32, row * 32), 0));
@@ -20,10 +20,13 @@ SpaceStation::SpaceStation() {
 			}
 
 			else if (layout[78 * (row)+column] == 3) {
+				m_floors.push_back(new Floor(sf::Vector2f(column * 32, row * 32), 1));
 				m_nodePositions.push_back(sf::Vector2f((column * 32) + 16, (row * 32) + 16));
 			}
 		}
 	}
+
+	m_nodeLayout = { m_nodePositions };
 }
 
 void SpaceStation::render(sf::RenderWindow &window) {
@@ -34,6 +37,10 @@ void SpaceStation::render(sf::RenderWindow &window) {
 	for (int i = 0; i < m_floors.size(); i++) {
 		m_floors.at(i)->render(window);
 	}
+}
+
+NodeLayout& SpaceStation::getNodeLayout() {
+	return m_nodeLayout;
 }
 
 const int SpaceStation::layoutArray[53][78]

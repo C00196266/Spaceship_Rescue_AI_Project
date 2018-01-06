@@ -6,10 +6,10 @@
 
 #include <queue>
 
-class SearchAlgorithm {
+class NodeLayout {
 public:
-	SearchAlgorithm() {}
-	SearchAlgorithm(std::vector<sf::Vector2f> &nodeData);
+	NodeLayout() {}
+	NodeLayout(std::vector<sf::Vector2f> &nodeData);
 
 private:
 	Node** m_nodes; // pointer to array of pointers to nodes
@@ -17,6 +17,4 @@ private:
 	int m_noOfNodes;
 
 	void addArcs(); // adds connections between nodes
-	void ucs(Node* pStart, Node* pDest, std::vector<Node *>& path);
-	void aStar(Node* pStart, Node* pDest, std::vector<Node*>& path);
 };

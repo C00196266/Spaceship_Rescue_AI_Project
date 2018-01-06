@@ -1,8 +1,8 @@
 #pragma once
 
 #include "stdafx.h"
-#include "Node.h"
 
+class Node; // stops circular dependency between arc and node
 class Arc {
 public:
 	Arc() {}

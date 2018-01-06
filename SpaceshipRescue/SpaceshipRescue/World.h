@@ -1,5 +1,5 @@
 #pragma once
-#include "Enemy.h"
+#include "SeekerMissile.h"
 #include "Player.h"
 #include "SpaceStation.h"
 
@@ -12,14 +12,19 @@ public:
 
 	void update(float deltaTime);
 
+	sf::View m_radar;
+
 	Player player;
 	SpaceStation m_spaceStation;
 
-	Enemy sampleEnemy;
+	//SeekerMissile sampleSeekerMissile;
+	//SeekerMissile sample2;
 
-	std::vector<Enemy> enemyVector;
+	SeekerMissile seekerMissileArray[50];
 
-	std::vector<Enemy>::iterator enemyIterator;
+	std::vector<SeekerMissile> seekerMissileVector;
+
+	std::vector<SeekerMissile>::iterator seekerMissileIterator;
 };
 
 

@@ -33,6 +33,8 @@ private:
 	int PlayerType; //fed a random distrubution to see if Player is type 1, 2 or 3
 	float speed;
 
+//	sf::View m_radar;
+
 public:
 	Player();
 	~Player();

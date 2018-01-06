@@ -10,7 +10,10 @@ public:
 	//float getWeight();
 
 	void setNode(Node *n);
+	Node* getNode();
+
 	void setWeight(float w);
+	float getWeight();
 
 private:
 	Node *m_node;

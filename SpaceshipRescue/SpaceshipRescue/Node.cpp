@@ -34,3 +34,31 @@ bool Node::getMarked() {
 void Node::setMarked(bool marked) {
 	m_marked = marked;
 }
+
+Node* Node::getPrevious() {
+	return m_previous;
+}
+
+void Node::setPrevious(Node* previous) {
+	m_previous = previous;
+}
+
+float Node::getHeuristic() {
+	return m_heuristic;
+}
+
+void Node::setHeuristic(float heuristic) {
+	m_heuristic = heuristic;
+}
+
+float Node::getCost() {
+	return m_cost;
+}
+
+void Node::setCost(float cost) {
+	m_cost = cost;
+}
+
+std::list<Arc>& Node::getArcs() {
+	return m_arcs;
+}

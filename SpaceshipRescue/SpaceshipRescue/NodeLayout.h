@@ -11,6 +11,10 @@ public:
 	NodeLayout() {}
 	NodeLayout(std::vector<sf::Vector2f> &nodeData);
 
+	int getNoOfNodes();
+
+	Node** getNodes();
+
 private:
 	Node** m_nodes; // pointer to array of pointers to nodes
 

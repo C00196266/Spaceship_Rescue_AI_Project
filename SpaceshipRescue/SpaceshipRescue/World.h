@@ -2,6 +2,7 @@
 
 #include "Player.h"
 #include "SpaceStation.h"
+#include "AStar.h"
 
 class World {
 public:
@@ -12,6 +13,8 @@ public:
 
 	void update(float deltaTime);
 
+private:
 	Player player;
 	SpaceStation m_spaceStation;
+	AStar* aStar;
 };

@@ -135,6 +135,7 @@
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PredatorShip.cpp" />
     <ClCompile Include="SpaceStation.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Tile.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PredatorShip.h" />
     <ClInclude Include="SpaceStation.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tile.h" />

@@ -45,6 +45,15 @@
     <ClCompile Include="Wall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SeekerMissile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Nest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+	   <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Arc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -85,6 +94,15 @@
     </ClInclude>
     <ClInclude Include="Wall.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SeekerMissile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Nest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+	  <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Node.h">
       <Filter>Header Files</Filter>

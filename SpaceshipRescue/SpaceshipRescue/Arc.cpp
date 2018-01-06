@@ -1,10 +1,9 @@
 #include "Arc.h"
 
-Arc::Arc(std::string id, int weight) {
-	m_idOfConnectedNode = id;
-	m_weight = weight;
+void Arc::setNode(Node *n) {
+	m_node = n;
 }
 
-int Arc::getWeight() {
-	return m_weight;
+void Arc::setWeight(float w) {
+	m_weight = w;
 }

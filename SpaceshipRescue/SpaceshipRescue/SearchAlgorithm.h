@@ -4,7 +4,6 @@
 #include "Node.h"
 #include "Arc.h"
 
-#include <list>
 #include <queue>
 
 class SearchAlgorithm {
@@ -17,6 +16,7 @@ private:
 
 	int m_noOfNodes;
 
+	void addArcs(); // adds connections between nodes
 	void ucs(Node* pStart, Node* pDest, std::vector<Node *>& path);
 	void aStar(Node* pStart, Node* pDest, std::vector<Node*>& path);
 };

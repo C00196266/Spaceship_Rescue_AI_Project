@@ -3,12 +3,15 @@
 #include "stdafx.h"
 #include "Arc.h"
 
+#include <list>
+
 class Node {
 public:
 	Node() {}
 	Node(sf::Vector2f pos, int id);
 
-	//void addArc(Arc arc);
+	void addArc(Node *n);
+	float calculateArcWeight(sf::Vector2f otherNodePos);
 
 	sf::Vector2f getPos();
 

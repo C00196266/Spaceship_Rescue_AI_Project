@@ -9,6 +9,12 @@ SearchAlgorithm::SearchAlgorithm(std::vector<sf::Vector2f> &nodeData) {
 		m_nodes[i] = new Node(nodeData.at(i), i);
 		m_nodes[i]->setMarked(false);
 	}
+
+	addArcs();
+}
+
+void SearchAlgorithm::addArcs() {
+
 }
 
 

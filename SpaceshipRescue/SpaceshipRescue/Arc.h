@@ -1,15 +1,18 @@
 #pragma once
 
 #include "stdafx.h"
+#include "Node.h"
 
 class Arc {
 public:
 	Arc() {}
-	Arc(std::string id, int weight);
 
-	int getWeight();
+	//float getWeight();
+
+	void setNode(Node *n);
+	void setWeight(float w);
 
 private:
-	std::string m_idOfConnectedNode;
+	Node *m_node;
 	int m_weight;
 };

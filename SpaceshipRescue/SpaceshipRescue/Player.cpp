@@ -65,7 +65,7 @@ void Player::Init()
 	m_sprite.setAnimation(m_animation);
 	m_sprite.setScale(0.3, 0.3); //was 0.2
 
-	m_view.zoom(2.0f);
+	m_view.zoom(10.0f);
 	m_view.setCenter(m_sprite.getPosition());
 }
 

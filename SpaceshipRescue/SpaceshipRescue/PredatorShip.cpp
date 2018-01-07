@@ -17,10 +17,12 @@ void PredatorShip::render(sf::RenderWindow &window) {
 }
 
 void PredatorShip::update(float deltaTime) {
-	setupWaypoints();
+	setupPath();
 
+	// seeks towards player
 	seek(deltaTime);
 
+	// checks if the velocity is greater than its max velocity
 	float velCheck = calculateMagnitude(m_vel);
 
 	if (velCheck > m_maxSpeed) {
@@ -29,18 +31,42 @@ void PredatorShip::update(float deltaTime) {
 	}
 
 	m_pos += m_vel;
+	m_sprite.setPosition(m_pos);
 }
 
 void PredatorShip::seek(float deltaTime) {
-	//sf::Vector2f distanceVec = m_dest - m_pos;
+	sf::Vector2f vecToPlayer = m_playerPos - m_pos;
 
-	//normalise(distanceVec);
-	//distanceVec *= 2.0f;
+	if (!m_path.empty()) {
+		sf::Vector2f vecToNextPoint = m_path.at(0)->getPos() - m_pos;
+		float distToNextPoint = calculateMagnitude(vecToNextPoint);
 
-	//m_vel += distanceVec * deltaTime;
+		if (distToNextPoint < calculateMagnitude(vecToPlayer)) {
+			normalise(vecToNextPoint);
+			vecToNextPoint *= m_maxSpeed;
+
+			m_vel += vecToNextPoint * deltaTime;
+
+			if (distToNextPoint < 80) {
+				m_path.erase(m_path.begin());
+			}
+		}
+		else {
+			normalise(vecToPlayer);
+			vecToPlayer *= m_maxSpeed;
+
+			m_vel += vecToPlayer * deltaTime;
+		}
+	}
+	else {
+		normalise(vecToPlayer);
+		vecToPlayer *= 10.0f;
+
+		m_vel += vecToPlayer * deltaTime;
+	}
 }
 
-void PredatorShip::setupWaypoints() {
+void PredatorShip::setupPath() {
 	// checks which node is closest to the player and the predator
 	int indexClosestToPlayer;
 	int indexClosestToPredator;

@@ -12,7 +12,7 @@ public:
 
 	void update(float deltaTime);
 	void seek(float deltaTime);
-	void setupWaypoints();
+	void setupPath();
 
 	void normalise(sf::Vector2f &v);
 	float calculateMagnitude(sf::Vector2f v);

@@ -11,7 +11,8 @@ public:
 	void render(sf::RenderWindow &window);
 
 	void update(float deltaTime);
-	void seek(float deltaTime);
+	void chooseTarget(float deltaTime);
+	void seek(float deltaTime, sf::Vector2f v);
 	void setupPath();
 
 	void normalise(sf::Vector2f &v);
@@ -22,6 +23,14 @@ private:
 	sf::Vector2f m_pos;
 
 	sf::Vector2f m_vel;
+	sf::Vector2f m_linearAccel;
+	float m_magnitudeAccel;
+	float m_maxAccel;
+
+	float m_distToNextPoint;
+	float m_distToPlayer;
+
+	float m_orientation;
 
 	sf::Vector2f& m_playerPos;
 

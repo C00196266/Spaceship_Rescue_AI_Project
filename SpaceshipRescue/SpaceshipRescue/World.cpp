@@ -6,19 +6,17 @@ World::World() {
 
 void World::init() {
 	player.Init();
-	aStar = new AStar(m_spaceStation.getNodeLayout());
+	m_predator = new PredatorShip(sf::Vector2f(1000, 700), m_spaceStation.getNodeLayout(), player.getPositionRef());
 }
 
 
 void World::render(sf::RenderWindow &window) {
 	m_spaceStation.render(window);
 	player.Draw(window);
+	m_predator->render(window);
 }
 
 void World::update(float deltaTime) {
-	std::vector<Node*> path;
-
-	aStar->calculatePath(m_spaceStation.getNodeLayout().getNodes()[23], m_spaceStation.getNodeLayout().getNodes()[6], path);
-
 	player.update(deltaTime);
+	m_predator->update(deltaTime);
 }

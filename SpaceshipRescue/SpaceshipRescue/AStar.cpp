@@ -70,6 +70,11 @@ void AStar::calculatePath(Node* start, Node* dest, std::vector<Node*>& path) {
 			priorityQueue.pop();
 		}
 	}
+
+	// resets nodes
+	for (int i = 0; i < m_nodeLayout.getNoOfNodes() - 1; i++) {
+		m_nodeLayout.getNodes()[i]->setMarked(false);
+	}
 }
 
 void AStar::ucs(Node* start, Node* dest, std::vector<Node*>& path) {
@@ -132,6 +137,11 @@ void AStar::ucs(Node* start, Node* dest, std::vector<Node*>& path) {
 			}
 			priorityQueue.pop();
 		}
+	}
+
+	// resets nodes
+	for (int i = 0; i < m_nodeLayout.getNoOfNodes() - 1; i++) {
+		m_nodeLayout.getNodes()[i]->setMarked(false);
 	}
 }
 

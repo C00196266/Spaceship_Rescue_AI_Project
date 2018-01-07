@@ -2,7 +2,7 @@
 
 #include "Player.h"
 #include "SpaceStation.h"
-#include "AStar.h"
+#include "PredatorShip.h"
 
 class World {
 public:
@@ -16,5 +16,5 @@ public:
 private:
 	Player player;
 	SpaceStation m_spaceStation;
-	AStar* aStar;
+	PredatorShip* m_predator;
 };

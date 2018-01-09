@@ -68,7 +68,7 @@ void NodeLayout::addArcs() {
 	m_nodes[5]->addArc(m_nodes[14]);
 	m_nodes[14]->addArc(m_nodes[5]);
 
-	m_nodes[19]->addArc(m_nodes[14]);
+	m_nodes[18]->addArc(m_nodes[14]);
 	m_nodes[14]->addArc(m_nodes[18]);
 
 	m_nodes[10]->addArc(m_nodes[15]);

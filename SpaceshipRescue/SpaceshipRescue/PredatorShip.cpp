@@ -2,7 +2,7 @@
 
 PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, sf::Vector2f &playerPos) : m_nodeLayout(nodes), m_playerPos(playerPos) {
 	m_pos = pos;
-	m_maxSpeed = 4.0f;
+	m_maxSpeed = 3.0f;
 
 	m_image.loadFromFile("assets/PredatorShip.png");
 	m_texture.loadFromImage(m_image);
@@ -26,9 +26,7 @@ void PredatorShip::update(float deltaTime) {
 	chooseTarget(deltaTime);
 
 	// checks if the velocity is greater than its max velocity
-	float velCheck = calculateMagnitude(m_vel);
-
-	if (velCheck > m_maxSpeed) {
+	if (calculateMagnitude(m_vel) > m_maxSpeed) {
 		normalise(m_vel);
 		m_vel *= m_maxSpeed;
 	}
@@ -55,50 +53,48 @@ void PredatorShip::chooseTarget(float deltaTime) {
 
 		// if the next node is closer than the player
 		if (m_distToNextPoint < m_distToPlayer) {
-			seek(deltaTime, vecToNextPoint);
+			seek(deltaTime, vecToNextPoint, m_distToNextPoint, false);
 
-			if (m_distToNextPoint < 40) {
+			if (m_distToNextPoint < 80) {
 				m_path.erase(m_path.begin());
 			}
 		}
 		// if the player is closer than the next node
 		else {
-			seek(deltaTime, vecToPlayer);
+			seek(deltaTime, vecToPlayer, m_distToPlayer, true);
 		}
 	}
 	// if there aren't nodes to seek to
 	else {
-		seek(deltaTime, vecToPlayer);
+		seek(deltaTime, vecToPlayer, m_distToPlayer, true);
 	}
 }
 
-void PredatorShip::seek(float deltaTime, sf::Vector2f v) {
-	//m_linearAccel = (m_targetVel - m_vel) / m_timeToTarget;
+void PredatorShip::seek(float deltaTime, sf::Vector2f v, float dist, bool seekingPlayer) {
+	float targetSpeed;
 
-	//m_magnitudeAccel = sqrt((m_linearAccel.x * m_linearAccel.x) + (m_linearAccel.y * m_linearAccel.y));
-	//
-	//if (m_magnitudeAccel > m_maxAccel) {
-	//	normalise(m_linearAccel);
-	//	m_linearAccel *= m_maxAccel;
-	//}
-	//
-	//m_vel += m_linearAccel * deltaTime;
-	//if (distToNextPoint < 80 && distToNextPoint > 40) {
-	//	if (m_maxSpeed != 2.0f) {
-	//		m_maxSpeed = 2.0f;
-	//	}
-	//}
-	//else if (distToNextPoint < 40) {
-	//	if (m_maxSpeed != 4.0f) {
-	//		m_maxSpeed = 4.0f;
-	//	}
-	//	m_path.erase(m_path.begin());
-	//}
-
-	normalise(v);
-	v *= m_maxSpeed;
+	if (dist < 70) {
+		targetSpeed = 0;
+	}
+	else if (dist > 200) {
+		targetSpeed = m_maxSpeed;
+	}
+	else {
+		targetSpeed = m_maxSpeed * (dist / 200);
+	}
 	
-	m_vel += v * deltaTime;
+	normalise(v);
+	v *= targetSpeed;
+
+	float timeToTarget = 4;
+	
+	m_linearAccel = v - (m_vel / timeToTarget);
+
+	if (calculateMagnitude(m_linearAccel) > m_maxAccel) {
+		normalise(m_linearAccel);
+	}
+
+	m_vel += m_linearAccel * deltaTime;
 }
 
 void PredatorShip::setupPath() {

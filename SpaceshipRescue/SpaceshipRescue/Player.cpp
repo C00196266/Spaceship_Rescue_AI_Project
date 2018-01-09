@@ -22,7 +22,7 @@ void Player::Init()
 	minVelo = sf::Vector2f(0, 0);
 	angle = 0;
 	minSpeed = 0;
-	maxSpeed = 4;
+	maxSpeed = 6;
 
 
 
@@ -108,7 +108,7 @@ void Player::update(float time)
 	{
 		if (speed < maxSpeed)
 		{
-			speed += 0.1;
+			speed += 1;
 		}
 	}
 

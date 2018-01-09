@@ -12,7 +12,8 @@ public:
 
 	void update(float deltaTime);
 	void chooseTarget(float deltaTime);
-	void seek(float deltaTime, sf::Vector2f v);
+	void seek(float deltaTime, sf::Vector2f v, float dist, bool seekingPlayer);
+	void align(float deltaTime, sf::Vector2f v);
 	void setupPath();
 
 	void normalise(sf::Vector2f &v);

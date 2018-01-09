@@ -67,7 +67,8 @@ void AStar::calculatePath(Node* start, Node* dest, std::vector<Node*>& path) {
 					}
 				}
 			}
-			priorityQueue.pop();
+
+			priorityQueue.pop(); // occasionally throws exception while in debug, but not in release (c++ STL re-heap issue)
 		}
 	}
 

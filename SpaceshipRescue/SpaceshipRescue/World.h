@@ -3,6 +3,7 @@
 #include "SpaceStation.h"
 #include "Nest.h"
 #include "AStar.h"
+#include "PredatorShip.h"
 
 class World {
 public:
@@ -22,7 +23,7 @@ public:
 	AStar* aStar;
 	//SeekerMissile sampleSeekerMissile;
 	//SeekerMissile sample2;
-
+	PredatorShip* m_predator;
 
 
 

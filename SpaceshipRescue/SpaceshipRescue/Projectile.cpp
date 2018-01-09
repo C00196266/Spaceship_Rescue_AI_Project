@@ -60,7 +60,7 @@ void Projectile::update(float i, sf::Vector2f target, float deltaTime)
 
 	if (lifetime.asMilliseconds() > 250000)
 	{
-		std::cout << "bullet timeout" << endl;
+		//std::cout << "bullet timeout" << endl;
 
 		m_isAlive = false;
 

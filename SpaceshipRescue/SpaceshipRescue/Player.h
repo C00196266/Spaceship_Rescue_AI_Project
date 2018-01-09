@@ -62,7 +62,7 @@ public:
 	float getHealth();
 	sf::Vector2f getPosition();
 	sf::Vector2f getVelocity();
-
+	sf::Vector2f& getPositionRef();
 	void setPosition(sf::Vector2f position);
 	void setAlive(bool alive);
 	void setHealth(float healthChange);

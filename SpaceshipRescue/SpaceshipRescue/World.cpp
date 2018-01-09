@@ -18,10 +18,12 @@ void World::init() {
 	//seekerMissileVector.push_back(seekerMissileArray[1]);
 
 	// mini-map (upper-right corner)
-	m_radar.setViewport(sf::FloatRect(0.75f, -0.05f, 0.25f, 0.25f));
+	m_radar.setViewport(sf::FloatRect(0.66f, -0.07f, 0.33f, 0.33f));
 
 	m_radar.setSize(3996, 2496);
 	aStar = new AStar(m_spaceStation.getNodeLayout());
+	m_predator = new PredatorShip(sf::Vector2f(1000, 700), m_spaceStation.getNodeLayout(), player.getPositionRef());
+
 }
 
 
@@ -39,11 +41,11 @@ void World::render(sf::RenderWindow &window)
 	//{
 	//	seekerMissileIterator->Draw(window);
 	//}
-
+	m_predator->render(window);
 	player.Draw(window);
 
 
-	//view #2 minimap
+//	view #2 minimap
 	window.setView(m_radar);
 
 	m_spaceStation.render(window);
@@ -54,7 +56,7 @@ void World::render(sf::RenderWindow &window)
 	//{
 	//	seekerMissileIterator->Draw(window);
 	//}
-
+	m_predator->render(window);
 	player.Draw(window);
 
 }
@@ -84,7 +86,7 @@ void World::update(float deltaTime) {
 	//	}
 	//	count++; //compromised by isalive atm
 	//}
-
+	m_predator->update(deltaTime);
 	player.update(deltaTime);
 }
 

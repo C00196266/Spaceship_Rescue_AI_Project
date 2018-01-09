@@ -129,6 +129,7 @@
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Nest.cpp" />
+    <ClCompile Include="PredatorShip.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="SeekerMissile.cpp" />
     <ClCompile Include="Arc.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="AnimatedSprite.hpp" />
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="Nest.h" />
+    <ClInclude Include="PredatorShip.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="SeekerMissile.h" />
     <ClInclude Include="Arc.h" />

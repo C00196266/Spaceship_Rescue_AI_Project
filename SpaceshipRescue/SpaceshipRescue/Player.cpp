@@ -76,7 +76,10 @@ void Player::Init()
 
 }
 
-
+sf::Vector2f& Player::getPositionRef()
+{
+	return m_position;
+}
 
 //Draw method used to draw the animated sprite and also to set the view of the render window to center on the player object.
 void Player::Draw(sf::RenderWindow &window)
@@ -175,7 +178,7 @@ void Player::update(float time)
 
 		bulletVector.push_back(new Projectile(m_position, m_sprite.getRotation(), mag, m_velocity));
 
-		std::cout << "bang" << endl;
+	//	std::cout << "bang" << endl;
 	}
 
 	if (angle > 360)
@@ -199,7 +202,7 @@ void Player::update(float time)
 		if ((*bulletIterator)->getAlive())
 		{
 			(*bulletIterator)->update(0, sf::Vector2f(0, 0), time);
-			cout << "bull update" << endl;
+			//cout << "bull update" << endl;
 		}
 	}
 

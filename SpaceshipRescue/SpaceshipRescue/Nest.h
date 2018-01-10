@@ -8,7 +8,7 @@ public:
 	Nest();
 
 	void render(sf::RenderWindow &window);
-	void init();
+	void init(int i);
 
 	void update(float deltaTime, Player player);
 
@@ -34,7 +34,7 @@ public:
 	sf::Texture m_texture; //reset relevant vars
 	sf::Sprite m_image; //apply texture to image
 
-
+	
 	float offSetX;
 	float offSetY;
 

@@ -4,7 +4,7 @@ Nest::Nest() {
 
 }
 
-void Nest::init() 
+void Nest::init(int i) 
 {
 
 	
@@ -12,8 +12,19 @@ void Nest::init()
 
 	m_texture.loadFromFile("nest.png"); //reset relevant vars
 	m_image.setTexture(m_texture); //apply texture to image
-	m_position = sf::Vector2f(100, 100); //offset each SeekerMissile (formerly i* 86) CONST
 
+	if (i == 0)
+	{
+		m_position = sf::Vector2f(200, 200); //offset each SeekerMissile (formerly i* 86) CONST
+	}
+	else if (i == 1)
+	{
+
+	}
+	else if (i == 2)
+	{
+
+	}
 	m_isAlive = true; //for test only
 
 	m_image.setOrigin(sf::Vector2f(m_image.getGlobalBounds().width / 2.0f, (m_image.getGlobalBounds().height / 2.0f)));
@@ -25,11 +36,17 @@ void Nest::init()
 	offSetY = m_image.getGlobalBounds().height / 2.0f;
 
 
+
+
+	m_image.setPosition(m_position);
+
+
+
 	//children stuff
 
 	seekerMissileArray[0].initialise(0);
 
-	seekerMissileArray[1].setPosition(m_position);
+	seekerMissileArray[0].setPosition(m_position);
 
 	seekerMissileVector.push_back(seekerMissileArray[0]);
 

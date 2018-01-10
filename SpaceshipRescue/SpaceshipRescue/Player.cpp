@@ -2,11 +2,10 @@
 #include <iostream>
 using namespace std;
 
-Player::Player()
+Player::Player(std::vector<Wall*> &walls) : m_walls(walls)
 {
 
 }
-
 
 Player::~Player()
 {
@@ -26,54 +25,47 @@ void Player::Init()
 
 
 
-
-
 	//initialization logic for player
 	keyUp = true;
-
 	m_position = sf::Vector2f(0, 0);
-
 	m_view = sf::View(m_position, sf::Vector2f(360, 240));
-
-
 	m_texture.loadFromFile("playertrans.png");
 	m_texture.setSmooth(true);
 	m_pTexture = &m_texture;
 
 	m_animation.setSpriteSheet(*m_pTexture);
+
 	m_animation.addFrame(sf::IntRect(0, 0, 48, 47));
 	m_animation.addFrame(sf::IntRect(49, 0, 48, 47));
 	m_animation.addFrame(sf::IntRect(98, 0, 48, 47));
 	m_animation.addFrame(sf::IntRect(147, 0, 48, 47));
 	m_animation.addFrame(sf::IntRect(196, 0, 48, 47));
+
 	m_animation.addFrame(sf::IntRect(245, 0, 48, 47));
 	m_animation.addFrame(sf::IntRect(294, 0, 48, 47));
 	m_animation.addFrame(sf::IntRect(343, 0, 48, 47));
 	m_animation.addFrame(sf::IntRect(392, 0, 48, 47));
 	m_animation.addFrame(sf::IntRect(441, 0, 48, 47));
+
 	m_animation.addFrame(sf::IntRect(490, 0, 48, 47));
 	m_animation.addFrame(sf::IntRect(539, 0, 48, 47));
 	m_animation.addFrame(sf::IntRect(588, 0, 48, 47));
 	m_animation.addFrame(sf::IntRect(637, 0, 48, 47));
 
+
 	m_sprite.setAnimation(m_animation);
 	m_sprite.setLooped(true);
-
-	sf::Int32 msec = 50;
-
-	m_sprite.setFrameTime(sf::milliseconds(msec)); //convert to time
 
 	m_sprite.setOrigin(24, 23.5f);
 	m_position = sf::Vector2f(240, 300);
 
 	m_sprite.setRotation(180);
+
 	m_sprite.setAnimation(m_animation);
-	m_sprite.setScale(0.6, 0.6); //was 0.2
+	m_sprite.setScale(0.3, 0.3); //was 0.2
 
 	m_view.zoom(10.0f);
 	m_view.setCenter(m_sprite.getPosition());
-
-
 }
 
 
@@ -82,42 +74,17 @@ void Player::Init()
 void Player::Draw(sf::RenderWindow &window)
 {
 
-	window.draw(m_sprite);// , sf::BlendAdd);
-
-	//int count = 0;
-	//for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); bulletIterator++)
-	//{
-	//	(bulletIterator*)->
-
-	//	if (bulletIterator->getAlive())
-	//	{
-
-	//		bulletIterator->Draw(window);
-	//	//	count++;
-	//	}
-	//}
-
-	for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator) 
-	{
-		if ((*bulletIterator)->getAlive())
-		{
-			(*bulletIterator)->Draw(window);
-		}
-	}
-
+	window.draw(m_sprite);
 	window.setView(m_view);
-
-
-
-
 }
 
-
-
+sf::Vector2f Player::GetPosition()
+{
+	return m_position;
+}
 
 void Player::update(float time)
 {
-//	m_radar.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
 
 	//m_view.setCenter(m_sprite.getPosition());
 
@@ -125,6 +92,13 @@ void Player::update(float time)
 
 	m_sprite.setPosition(m_position);
 
+	// check collisions with wall
+	auto iter = m_walls.begin();
+	auto endIter = m_walls.end();
+
+	for (; iter != endIter; iter++) {
+		checkCollisions((*iter), time);
+	}
 
 
 	m_velocity.x = sin((3.14 / 180)*angle) * speed;// * t.asSeconds();
@@ -143,7 +117,6 @@ void Player::update(float time)
 			speed += 1;
 		}
 	}
-	
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
 	{
@@ -164,19 +137,6 @@ void Player::update(float time)
 		angle -= 5;
 		m_sprite.rotate(5);
 	}
-	
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
-	{
-
-		float mag = m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y;
-
-		mag = sqrt(mag); //length of vector
-
-		bulletVector.push_back(new Projectile(m_position, m_sprite.getRotation(), mag, m_velocity));
-
-		std::cout << "bang" << endl;
-	}
 
 	if (angle > 360)
 	{
@@ -187,36 +147,64 @@ void Player::update(float time)
 		angle += 360;
 	}
 
+	/*cout << "angle: " << angle << endl;
+	cout << "angleSPR: " << m_sprite.getRotation() << endl;
+
+
+	cout << "x: " << std::to_string(m_velocity.y) << " y: " << std::to_string(m_velocity.y) << endl;
+
+	cout << "speed: " << speed << endl;*/
+
+	//m_position += m_velocity;
+
 	m_sprite.setPosition(m_position); //set position of sprite
 
+									  //if (m_position.x > 0 && m_position.x < 1000) {
 	m_view.setCenter(m_position);
-	
-
-	int count = 0;
-
-	for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
-	{
-		if ((*bulletIterator)->getAlive())
-		{
-			(*bulletIterator)->update(0, sf::Vector2f(0, 0), time);
-			cout << "bull update" << endl;
-		}
-	}
-
-	//int count = 0;
-	//for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); bulletIterator++)
-	//{
-	//	if (bulletIterator->getAlive())
-	//	{
-
-	//		bulletIterator->update(count, m_position, time);
-	//		count++;
-	//	}
 	//}
 }
 
 
+void Player::checkCollisions(Wall* wall, float deltaTime) {
+	// checks for intersection between the predator and the wall
 
+	if (m_sprite.getGlobalBounds().intersects(wall->getSprite().getGlobalBounds()))
+	{
+		m_position -= m_velocity;
+
+		cout << "intersect" << endl;
+
+	}
+
+
+	//if (m_position.x < wall->getRight()
+	//	&& m_position.x + m_width > wall->getPos().x
+	//	&& m_position.y < wall->getBottom()
+	//	&& m_position.y + m_height > wall->getPos().y)
+	//{
+	//	// left of predator collides with the right of the wall
+	//	if (m_position.x < wall->getRight() && m_position.x > wall->getPos().x) {
+	//		m_velocity.x = 0;
+	//		m_position.x = m_position.x + wall->getWidth();
+	//	}
+	//	// right of predator collides with the left of the wall
+	//	else if (m_position.x + m_width > wall->getPos().x && m_position.x + m_width < wall->getRight()) {
+	//		m_velocity.x = 0;
+	//		m_position.x = wall->getPos().x - m_width;
+	//	}
+
+	//	// bottom of predator collides with top of the wall
+	//	if (m_position.y + m_height > wall->getPos().y && m_position.y + m_height < wall->getBottom()) {
+	//		m_velocity.y = 0;
+	//		m_position.y = wall->getPos().y - m_height;
+	//	}
+	//	// top of predator collides with bottom of the wall
+	//	else if (m_position.y < wall->getRight() && m_position.y + m_height < wall->getPos().y) {
+	//		m_velocity.y = 0;
+	//		m_position.y = m_position.y + wall->getHeight();
+	//	}
+	//}
+}
 
 float Player::getHealth()
 {

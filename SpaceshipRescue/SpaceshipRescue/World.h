@@ -15,8 +15,7 @@ public:
 	void update(float deltaTime);
 
 	sf::View m_radar;
-
-	Player player;
+	Player* player;
 	SpaceStation m_spaceStation;
 	PredatorShip* m_predator;
 

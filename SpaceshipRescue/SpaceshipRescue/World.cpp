@@ -6,10 +6,13 @@ World::World() {
 
 void World::init() {
 
-	player.Init();
-	m_predator = new PredatorShip(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), player.getPositionRef(), m_spaceStation.getWalls());
+	player = new Player(m_spaceStation.getWalls());
+
+	player->Init();
+
+	m_predator = new PredatorShip(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), player->getPositionRef(), m_spaceStation.getWalls());
 	
-	m_nest.init();
+	m_nest.init(0);
 	//seekerMissileArray[0].initialise(0);
 	//seekerMissileArray[1].initialise(0);
 
@@ -41,7 +44,7 @@ void World::render(sf::RenderWindow &window)
 	//	seekerMissileIterator->Draw(window);
 	//}
 
-	player.Draw(window);
+	player->Draw(window);
 	m_predator->render(window);
 
 
@@ -57,17 +60,17 @@ void World::render(sf::RenderWindow &window)
 	//	seekerMissileIterator->Draw(window);
 	//}
 
-	player.Draw(window);
+	player->Draw(window);
 }
 
 
 void World::update(float deltaTime) {
-	player.update(deltaTime);
+	player->update(deltaTime);
 	m_predator->update(deltaTime);
 
 
 
-	m_nest.update(deltaTime, player);
+	m_nest.update(deltaTime, *player);
 	//int count = 0;
 
 	//for (seekerMissileIterator = seekerMissileVector.begin(); seekerMissileIterator != seekerMissileVector.end(); seekerMissileIterator++)
@@ -83,5 +86,5 @@ void World::update(float deltaTime) {
 	//	count++; //compromised by isalive atm
 	//}
 
-	player.update(deltaTime);
+	player->update(deltaTime);
 }

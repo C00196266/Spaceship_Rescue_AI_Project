@@ -10,6 +10,7 @@ public:
 	void render(sf::RenderWindow & window);
 
 	NodeLayout& getNodeLayout();
+	std::vector<Wall*>& getWalls();
 
 private:
 	static const int layoutArray[53][78];

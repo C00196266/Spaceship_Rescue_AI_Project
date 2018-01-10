@@ -11,7 +11,12 @@ public:
 
 	void render(sf::RenderWindow &window);
 
-	//sf::Vector2f getPos();
+	sf::Vector2f getPos();
+	sf::Vector2f getCenter();
+	float getRight();
+	float getWidth();
+	float getBottom();
+	float getHeight();
 
 protected:
 	sf::Vector2f m_pos;

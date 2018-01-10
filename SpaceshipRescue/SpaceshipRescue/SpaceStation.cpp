@@ -43,6 +43,10 @@ NodeLayout& SpaceStation::getNodeLayout() {
 	return m_nodeLayout;
 }
 
+std::vector<Wall*>& SpaceStation::getWalls() {
+	return m_walls;
+}
+
 const int SpaceStation::layoutArray[53][78]
 {
 	{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },

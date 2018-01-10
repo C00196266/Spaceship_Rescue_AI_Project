@@ -20,6 +20,26 @@ void Tile::render(sf::RenderWindow &window) {
 	window.draw(m_sprite);
 }
 
-//sf::Vector2f Tile::getPos() {
-//	return m_pos;
-//}
+sf::Vector2f Tile::getPos() {
+	return m_pos;
+}
+
+sf::Vector2f Tile::getCenter() {
+	return sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2));
+}
+
+float Tile::getRight() {
+	return m_pos.x + m_width;
+}
+
+float Tile::getWidth() {
+	return m_width;
+}
+
+float Tile::getBottom() {
+	return m_pos.y + m_height;
+}
+
+float Tile::getHeight() {
+	return m_height;
+}

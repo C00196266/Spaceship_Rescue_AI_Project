@@ -2,6 +2,9 @@
 
 PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, sf::Vector2f &playerPos, std::vector<Wall*> &walls) : m_nodeLayout(nodes), m_playerPos(playerPos), m_walls(walls)  {
 	m_pos = pos;
+	m_nextPosX = pos;
+	m_nextPosY = pos;
+
 	m_maxSpeed = 3.0f;
 
 	m_image.loadFromFile("assets/PredatorShip.png");
@@ -34,7 +37,10 @@ void PredatorShip::update(float deltaTime) {
 		m_vel *= m_maxSpeed;
 	}
 
-	m_pos += m_vel;
+	m_nextPosX.x += m_vel.x;
+	m_nextPosY.y += m_vel.y;
+
+	//m_pos += m_vel;
 
 	// check collisions with wall
 	auto iter = m_walls.begin();
@@ -44,12 +50,13 @@ void PredatorShip::update(float deltaTime) {
 		checkCollisions((*iter), deltaTime);
 	}
 
-	// check collisions with wall
-	//for (int i = 0; i < m_walls.size(); i++) {
-	//	checkCollisions(m_walls.at(i), deltaTime);
-	//}
+	m_pos.x = m_nextPosX.x;
+	m_pos.y = m_nextPosY.y;
 
-	m_sprite.setPosition(m_pos);
+	m_nextPosX.y = m_pos.y;
+	m_nextPosY.x = m_pos.x;
+
+	m_sprite.setPosition(m_pos.x + m_texture.getSize().x / 2, m_pos.y + m_texture.getSize().y / 2);
 
 	m_orientation = (atan2(m_vel.x, -m_vel.y) * 180 / 3.14159265);
 	m_sprite.setRotation(m_orientation);
@@ -170,35 +177,73 @@ float PredatorShip::calculateMagnitude(sf::Vector2f vec1, sf::Vector2f vec2) {
 	return sqrt(((vec2.x - vec1.x) * (vec2.x - vec1.x)) + ((vec2.y - vec1.y) * (vec2.y - vec1.y)));
 }
 
+sf::FloatRect PredatorShip::getRect() {
+	return m_sprite.getGlobalBounds();
+}
+
 void PredatorShip::checkCollisions(Wall* wall, float deltaTime) {
-	// checks for intersection between the predator and the wall
-	if (m_pos.x < wall->getRight()
-		&& m_pos.x + m_width > wall->getPos().x
-		&& m_pos.y < wall->getBottom()
-		&& m_pos.y + m_height > wall->getPos().y)
+	// checks for intersection along x between the predator and the wall
+	if (m_nextPosX.x < wall->getRight()
+		&& m_nextPosX.x + m_width > wall->getPos().x
+		&& m_nextPosX.y < wall->getBottom()
+		&& m_nextPosX.y + m_height > wall->getPos().y) 
 	{
-		// left of predator collides with the right of the wall
-		if (m_pos.x < wall->getRight() && m_pos.x > wall->getPos().x) {
+		if (m_nextPosX.x < wall->getRight() && m_nextPosX.x > wall->getPos().x) {
 			m_vel.x = 0;
-			m_pos.x = m_pos.x + wall->getWidth();
+			m_nextPosX.x = wall->getPos().x + wall->getWidth();
+			std::cout << "right of wall" << std::endl;
 		}
 		// right of predator collides with the left of the wall
-		else if (m_pos.x + m_width > wall->getPos().x && m_pos.x + m_width < wall->getRight()) {
+		else if (m_nextPosX.x + m_width > wall->getPos().x && m_nextPosX.x + m_width < wall->getRight()) {
 			m_vel.x = 0;
-			m_pos.x = wall->getPos().x - m_width;
-		}
-
-		// bottom of predator collides with top of the wall
-		if (m_pos.y + m_height > wall->getPos().y && m_pos.y + m_height < wall->getBottom()) {
-			m_vel.y = 0;
-			m_pos.y = wall->getPos().y - m_height;
-		}
-		// top of predator collides with bottom of the wall
-		else if (m_pos.y < wall->getRight() && m_pos.y + m_height < wall->getPos().y) {
-			m_vel.y = 0;
-			m_pos.y = m_pos.y + wall->getHeight();
+			m_nextPosX.x = wall->getPos().x - m_width;
+			std::cout << "left of wall" << std::endl;
 		}
 	}
+
+	// checks for intersection along y between the predator and the wall
+	if (m_nextPosY.x < wall->getRight()
+		&& m_nextPosY.x + m_width > wall->getPos().x
+		&& m_nextPosY.y < wall->getBottom()
+		&& m_nextPosY.y + m_height > wall->getPos().y)
+	{
+		// bottom of predator collides with top of the wall
+		if (m_nextPosY.y + m_height > wall->getPos().y && m_nextPosY.y + m_height < wall->getBottom()) {
+			m_vel.y = 0;
+			m_nextPosY.y = wall->getPos().y - m_height;
+			std::cout << "top of wall" << std::endl;
+		}
+		// top of predator collides with bottom of the wall
+		else if (m_nextPosY.y < wall->getBottom() && m_nextPosY.y > wall->getPos().y) {
+			m_vel.y = 0;
+			m_nextPosY.y = wall->getPos().y + wall->getHeight();
+			std::cout << "bottom of wall" << std::endl;
+		}
+	}
+	//if (getRect().intersects(wall->getRect()))
+	//{
+	//	// left of predator collides with the right of the wall
+	//	if (m_pos.x < wall->getRight() && m_pos.x > wall->getPos().x) {
+	//		m_vel.x = 0;
+	//		m_pos.x = wall->getPos().x + wall->getWidth();
+	//	}
+	//	// right of predator collides with the left of the wall
+	//	else if (m_pos.x + m_width > wall->getPos().x && m_pos.x + m_width < wall->getRight()) {
+	//		m_vel.x = 0;
+	//		m_pos.x = wall->getPos().x - m_width;
+	//	}
+	//
+	//	// bottom of predator collides with top of the wall
+	//	if (m_pos.y + m_height > wall->getPos().y && m_pos.y + m_height < wall->getBottom()) {
+	//		m_vel.y = 0;
+	//		m_pos.y = wall->getPos().y - m_height;
+	//	}
+	//	// top of predator collides with bottom of the wall
+	//	else if (m_pos.y < wall->getBottom() && m_pos.y > wall->getPos().y) {
+	//		m_vel.y = 0;
+	//		m_pos.y = wall->getPos().y + wall->getHeight();
+	//	}
+	//}
 }
 
 //if (m_nextRectangleX.pos.x < platform->getRect().pos.x + platform->getRect().size.w

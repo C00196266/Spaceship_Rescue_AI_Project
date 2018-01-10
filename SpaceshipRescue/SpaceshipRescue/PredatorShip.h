@@ -20,9 +20,12 @@ public:
 	void normalise(sf::Vector2f &v);
 	float calculateMagnitude(sf::Vector2f v);
 	float calculateMagnitude(sf::Vector2f v1, sf::Vector2f v2);
+	sf::FloatRect getRect();
 
 private:
 	sf::Vector2f m_pos;
+	sf::Vector2f m_nextPosX;
+	sf::Vector2f m_nextPosY;
 
 	float m_width;
 	float m_height;

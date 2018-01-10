@@ -17,6 +17,7 @@ public:
 	float getWidth();
 	float getBottom();
 	float getHeight();
+	sf::FloatRect getRect();
 
 protected:
 	sf::Vector2f m_pos;

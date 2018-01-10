@@ -43,3 +43,7 @@ float Tile::getBottom() {
 float Tile::getHeight() {
 	return m_height;
 }
+
+sf::FloatRect Tile::getRect() {
+	return m_sprite.getGlobalBounds();
+}

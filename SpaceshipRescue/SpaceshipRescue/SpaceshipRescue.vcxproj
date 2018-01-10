@@ -131,6 +131,9 @@
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Nest.cpp" />
+    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="SeekerMissile.cpp" />
     <ClCompile Include="Arc.cpp" />
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="NodeLayout.cpp" />
@@ -148,6 +151,9 @@
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.hpp" />
     <ClInclude Include="Animation.hpp" />
+    <ClInclude Include="Nest.h" />
+    <ClInclude Include="Projectile.h" />
+    <ClInclude Include="SeekerMissile.h" />
     <ClInclude Include="Arc.h" />
     <ClInclude Include="AStar.h" />
     <ClInclude Include="NodeCostComparer.h" />

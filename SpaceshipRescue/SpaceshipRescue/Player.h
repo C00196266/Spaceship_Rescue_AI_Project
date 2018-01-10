@@ -1,10 +1,10 @@
 #include "stdafx.h"
+#include "Projectile.h"
 
 //Class definition for the Player game object
 class Player {
 private:
 	sf::View m_view;
-	sf::Vector2f m_pos;
 	sf::Vector2f m_bufferVector;
 	sf::Texture m_texture;
 	sf::Texture* m_pTexture;
@@ -15,6 +15,16 @@ private:
 	AnimatedSprite m_sprite;
 	Animation m_animation;
 	bool keyUp;
+
+	Projectile* bulletArray[30];
+
+	std::vector<Projectile*> bulletVector;
+
+//	Projectile ProjectileArray[50];
+
+	//std::vector<Projectile> ProjectileVector;
+
+	std::vector<Projectile*>::iterator bulletIterator;
 
 	sf::Vector2f maxVelo;
 	sf::Vector2f minVelo;
@@ -34,6 +44,8 @@ private:
 	int PlayerType; //fed a random distrubution to see if Player is type 1, 2 or 3
 	float speed;
 
+//	sf::View m_radar;
+
 public:
 	Player();
 	~Player();
@@ -50,15 +62,16 @@ public:
 	sf::Vector2f& getPositionRef();
 	bool getAlive();
 	float getHealth();
-
+	//sf::Vector2f getPosition();
+	sf::Vector2f getVelocity();
 
 	void setPosition(sf::Vector2f position);
 	void setAlive(bool alive);
 	void setHealth(float healthChange);
 	void setVelocity(sf::Vector2f velocity);
 
-	sf::Vector2f getVelocity();
-	sf::Vector2f GetPosition();
+
+
 };
 
 

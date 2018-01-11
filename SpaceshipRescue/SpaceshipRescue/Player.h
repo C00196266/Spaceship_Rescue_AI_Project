@@ -59,6 +59,9 @@ private:
 
 	float m_width = m_texture.getSize().x;
 	float m_height = m_texture.getSize().y;
+
+	bool m_shielded;
+
 public:
 	Player(std::vector<Wall*> &walls);
 	~Player();
@@ -86,6 +89,9 @@ public:
 	sf::FloatRect getRect();
 
 	sf::Vector2f getVelocity();
+
+	bool getShielded();
+	void setShieled(bool shielded);
 };
 
 

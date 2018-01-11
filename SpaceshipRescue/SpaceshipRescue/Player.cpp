@@ -77,6 +77,7 @@ void Player::Init()
 	fireTime = sf::Time::Zero;
 
 	m_health = m_maxHealth;
+	m_shielded = false;
 }
 
 //Draw method used to draw the animated sprite and also to set the view of the render window to center on the player object.
@@ -310,7 +311,14 @@ void Player::setAlive(bool alive)
 
 void Player::setHealth(float healthChange)
 {
-	m_health -= healthChange;
+	m_health += healthChange;
+
+	if (m_health < 1) {
+		m_isAlive = false;
+	}
+	else if (m_health > m_maxHealth) {
+		m_health = m_maxHealth;
+	}
 }
 
 void Player::setPosition(sf::Vector2f position)
@@ -326,4 +334,12 @@ void Player::setVelocity(sf::Vector2f velocity)
 sf::FloatRect Player::getRect()
 {
 	return m_sprite.getGlobalBounds();
+}
+
+bool Player::getShielded() {
+	return m_shielded;
+}
+
+void Player::setShieled(bool shielded) {
+	m_shielded = shielded;
 }

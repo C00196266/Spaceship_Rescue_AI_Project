@@ -79,7 +79,10 @@ void PredatorShip::update(float deltaTime)
 	m_orientation = (atan2(m_vel.x, -m_vel.y) * 180 / 3.14159265);
 	m_sprite.setRotation(m_orientation);
 
-	fireBullet();
+	// only fire bullets if the player is alive
+	if (m_player->getAlive() == true) {
+		fireBullet();
+	}
 
 	for (std::vector<Projectile*>::iterator i = m_bullets.begin(); i != m_bullets.end(); i++) {
 		if ((*i)->getAlive() == true) {
@@ -259,6 +262,13 @@ void PredatorShip::checkBulletCollision(Projectile* p) {
 		&& p->getPosition().y + p->getHeight() > (m_player)->getPosition().y) 
 	{
 		p->setAlive(false);
+
+		if (m_player->getShielded() == false) {
+			m_player->setHealth(-1);
+		}
+		else {
+			m_player->setShieled(false);
+		}
 	}
 }
 

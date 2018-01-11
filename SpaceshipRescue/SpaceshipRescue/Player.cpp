@@ -78,9 +78,12 @@ void Player::Draw(sf::RenderWindow &window)
 	window.setView(m_view);
 }
 
-sf::Vector2f Player::GetPosition()
+
+
+
+sf::FloatRect Player::getRect()
 {
-	return m_position;
+	return m_sprite.getGlobalBounds();
 }
 
 void Player::update(float time)

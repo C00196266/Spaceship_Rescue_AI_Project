@@ -12,7 +12,7 @@ void World::init() {
 
 	//$$m_predator = new PredatorShip(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), player->getPositionRef(), m_spaceStation.getWalls());
 	
-	m_nest = new Nest(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), player->getPositionRef(), m_spaceStation.getWalls());
+	m_nest = new Nest(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), *player, m_spaceStation.getWalls());
 
 	m_nest->init(0);
 	//seekerMissileArray[0].initialise(0);

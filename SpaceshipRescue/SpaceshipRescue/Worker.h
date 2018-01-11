@@ -20,8 +20,8 @@ public:
 	float calculateMagnitude(sf::Vector2f v);
 	float calculateMagnitude(sf::Vector2f v1, sf::Vector2f v2);
 
-	void setAlive(bool alive);
-	bool getAlive();
+	void setRescued(bool rescued);
+	bool getRescued();
 
 	void setAbducted(bool abducted);
 	bool getAbducted();
@@ -56,5 +56,5 @@ private:
 	AStar* m_astar;
 
 	bool m_abducted;
-	bool m_alive;
+	bool m_rescued;
 };

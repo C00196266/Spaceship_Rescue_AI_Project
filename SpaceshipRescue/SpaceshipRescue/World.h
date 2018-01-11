@@ -4,6 +4,7 @@
 #include "PredatorShip.h"
 #include "Nest.h"
 #include "AStar.h"
+#include "Worker.h"
 
 class World {
 public:
@@ -19,6 +20,7 @@ public:
 	Player player;
 	SpaceStation m_spaceStation;
 	PredatorShip* m_predator;
+	Worker* m_worker;
 
 
 	Nest m_nest;

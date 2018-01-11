@@ -8,7 +8,7 @@ Worker::Worker(sf::Vector2f pos, NodeLayout &nodes, std::vector<Wall*> &walls) :
 	m_maxSpeed = 1.75f;
 	m_maxAccel = 15;
 
-	m_image.loadFromFile("assets/PredatorShip.png");
+	m_image.loadFromFile("assets/Worker.png");
 	m_texture.loadFromImage(m_image);
 	m_sprite.setTexture(m_texture);
 	m_sprite.setPosition(m_pos);
@@ -20,7 +20,7 @@ Worker::Worker(sf::Vector2f pos, NodeLayout &nodes, std::vector<Wall*> &walls) :
 	m_height = m_texture.getSize().y;
 
 	m_abducted = false;
-	m_alive = true;
+	m_rescued = false;
 }
 
 void Worker::render(sf::RenderWindow &window) {
@@ -67,6 +67,9 @@ void Worker::update(float deltaTime) {
 }
 
 void Worker::seek(float deltaTime, sf::Vector2f v) {
+	// gets distance to next node
+	m_distToNextNode = calculateMagnitude(v);
+
 	// slows down when near node
 	if (m_distToNextNode < 40) {
 		// removes the first node once close enough
@@ -178,12 +181,12 @@ float Worker::calculateMagnitude(sf::Vector2f v1, sf::Vector2f v2) {
 	return sqrt(((v2.x - v1.x) * (v2.x - v1.x)) + ((v2.y - v1.y) * (v2.y - v1.y)));
 }
 
-void Worker::setAlive(bool alive) {
-	m_alive = alive;
+void Worker::setRescued(bool rescued) {
+	m_rescued = rescued;
 }
 
-bool Worker::getAlive() {
-	return m_alive;
+bool Worker::getRescued() {
+	return m_rescued;
 }
 
 void Worker::setAbducted(bool abducted) {

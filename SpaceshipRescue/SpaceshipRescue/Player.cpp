@@ -28,6 +28,12 @@ void Player::Init()
 	//initialization logic for player
 	keyUp = true;
 	
+
+	radarTexture.loadFromFile("assets/blip.png");
+	radarSprite.setTexture(radarTexture);
+	radarSprite.setOrigin(radarTexture.getSize().x / 2.0f, radarTexture.getSize().y / 2.0f);
+	radarSprite.setScale(0.2f, 0.2f);
+
 	m_view = sf::View(m_position, sf::Vector2f(360, 240));
 	m_texture.loadFromFile("playertrans.png");
 	m_texture.setSmooth(true);
@@ -62,7 +68,7 @@ void Player::Init()
 	m_sprite.setRotation(180);
 
 	m_sprite.setAnimation(m_animation);
-	m_sprite.setScale(0.3, 0.3); //was 0.2
+	m_sprite.setScale(0.5f, 0.5f); //was 0.2
 
 	m_view.zoom(1);
 	m_view.setCenter(m_sprite.getPosition());
@@ -73,6 +79,15 @@ void Player::Init()
 	m_health = m_maxHealth;
 }
 
+//Draw method used to draw the animated sprite and also to set the view of the render window to center on the player object.
+void Player::DrawRadar(sf::RenderWindow &window)
+{
+
+		window.draw(radarSprite);
+
+		window.setView(m_view);
+
+}
 
 
 //Draw method used to draw the animated sprite and also to set the view of the render window to center on the player object.
@@ -235,6 +250,8 @@ void Player::update(float time)
 				//	cout << "bull update" << endl;
 			}
 		}
+
+		radarSprite.setPosition(m_position);
 	}
 }
 
@@ -249,6 +266,9 @@ void Player::checkCollisions(Wall* wall, float deltaTime) {
 	//	cout << "intersect" << endl;
 
 	}
+
+
+
 
 }
 

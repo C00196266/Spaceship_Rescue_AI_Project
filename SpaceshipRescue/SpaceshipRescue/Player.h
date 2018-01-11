@@ -23,6 +23,9 @@ private:
 	bool canFire;
 	float fireRate = 1;
 
+	sf::Sprite radarSprite;
+	sf::Texture radarTexture;
+
 	std::vector<Wall*>& m_walls;
 	std::vector<Wall*> m_closestWalls;
 	sf::Vector2f maxVelo;
@@ -78,7 +81,7 @@ public:
 	void setAlive(bool alive);
 	void setHealth(float healthChange);
 	void setVelocity(sf::Vector2f velocity);
-
+	void DrawRadar(sf::RenderWindow &window);
 	std::vector<Projectile*> getBullets();
 	sf::FloatRect getRect();
 

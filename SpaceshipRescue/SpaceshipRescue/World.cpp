@@ -71,7 +71,7 @@ void World::render(sf::RenderWindow &window)
 	//	seekerMissileIterator->Draw(window);
 	//}
 
-	player->Draw(window);
+	player->DrawRadar(window);
 }
 
 

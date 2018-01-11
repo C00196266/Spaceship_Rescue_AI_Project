@@ -4,8 +4,19 @@ using namespace std;
 Projectile::Projectile() {};
 
 Projectile::Projectile(sf::Vector2f pos, float rot, float mag, sf::Vector2f velocity) {
-	m_position = pos; rotation = rot; m_velocity = velocity / mag; m_velocity.x *= 12;
-	m_velocity.y *= 12; m_texture.loadFromFile("missile.png");
+	m_position = pos;
+	rotation = rot;
+	if (mag > 0)
+	{
+		m_velocity = velocity / mag;
+	}
+	else
+	{
+		m_velocity = sf::Vector2f(0, 1);
+	}
+	m_velocity.x *= 12;
+	m_velocity.y *= 12;
+	m_texture.loadFromFile("missile.png");
 	m_image.setOrigin(sf::Vector2f(m_image.getGlobalBounds().width / 2.0f, (m_image.getGlobalBounds().height / 2.0f)));
 	m_image.setTexture(m_texture); //apply texture to image}
 	m_image.setScale(0.01f, 0.01f);
@@ -42,7 +53,7 @@ void Projectile::Draw(sf::RenderWindow &window)
 {
 	if (m_isAlive)
 	{
-		window.draw(m_image);// , sf::BlendAdd);
+ 		window.draw(m_image);// , sf::BlendAdd);
 	}
 }
 
@@ -112,13 +123,11 @@ bool Projectile::getAlive()
 
 float Projectile::getOrient(float orientation, sf::Vector2f velocity, sf::Vector2f target)
 {
-
 	float bearingRad = atan2f(target.x - m_position.x, target.y - m_position.y);
 	float bearingDegrees = bearingRad * (180 / 3.14);
 	bearingDegrees = (bearingDegrees > 0.0 ? bearingDegrees : (360.0 + bearingDegrees));
 
 	return bearingDegrees;
-
 }
 
 

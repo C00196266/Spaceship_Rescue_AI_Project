@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Wall.h"
-
+#include "Projectile.h"
 //Class definition for the Player game object
 class Player {
 private:
@@ -32,9 +32,19 @@ private:
 	int currentWaypoint; //the current waypoint in a vector
 	const int maxWaypoint = 5; //the maximum number of waypoints in a vector
 	int rPath; //random path
-	sf::Vector2f m_velocity; //Player velocity
+	sf::Vector2f m_velocity = sf::Vector2f(0, 1); //Player velocity
 	int PlayerType; //fed a random distrubution to see if Player is type 1, 2 or 3
 	float speed;
+
+	Projectile* bulletArray[30];
+
+	std::vector<Projectile*> bulletVector;
+
+	//	Projectile ProjectileArray[50];
+
+	//std::vector<Projectile> ProjectileVector;
+
+	std::vector<Projectile*>::iterator bulletIterator;
 
 	float m_width = m_texture.getSize().x;
 	float m_height = m_texture.getSize().y;

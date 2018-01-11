@@ -27,7 +27,7 @@ void Player::Init()
 
 	//initialization logic for player
 	keyUp = true;
-	m_position = sf::Vector2f(0, 0);
+	
 	m_view = sf::View(m_position, sf::Vector2f(360, 240));
 	m_texture.loadFromFile("playertrans.png");
 	m_texture.setSmooth(true);
@@ -57,7 +57,7 @@ void Player::Init()
 	m_sprite.setLooped(true);
 
 	m_sprite.setOrigin(24, 23.5f);
-	m_position = sf::Vector2f(240, 300);
+	m_position = sf::Vector2f(-1240, 300);
 
 	m_sprite.setRotation(180);
 
@@ -75,7 +75,18 @@ void Player::Draw(sf::RenderWindow &window)
 {
 
 	window.draw(m_sprite);
+
 	window.setView(m_view);
+
+	for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
+	{
+		if ((*bulletIterator)->getAlive())
+		{
+			(*bulletIterator)->Draw(window);
+			cout << "bull update" << endl;
+		}
+	}
+
 }
 
 
@@ -141,6 +152,21 @@ void Player::update(float time)
 		m_sprite.rotate(5);
 	}
 
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+	{
+
+		float mag = m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y;
+
+		mag = sqrt(mag); //length of vector
+
+		bulletVector.push_back(new Projectile(m_position, m_sprite.getRotation(), mag, m_velocity));
+		bulletVector.front()->initialise(m_position, angle, m_velocity);
+
+			std::cout << "bang" << endl;
+	}
+
+
 	if (angle > 360)
 	{
 		angle -= 360;
@@ -165,6 +191,17 @@ void Player::update(float time)
 									  //if (m_position.x > 0 && m_position.x < 1000) {
 	m_view.setCenter(m_position);
 	//}
+
+	int count = 0;
+
+	for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
+	{
+		if ((*bulletIterator)->getAlive())
+		{
+			(*bulletIterator)->update(0, sf::Vector2f(0, 0), time);
+			cout << "bull update" << endl;
+		}
+	}
 }
 
 

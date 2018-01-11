@@ -75,7 +75,7 @@ void Projectile::setAlive(bool alive)
 }
 
 //if enemies are alive, they should be doing stuff
-void Projectile::update(float i, float deltaTime)
+void Projectile::update(float deltaTime)
 {
 	//float mag = m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y;
 

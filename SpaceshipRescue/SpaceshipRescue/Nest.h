@@ -7,7 +7,7 @@
 class Nest {
 public:
 	Nest();
-	Nest(sf::Vector2f pos, NodeLayout &nodes, Player &player, std::vector<Wall*> &walls);
+	Nest(sf::Vector2f pos, NodeLayout &nodes, Player** player, std::vector<Wall*> &walls);
 
 	void render(sf::RenderWindow &window);
 	void init(int i);
@@ -25,7 +25,7 @@ private:
 	std::vector<PredatorShip*> predatorVector;
 
 	std::vector<PredatorShip*>::iterator predatorIterator;
-	Player* m_player;
+	Player** m_player;
 
 	sf::Vector2f m_position;
 	bool m_isAlive;

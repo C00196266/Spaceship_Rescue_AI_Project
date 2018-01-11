@@ -212,7 +212,7 @@ void Player::update(float time)
 	{
 		if ((*bulletIterator)->getAlive())
 		{
-			(*bulletIterator)->update(0, time);
+			(*bulletIterator)->update(time);
 		//	cout << "bull update" << endl;
 		}
 	}

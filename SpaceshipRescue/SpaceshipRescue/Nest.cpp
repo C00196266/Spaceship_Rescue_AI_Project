@@ -4,7 +4,7 @@
 //
 //}
 
-Nest::Nest(sf::Vector2f pos, NodeLayout &nodes, Player &player, std::vector<Wall*> &walls) : m_nodeLayout(nodes), m_player(&player), m_walls(walls) {
+Nest::Nest(sf::Vector2f pos, NodeLayout &nodes, Player** player, std::vector<Wall*> &walls) : m_nodeLayout(nodes), m_player(player), m_walls(walls) {
 	//m_pos = pos;
 	//m_nextPosX = pos;
 	//m_nextPosY = pos;
@@ -65,7 +65,7 @@ void Nest::init(int i)
 
 	//children stuff
 
-	predatorVector.push_back(new PredatorShip(m_position, m_nodeLayout, m_player->getRect(), m_walls));
+	predatorVector.push_back(new PredatorShip(m_position, m_nodeLayout, m_player, m_walls));
 
 	seekerMissileArray[0].initialise(0);
 
@@ -108,7 +108,7 @@ void Nest::update(float deltaTime, Player player)
 
 	for (predatorIterator = predatorVector.begin(); predatorIterator != predatorVector.end(); predatorIterator++)
 	{
-		(*predatorIterator)->update(deltaTime, m_player->getPosition());
+		(*predatorIterator)->update(deltaTime);
 	}
 
 

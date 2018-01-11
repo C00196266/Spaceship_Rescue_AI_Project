@@ -1,9 +1,6 @@
 #include "PredatorShip.h"
 
-PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, sf::FloatRect &playerRect, std::vector<Wall*> &walls) : m_nodeLayout(nodes), m_playerRect(playerRect), m_walls(walls) {
-
-//	m_playerPos = playerPos;
-
+PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, Player** player, std::vector<Wall*> &walls) : m_nodeLayout(nodes), m_player(player), m_walls(walls) {
 	m_pos = pos;
 	m_nextPosX = pos;
 	m_nextPosY = pos;
@@ -22,17 +19,26 @@ PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, sf::FloatRect &p
 
 	m_width = m_texture.getSize().x;
 	m_height = m_texture.getSize().y;
+
+	m_fireClock.restart();
+	m_fireTime = sf::Time::Zero;
+	m_fireRange = 600;
 }
 
 void PredatorShip::render(sf::RenderWindow &window) {
+	for (std::vector<Projectile*>::iterator i = m_bullets.begin(); i != m_bullets.end(); i++) {
+		(*i)->Draw(window);
+	}
+
 	window.draw(m_sprite);
 }
 
-void PredatorShip::update(float deltaTime, sf::Vector2f playerPos) {
+void PredatorShip::update(float deltaTime) {
 	setupPath();
-	m_playerPos = playerPos;
 
-	// seeks towards player
+	//m_playerPos = sf::Vector2f(m_playerRect.left, m_playerRect.top);
+
+	// chooses whether to seek towards player or next node
 	chooseTarget(deltaTime);
 
 	// checks if the velocity is greater than its max velocity
@@ -43,8 +49,6 @@ void PredatorShip::update(float deltaTime, sf::Vector2f playerPos) {
 
 	m_nextPosX.x += m_vel.x;
 	m_nextPosY.y += m_vel.y;
-
-	//m_pos += m_vel;
 
 	// check collisions with wall
 	auto iter = m_walls.begin();
@@ -64,11 +68,26 @@ void PredatorShip::update(float deltaTime, sf::Vector2f playerPos) {
 
 	m_orientation = (atan2(m_vel.x, -m_vel.y) * 180 / 3.14159265);
 	m_sprite.setRotation(m_orientation);
+
+	fireBullet();
+
+	for (std::vector<Projectile*>::iterator i = m_bullets.begin(); i != m_bullets.end(); i++) {
+		if ((*i)->getAlive() == true) {
+			(*i)->update(deltaTime);
+		}
+	}
+
+	// removes dead projectiles from the vector
+	for (int i = 0; i < m_bullets.size(); i++) {
+		if (m_bullets.at(i)->getAlive() == false) {
+			m_bullets.erase(m_bullets.begin() + i);
+		}
+	}
 }
 
 void PredatorShip::chooseTarget(float deltaTime) {
 	// directional vector to player
-	sf::Vector2f vecToPlayer = m_playerPos - m_pos;
+	sf::Vector2f vecToPlayer = (*m_player)->getPosition() - m_pos;
 	m_distToPlayer = calculateMagnitude(vecToPlayer);
 
 	// if there are nodes to seek to
@@ -134,7 +153,7 @@ void PredatorShip::setupPath() {
 	float closestDistPredator = 99999;
 
 	for (int i = 0; i < m_nodeLayout.getNoOfNodes() - 1; i++) {
-		float distPlayer = calculateMagnitude(m_nodeLayout.getNodes()[i]->getPos(), m_playerPos);
+		float distPlayer = calculateMagnitude(m_nodeLayout.getNodes()[i]->getPos(), (*m_player)->getPosition());
 
 		if (distPlayer < closestDistPlayer) {
 			closestDistPlayer = distPlayer;
@@ -163,6 +182,64 @@ void PredatorShip::setupPath() {
 	}
 }
 
+void PredatorShip::fireBullet() {
+	m_fireTime += m_fireClock.getElapsedTime();
+
+	if (m_fireTime.asMilliseconds() > 6000) {
+		m_bullets.push_back(new Projectile(sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2) + 2), m_orientation, calculateMagnitude(m_vel), m_vel));
+
+		m_fireClock.restart();
+		m_fireTime = sf::Time::Zero;
+	}
+
+	//if (m_fireTime.asMilliseconds() > 6000) {
+	//	m_canFire = true;
+	//}
+	//else {
+	//	if (m_canFire != false) {
+	//		m_canFire = false;
+	//	}
+	//}
+}
+
+void PredatorShip::checkCollisions(Wall* wall, float deltaTime) {
+	// checks for intersection along x between the predator and the wall
+	if (m_nextPosX.x < wall->getRight()
+		&& m_nextPosX.x + m_width > wall->getPos().x
+		&& m_nextPosX.y < wall->getBottom()
+		&& m_nextPosX.y + m_height > wall->getPos().y) 
+	{
+		// left of predator collides with the right of the wall
+		if (m_nextPosX.x < wall->getRight() && m_nextPosX.x > wall->getPos().x) {
+			m_vel.x = 0;
+			m_nextPosX.x = wall->getPos().x + wall->getWidth();
+		}
+		// right of predator collides with the left of the wall
+		else if (m_nextPosX.x + m_width > wall->getPos().x && m_nextPosX.x + m_width < wall->getRight()) {
+			m_vel.x = 0;
+			m_nextPosX.x = wall->getPos().x - m_width;
+		}
+	}
+
+	// checks for intersection along y between the predator and the wall
+	if (m_nextPosY.x < wall->getRight()
+		&& m_nextPosY.x + m_width > wall->getPos().x
+		&& m_nextPosY.y < wall->getBottom()
+		&& m_nextPosY.y + m_height > wall->getPos().y)
+	{
+		// bottom of predator collides with top of the wall
+		if (m_nextPosY.y + m_height > wall->getPos().y && m_nextPosY.y + m_height < wall->getBottom()) {
+			m_vel.y = 0;
+			m_nextPosY.y = wall->getPos().y - m_height;
+		}
+		// top of predator collides with bottom of the wall
+		else if (m_nextPosY.y < wall->getBottom() && m_nextPosY.y > wall->getPos().y) {
+			m_vel.y = 0;
+			m_nextPosY.y = wall->getPos().y + wall->getHeight();
+		}
+	}
+}
+
 void PredatorShip::normalise(sf::Vector2f &v) {
 	float magnitude = calculateMagnitude(v);
 
@@ -184,132 +261,3 @@ float PredatorShip::calculateMagnitude(sf::Vector2f vec1, sf::Vector2f vec2) {
 sf::FloatRect PredatorShip::getRect() {
 	return m_sprite.getGlobalBounds();
 }
-
-void PredatorShip::checkCollisions(Wall* wall, float deltaTime) {
-	// checks for intersection along x between the predator and the wall
-	if (m_nextPosX.x < wall->getRight()
-		&& m_nextPosX.x + m_width > wall->getPos().x
-		&& m_nextPosX.y < wall->getBottom()
-		&& m_nextPosX.y + m_height > wall->getPos().y) 
-	{
-		if (m_nextPosX.x < wall->getRight() && m_nextPosX.x > wall->getPos().x) {
-			m_vel.x = 0;
-			m_nextPosX.x = wall->getPos().x + wall->getWidth();
-			std::cout << "right of wall" << std::endl;
-		}
-		// right of predator collides with the left of the wall
-		else if (m_nextPosX.x + m_width > wall->getPos().x && m_nextPosX.x + m_width < wall->getRight()) {
-			m_vel.x = 0;
-			m_nextPosX.x = wall->getPos().x - m_width;
-			std::cout << "left of wall" << std::endl;
-		}
-	}
-
-	// checks for intersection along y between the predator and the wall
-	if (m_nextPosY.x < wall->getRight()
-		&& m_nextPosY.x + m_width > wall->getPos().x
-		&& m_nextPosY.y < wall->getBottom()
-		&& m_nextPosY.y + m_height > wall->getPos().y)
-	{
-		// bottom of predator collides with top of the wall
-		if (m_nextPosY.y + m_height > wall->getPos().y && m_nextPosY.y + m_height < wall->getBottom()) {
-			m_vel.y = 0;
-			m_nextPosY.y = wall->getPos().y - m_height;
-			std::cout << "top of wall" << std::endl;
-		}
-		// top of predator collides with bottom of the wall
-		else if (m_nextPosY.y < wall->getBottom() && m_nextPosY.y > wall->getPos().y) {
-			m_vel.y = 0;
-			m_nextPosY.y = wall->getPos().y + wall->getHeight();
-			std::cout << "bottom of wall" << std::endl;
-		}
-	}
-	//if (getRect().intersects(wall->getRect()))
-	//{
-	//	// left of predator collides with the right of the wall
-	//	if (m_pos.x < wall->getRight() && m_pos.x > wall->getPos().x) {
-	//		m_vel.x = 0;
-	//		m_pos.x = wall->getPos().x + wall->getWidth();
-	//	}
-	//	// right of predator collides with the left of the wall
-	//	else if (m_pos.x + m_width > wall->getPos().x && m_pos.x + m_width < wall->getRight()) {
-	//		m_vel.x = 0;
-	//		m_pos.x = wall->getPos().x - m_width;
-	//	}
-	//
-	//	// bottom of predator collides with top of the wall
-	//	if (m_pos.y + m_height > wall->getPos().y && m_pos.y + m_height < wall->getBottom()) {
-	//		m_vel.y = 0;
-	//		m_pos.y = wall->getPos().y - m_height;
-	//	}
-	//	// top of predator collides with bottom of the wall
-	//	else if (m_pos.y < wall->getBottom() && m_pos.y > wall->getPos().y) {
-	//		m_vel.y = 0;
-	//		m_pos.y = wall->getPos().y + wall->getHeight();
-	//	}
-	//}
-}
-
-//if (m_nextRectangleX.pos.x < platform->getRect().pos.x + platform->getRect().size.w
-//	&& m_nextRectangleX.pos.x + m_nextRectangleX.size.w > platform->getRect().pos.x
-//	&& m_nextRectangleX.pos.y < platform->getRect().pos.y + platform->getRect().size.h
-//	&& m_nextRectangleX.pos.y + m_nextRectangleX.size.h > platform->getRect().pos.y)
-//{
-//	// left collision
-//	if (m_nextRectangleX.pos.x < platform->getRect().pos.x + platform->getRect().size.w && m_nextRectangleX.pos.x > platform->getRect().pos.x)
-//	{
-//		if (!sinking)
-//		{
-//			speed = 0;
-//			m_nextRectangleX.pos.x = platform->getRect().pos.x + platform->getRect().size.w;
-//		}
-//
-//		//std::cout << "left collision" << std::endl;
-//	}
-//
-//	//right collision
-//	else if (m_nextRectangleX.pos.x + m_nextRectangleX.size.w > platform->getRect().pos.x&& m_nextRectangleX.pos.x + m_nextRectangleX.size.w < platform->getRect().pos.x + platform->getRect().size.w)
-//	{
-//		if (!sinking)
-//		{
-//			speed = 0;
-//			m_nextRectangleX.pos.x = platform->getRect().pos.x - m_nextRectangleX.size.w;
-//		}
-//
-//		//std::cout << "right collision" << std::endl;
-//	}
-//}
-//
-//if (m_nextRectangleX.pos.x < platform->getRect().pos.x + platform->getRect().size.w
-//	&& m_nextRectangleX.pos.x + m_nextRectangleX.size.w > platform->getRect().pos.x
-//	&& m_nextRectangleX.pos.y < platform->getRect().pos.y + platform->getRect().size.h
-//	&& m_nextRectangleX.pos.y + m_nextRectangleX.size.h > platform->getRect().pos.y)
-//{
-//	// bottom collision
-//	if (m_nextRectangleY.pos.y + m_nextRectangleY.size.h > platform->getRect().pos.y && m_nextRectangleY.pos.y + m_nextRectangleY.size.h < platform->getRect().pos.y + platform->getRect().size.h)
-//	{
-//		if (platform->type == GameObjectType::PLATFORM && !sinking)
-//		{
-//			m_vel.y = 0;
-//			m_nextRectangleY.pos.y = platform->getRect().pos.y - m_nextRectangleY.size.h;
-//
-//			onGround = true;
-//		}
-//		else if (platform->type == GameObjectType::WATER)
-//		{
-//			sinking = true;
-//		}
-//	}
-//
-//
-//	// top collision
-//	else if (m_nextRectangleY.pos.y < platform->getRect().pos.y + platform->getRect().size.h && m_nextRectangleY.pos.y > platform->getRect().pos.y)
-//	{
-//		if (!sinking)
-//		{
-//			m_vel.y = 0;
-//			m_nextRectangleY.pos.y = platform->getRect().pos.y + platform->getRect().size.h;
-//			topCollision = true;
-//		}
-//	}
-//}

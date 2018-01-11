@@ -5,10 +5,13 @@ World::World() {
 }
 
 void World::init() {
+	srand(time(NULL));
 
 	player.Init();
 	m_predator = new PredatorShip(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), player.getPositionRef(), m_spaceStation.getWalls());
-	m_worker = new Worker(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), m_spaceStation.getWalls());
+
+	// gives worker random position on map
+	m_worker = new Worker(m_spaceStation.getFloors().at(rand() % (m_spaceStation.getFloors().size() - 1))->getPos(), m_spaceStation.getNodeLayout(), m_spaceStation.getWalls());
 	
 	m_nest.init();
 	//seekerMissileArray[0].initialise(0);

@@ -47,6 +47,10 @@ std::vector<Wall*>& SpaceStation::getWalls() {
 	return m_walls;
 }
 
+std::vector<Floor*> SpaceStation::getFloors() {
+	return m_floors;
+}
+
 const int SpaceStation::layoutArray[53][78]
 {
 	{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },

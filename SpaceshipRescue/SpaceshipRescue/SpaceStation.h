@@ -11,6 +11,7 @@ public:
 
 	NodeLayout& getNodeLayout();
 	std::vector<Wall*>& getWalls();
+	std::vector<Floor*> getFloors();
 
 private:
 	static const int layoutArray[53][78];

@@ -48,7 +48,7 @@ void Nest::init(int i)
 	}
 	m_isAlive = true; //for test only
 
-	m_image.setOrigin(sf::Vector2f(m_image.getGlobalBounds().width / 2.0f, (m_image.getGlobalBounds().height / 2.0f)));
+	m_image.setOrigin(sf::Vector2f(m_texture.getSize().x / 2.0f, (m_texture.getSize().y  / 2.0f)));
 
 	m_image.setScale(0.1f, 0.1f);
 	m_image.rotate(0);
@@ -73,9 +73,49 @@ void Nest::init(int i)
 
 	seekerMissileVector.push_back(seekerMissileArray[0]);
 
+
+
+
+	m_radarTexture.loadFromFile("assets/blipNest.png");
+	m_radarImage.setTexture(m_radarTexture);
+	m_radarImage.setOrigin(m_radarTexture.getSize().x / 2.0f, m_radarTexture.getSize().y / 2.0f);
+	m_radarImage.setScale(0.2f, 0.2f);
+
 }
 
+void Nest::radarRender(sf::RenderWindow &window)
+{
+	if (m_isAlive == true)
+	{
 
+
+		window.draw(m_radarImage);
+
+
+
+		for (predatorIterator = predatorVector.begin(); predatorIterator != predatorVector.end(); predatorIterator++)
+		{
+			(*predatorIterator)->renderRadar(window);
+		}
+
+		//for (seekerMissileIterator = seekerMissileVector.begin(); seekerMissileIterator != seekerMissileVector.end(); seekerMissileIterator++)
+		//{
+		//	seekerMissileIterator->Draw(window);
+		//}
+
+		//for (predatorIterator = predatorVector.begin(); predatorIterator != predatorVector.end(); predatorIterator++)
+		//{
+		//	(*predatorIterator)->render(window);
+		//}
+
+
+		//for (seekerMissileIterator = seekerMissileVector.begin(); seekerMissileIterator != seekerMissileVector.end(); seekerMissileIterator++)
+		//{
+		//	seekerMissileIterator->Draw(window);
+		//}
+	}
+
+}
 
 void Nest::render(sf::RenderWindow &window)
 {
@@ -109,6 +149,8 @@ void Nest::update(float deltaTime, Player* player)
 {
 	if (m_isAlive == true)
 	{
+		m_radarImage.setPosition(m_position);
+
 		int count = 0;
 
 		for (predatorIterator = predatorVector.begin(); predatorIterator != predatorVector.end(); predatorIterator++)

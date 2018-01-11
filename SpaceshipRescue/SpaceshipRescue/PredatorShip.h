@@ -23,6 +23,8 @@ public:
 	float calculateMagnitude(sf::Vector2f v1, sf::Vector2f v2);
 	sf::FloatRect getRect();
 
+	void renderRadar(sf::RenderWindow &window);
+
 private:
 	sf::Vector2f m_pos;
 	sf::Vector2f m_nextPosX;
@@ -47,6 +49,10 @@ private:
 	sf::Image m_image;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
+	sf::Sprite m_radarImage;
+	sf::Texture m_radarTexture;
+
+
 	sf::FloatRect& m_playerRect;
 	float m_maxSpeed;
 

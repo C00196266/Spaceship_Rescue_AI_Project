@@ -13,7 +13,7 @@ public:
 	void init(int i);
 
 	void update(float deltaTime, Player* player);
-
+	void radarRender(sf::RenderWindow &window);
 	//Player player;
 	//SpaceStation m_spaceStation;
 	//sf::View m_radar;
@@ -41,6 +41,8 @@ private:
 
 	sf::Texture m_texture; //reset relevant vars
 	sf::Sprite m_image; //apply texture to image
+	sf::Sprite m_radarImage;
+	sf::Texture m_radarTexture;
 
 	int m_health = 4;
 

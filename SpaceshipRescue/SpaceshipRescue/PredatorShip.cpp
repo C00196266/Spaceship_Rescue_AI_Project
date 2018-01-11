@@ -22,16 +22,26 @@ PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, sf::FloatRect &p
 
 	m_width = m_texture.getSize().x;
 	m_height = m_texture.getSize().y;
+
+	m_radarTexture.loadFromFile("assets/blipPred.png");
+	m_radarImage.setTexture(m_radarTexture);
+	m_radarImage.setOrigin(m_radarTexture.getSize().x / 2.0f, m_radarTexture.getSize().y / 2.0f);
+	m_radarImage.setScale(0.2f, 0.2f);
 }
 
 void PredatorShip::render(sf::RenderWindow &window) {
 	window.draw(m_sprite);
 }
 
+void PredatorShip::renderRadar(sf::RenderWindow &window) {
+	window.draw(m_radarImage);
+}
+
+
 void PredatorShip::update(float deltaTime, sf::Vector2f playerPos) {
 	setupPath();
 	m_playerPos = playerPos;
-
+	m_radarImage.setPosition(m_pos);
 	// seeks towards player
 	chooseTarget(deltaTime);
 
@@ -100,6 +110,7 @@ void PredatorShip::chooseTarget(float deltaTime) {
 
 void PredatorShip::seek(float deltaTime, sf::Vector2f v, float dist, bool seekingPlayer) {
 	float targetSpeed;
+
 
 	if (dist < 70) {
 		targetSpeed = 0;

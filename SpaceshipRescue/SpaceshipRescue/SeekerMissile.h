@@ -6,7 +6,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <random>
-
+#include "Player.h"
 //Class used for our SeekerMissile
 
 class SeekerMissile
@@ -18,7 +18,7 @@ public:
 	void initialise(int i);
 	
 	
-	void update(float i, sf::Vector2f target, float deltaTime);
+	void update(float i, Player* player , float deltaTime);
 	
 	sf::Time lifetime;
 	sf::Clock lifeClock;
@@ -30,10 +30,10 @@ public:
 	
 	
 	void Flee(sf::Vector2f target);
-	void Seek(sf::Vector2f target);
+	void Seek(sf::Vector2f target, Player* player);
 	void Wander(sf::Vector2f target);
 	
-	float Arrive(sf::Vector2f target);
+	float Arrive(sf::Vector2f target, Player* player);
 	
 	void rotateOverTime(sf::Vector2f vec, sf::Time timespan, sf::Time elapsedTimeSinceStart);
 	
@@ -68,10 +68,9 @@ private:
 	float m_radius;
 	float m_timeToTarget;
 	sf::Time lastUp;
-	
+	sf::Vector2f m_target;
 	sf::Clock clocker;
 	sf::Time timer;
-
 	float lastDegrees;
 	float endDegrees;
 	float minSpeed;

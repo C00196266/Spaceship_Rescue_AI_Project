@@ -64,14 +64,14 @@ void World::render(sf::RenderWindow &window)
 
 	m_spaceStation.render(window);
 
-	m_nest->render(window);
+	m_nest->radarRender(window);
 
 	//for (seekerMissileIterator = seekerMissileVector.begin(); seekerMissileIterator != seekerMissileVector.end(); seekerMissileIterator++)
 	//{
 	//	seekerMissileIterator->Draw(window);
 	//}
 
-	player->Draw(window);
+	player->DrawRadar(window);
 }
 
 

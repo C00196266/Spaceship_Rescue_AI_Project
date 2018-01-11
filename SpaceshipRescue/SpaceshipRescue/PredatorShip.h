@@ -9,7 +9,7 @@
 class PredatorShip {
 public:
 	PredatorShip();
-	PredatorShip(sf::Vector2f pos, NodeLayout &nodes, Player** player, std::vector<Wall*> &walls);
+	PredatorShip(sf::Vector2f pos, NodeLayout &nodes, Player* player, std::vector<Wall*> &walls);
 	//PredatorShip(sf::Vector2f pos, NodeLayout &nodes, sf::FloatRect playerRect, std::vector<Wall*> &walls);
 
 	void render(sf::RenderWindow &window);
@@ -26,6 +26,8 @@ public:
 	float calculateMagnitude(sf::Vector2f v);
 	float calculateMagnitude(sf::Vector2f v1, sf::Vector2f v2);
 	sf::FloatRect getRect();
+
+	void renderRadar(sf::RenderWindow &window);
 
 private:
 	sf::Vector2f m_pos;
@@ -49,7 +51,12 @@ private:
 	sf::Image m_image;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
-	Player** m_player;
+	sf::Sprite m_radarImage;
+	sf::Texture m_radarTexture;
+
+
+//	sf::FloatRect& m_playerRect;
+	Player* m_player;
 	float m_maxSpeed;
 
 	std::vector<Projectile*> m_bullets;

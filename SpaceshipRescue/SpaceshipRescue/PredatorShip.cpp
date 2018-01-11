@@ -1,11 +1,11 @@
 #include "PredatorShip.h"
 
-PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, Player** player, std::vector<Wall*> &walls) : m_nodeLayout(nodes), m_player(player), m_walls(walls) {
+PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, Player* player, std::vector<Wall*> &walls) : m_nodeLayout(nodes), m_player(player), m_walls(walls) {
 	m_pos = pos;
 	m_nextPosX = pos;
 	m_nextPosY = pos;
 
-	m_maxSpeed = 3.0f;
+	m_maxSpeed = 12.0f;
 
 	m_image.loadFromFile("assets/PredatorShip.png");
 	m_texture.loadFromImage(m_image);
@@ -20,6 +20,10 @@ PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, Player** player,
 	m_width = m_texture.getSize().x;
 	m_height = m_texture.getSize().y;
 
+	m_radarTexture.loadFromFile("assets/blipPred.png");
+	m_radarImage.setTexture(m_radarTexture);
+	m_radarImage.setOrigin(m_radarTexture.getSize().x / 2.0f, m_radarTexture.getSize().y / 2.0f);
+	m_radarImage.setScale(0.2f, 0.2f);
 	m_fireClock.restart();
 	m_fireTime = sf::Time::Zero;
 	m_fireRange = 250;
@@ -33,7 +37,18 @@ void PredatorShip::render(sf::RenderWindow &window) {
 	window.draw(m_sprite);
 }
 
-void PredatorShip::update(float deltaTime) {
+
+void PredatorShip::renderRadar(sf::RenderWindow &window) {
+	window.draw(m_radarImage);
+}
+
+
+void PredatorShip::update(float deltaTime)
+{
+	setupPath();
+	//m_playerPos = playerPos;
+	m_radarImage.setPosition(m_pos);
+	// seeks towards player
 	setupPath();
 
 	// chooses whether to seek towards player or next node
@@ -83,7 +98,7 @@ void PredatorShip::update(float deltaTime) {
 
 void PredatorShip::chooseTarget(float deltaTime) {
 	// directional vector to player
-	sf::Vector2f vecToPlayer = (*m_player)->getPosition() - m_pos;
+	sf::Vector2f vecToPlayer = (m_player)->getPosition() - m_pos;
 	m_distToPlayer = calculateMagnitude(vecToPlayer);
 
 	// if there are nodes to seek to
@@ -115,6 +130,7 @@ void PredatorShip::chooseTarget(float deltaTime) {
 
 void PredatorShip::seek(float deltaTime, sf::Vector2f v, float dist, bool seekingPlayer) {
 	float targetSpeed;
+
 
 	if (dist < 70) {
 		targetSpeed = 0;
@@ -149,7 +165,7 @@ void PredatorShip::setupPath() {
 	float closestDistPredator = 99999;
 
 	for (int i = 0; i < m_nodeLayout.getNoOfNodes() - 1; i++) {
-		float distPlayer = calculateMagnitude(m_nodeLayout.getNodes()[i]->getPos(), (*m_player)->getPosition());
+		float distPlayer = calculateMagnitude(m_nodeLayout.getNodes()[i]->getPos(), (m_player)->getPosition());
 
 		if (distPlayer < closestDistPlayer) {
 			closestDistPlayer = distPlayer;
@@ -184,7 +200,7 @@ void PredatorShip::fireBullet() {
 	// if the player is within firing range
 	if (m_distToPlayer < m_fireRange) {
 		// if the player is within a certain angle in front of the player
-		m_angleToPlayer = (atan2((*m_player)->getPosition().y - m_pos.y, (*m_player)->getPosition().x - m_pos.x) * 180 / 3.14) + 90;
+		m_angleToPlayer = (atan2((m_player)->getPosition().y - m_pos.y, (m_player)->getPosition().x - m_pos.x) * 180 / 3.14) + 90;
 		
 		if (m_angleToPlayer > m_orientation - 15 && m_angleToPlayer < m_orientation + 15) {
 			// fire rate
@@ -237,10 +253,10 @@ void PredatorShip::checkWallCollisions(Wall* wall, float deltaTime) {
 }
 
 void PredatorShip::checkBulletCollision(Projectile* p) {
-	if (p->getPosition().x < (*m_player)->getPosition().x + (*m_player)->getRect().width
-		&& p->getPosition().x + p->getWidth() > (*m_player)->getPosition().x
-		&& p->getPosition().y < (*m_player)->getPosition().y + (*m_player)->getRect().height
-		&& p->getPosition().y + p->getHeight() > (*m_player)->getPosition().y) 
+	if (p->getPosition().x < (m_player)->getPosition().x + (m_player)->getRect().width
+		&& p->getPosition().x + p->getWidth() > (m_player)->getPosition().x
+		&& p->getPosition().y < (m_player)->getPosition().y + (m_player)->getRect().height
+		&& p->getPosition().y + p->getHeight() > (m_player)->getPosition().y) 
 	{
 		p->setAlive(false);
 	}

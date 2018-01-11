@@ -55,8 +55,11 @@ void SeekerMissile::setAlive(bool alive)
 }
 
 //if enemies are alive, they should be doing stuff
-void SeekerMissile::update(float i, sf::Vector2f target, float deltaTime)
+void SeekerMissile::update(float i, Player* player, float deltaTime)
 {
+
+	m_target = (*player).getPosition();
+
 	lifetime += lifeClock.getElapsedTime();
 
 
@@ -74,7 +77,7 @@ void SeekerMissile::update(float i, sf::Vector2f target, float deltaTime)
 	{
 		delta = deltaTime;
 
-		Seek(target);
+		Seek(m_target, player);
 
 
 		if (orient < 0)
@@ -130,7 +133,7 @@ void SeekerMissile::setPosition(sf::Vector2f pos)
 }
 
 
-float SeekerMissile::Arrive(sf::Vector2f target)
+float SeekerMissile::Arrive(sf::Vector2f target, Player* player)
 {
 	sf::Vector2f temp = sf::Vector2f(target.x + offSetX, target.y + offSetY) - sf::Vector2f(m_position.x + offSetX, m_position.y + offSetY);
 
@@ -138,12 +141,13 @@ float SeekerMissile::Arrive(sf::Vector2f target)
 	mag = sqrt(mag);
 
 
-	if (mag < 20)//target.getRadius())
+	if (mag < 20 && m_isAlive == true)//target.getRadius())
 	{
 		m_isAlive = false;
 
-
+		
 		cout << "kaboom" << endl;
+		player->setHealth(1);
 
 		lifeClock.restart();
 		lifetime = sf::Time::Zero;
@@ -152,7 +156,7 @@ float SeekerMissile::Arrive(sf::Vector2f target)
 	}
 }
 
-void SeekerMissile::Seek(sf::Vector2f target)
+void SeekerMissile::Seek(sf::Vector2f target, Player* player)
 {
 	m_velocity = sf::Vector2f(target.x + offSetX, target.y + offSetY) - sf::Vector2f(m_position.x + offSetX, m_position.y + offSetY); 
 
@@ -169,5 +173,5 @@ void SeekerMissile::Seek(sf::Vector2f target)
 
 	orient = getOrient(orient, m_velocity, target);
 
-	Arrive(target); //aka explode
+	Arrive(target, player); //aka explode
 }

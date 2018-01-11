@@ -25,7 +25,7 @@ void FireRatePowerUp::checkCollision(Player* player) {
 		&& player->getPosition().y + player->getRect().height > m_pos.y)
 	{
 		// increases fire rate... to be complete
-
+		player->setFireRate(player->getFireRate() * 1.5f);
 		m_alive = false;
 	}
 }

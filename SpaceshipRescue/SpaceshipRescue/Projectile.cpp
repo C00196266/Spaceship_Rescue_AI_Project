@@ -76,6 +76,8 @@ void Projectile::setAlive(bool alive)
 	m_isAlive = alive;
 }
 
+
+
 //if enemies are alive, they should be doing stuff
 void Projectile::update(float deltaTime)
 {

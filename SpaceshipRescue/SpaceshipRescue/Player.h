@@ -23,6 +23,9 @@ private:
 	bool canFire;
 	float fireRate = 1;
 
+	sf::Sprite radarSprite;
+	sf::Texture radarTexture;
+
 	std::vector<Wall*>& m_walls;
 	std::vector<Wall*> m_closestWalls;
 	sf::Vector2f maxVelo;
@@ -32,7 +35,7 @@ private:
 	float angle;
 	int m_size;
 	sf::Vector2f m_position; //position of Player
-	const float m_maxHealth = 1; //max Player health
+	const float m_maxHealth = 4; //max Player health
 	float m_health = m_maxHealth; //Player health
 	bool m_isAlive = false; //is Player alive
 	std::vector<sf::Vector2f> m_waypoint; //vector of vector2s that hold the waypoints set for the Player
@@ -64,7 +67,7 @@ public:
 	void Init();
 	//void Update();
 	void Draw(sf::RenderWindow &window);
-
+	float getFireRate();
 
 	void update(float time);
 
@@ -78,7 +81,8 @@ public:
 	void setAlive(bool alive);
 	void setHealth(float healthChange);
 	void setVelocity(sf::Vector2f velocity);
-
+	void DrawRadar(sf::RenderWindow &window);
+	std::vector<Projectile*> getBullets();
 	sf::FloatRect getRect();
 
 	sf::Vector2f getVelocity();

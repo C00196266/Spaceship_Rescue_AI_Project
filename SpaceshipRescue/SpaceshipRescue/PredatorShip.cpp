@@ -1,6 +1,9 @@
 #include "PredatorShip.h"
 
-PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, sf::Vector2f &playerPos, std::vector<Wall*> &walls) : m_nodeLayout(nodes), m_playerPos(playerPos), m_walls(walls)  {
+PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, sf::FloatRect &playerRect, std::vector<Wall*> &walls) : m_nodeLayout(nodes), m_playerRect(playerRect), m_walls(walls) {
+
+//	m_playerPos = playerPos;
+
 	m_pos = pos;
 	m_nextPosX = pos;
 	m_nextPosY = pos;
@@ -25,8 +28,9 @@ void PredatorShip::render(sf::RenderWindow &window) {
 	window.draw(m_sprite);
 }
 
-void PredatorShip::update(float deltaTime) {
+void PredatorShip::update(float deltaTime, sf::Vector2f playerPos) {
 	setupPath();
+	m_playerPos = playerPos;
 
 	// seeks towards player
 	chooseTarget(deltaTime);

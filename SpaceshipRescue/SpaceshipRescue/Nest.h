@@ -7,7 +7,7 @@
 class Nest {
 public:
 	Nest();
-	Nest(sf::Vector2f pos, NodeLayout &nodes, sf::Vector2f &playerPos, std::vector<Wall*> &walls);
+	Nest(sf::Vector2f pos, NodeLayout &nodes, Player &player, std::vector<Wall*> &walls);
 
 	void render(sf::RenderWindow &window);
 	void init(int i);
@@ -25,7 +25,7 @@ private:
 	std::vector<PredatorShip*> predatorVector;
 
 	std::vector<PredatorShip*>::iterator predatorIterator;
-
+	Player* m_player;
 
 	sf::Vector2f m_position;
 	bool m_isAlive;
@@ -42,7 +42,7 @@ private:
 	sf::Texture m_texture; //reset relevant vars
 	sf::Sprite m_image; //apply texture to image
 
-	sf::Vector2f& m_playerPos;
+//	sf::Vector2f& m_playerPos;
 	NodeLayout& m_nodeLayout;
 	std::vector<Wall*>& m_walls;
 	std::vector<Wall*> m_closestWalls;

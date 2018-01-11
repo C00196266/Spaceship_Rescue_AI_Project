@@ -31,6 +31,11 @@ PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, Player* player, 
 	m_alive = true;
 }
 
+bool PredatorShip::getAlive()
+{
+	return m_alive;
+}
+
 void PredatorShip::render(sf::RenderWindow &window) {
 	if (m_alive)
 	{

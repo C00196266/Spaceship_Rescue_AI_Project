@@ -24,6 +24,9 @@ public:
 
 
 	Nest* m_nest;
+	Nest* m_nest2;
+	Nest* m_nest3;
+
 	AStar* aStar;
 	//SeekerMissile sampleSeekerMissile;
 	//SeekerMissile sample2;

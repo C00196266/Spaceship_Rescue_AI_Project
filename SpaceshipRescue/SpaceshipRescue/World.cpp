@@ -18,10 +18,15 @@ void World::init() {
 
 	//$$m_predator = new PredatorShip(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), player->getPositionRef(), m_spaceStation.getWalls());
 	
-	m_nest = new Nest(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), player, m_spaceStation.getWalls());
+	m_nest = new Nest( m_spaceStation.getNodeLayout(), player, m_spaceStation.getWalls());
 
+	m_nest2 = new Nest(m_spaceStation.getNodeLayout(), player, m_spaceStation.getWalls());
+
+	m_nest3 = new Nest(m_spaceStation.getNodeLayout(), player, m_spaceStation.getWalls());
 
 	m_nest->init(0);
+	m_nest2->init(1);
+	m_nest3->init(2);
 	//seekerMissileArray[0].initialise(0);
 	//seekerMissileArray[1].initialise(0);
 
@@ -47,6 +52,8 @@ void World::render(sf::RenderWindow &window)
 	//some sort of nest draw
 
 	m_nest->render(window);
+	m_nest2->render(window);
+	m_nest3->render(window);
 
 	//for (seekerMissileIterator = seekerMissileVector.begin(); seekerMissileIterator != seekerMissileVector.end(); seekerMissileIterator++)
 	//{
@@ -66,7 +73,8 @@ void World::render(sf::RenderWindow &window)
 	m_spaceStation.render(window);
 
 	m_nest->radarRender(window);
-
+	m_nest2->radarRender(window);
+	m_nest3->radarRender(window);
 	//for (seekerMissileIterator = seekerMissileVector.begin(); seekerMissileIterator != seekerMissileVector.end(); seekerMissileIterator++)
 	//{
 	//	seekerMissileIterator->Draw(window);
@@ -108,6 +116,8 @@ void World::update(float deltaTime) {
 //$$	m_predator->update(deltaTime);
 
 	m_nest->update(deltaTime, player);
+	m_nest2->update(deltaTime, player);
+	m_nest3->update(deltaTime, player);
 	//int count = 0;
 
 	//for (seekerMissileIterator = seekerMissileVector.begin(); seekerMissileIterator != seekerMissileVector.end(); seekerMissileIterator++)

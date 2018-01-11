@@ -29,6 +29,7 @@ public:
 
 	void renderRadar(sf::RenderWindow &window);
 	void checkPlayerBulletColl();
+	bool getAlive();
 
 private:
 	sf::Vector2f m_pos;

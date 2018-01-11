@@ -93,6 +93,7 @@ void Player::DrawRadar(sf::RenderWindow &window)
 //Draw method used to draw the animated sprite and also to set the view of the render window to center on the player object.
 void Player::Draw(sf::RenderWindow &window)
 {
+	cout << m_health << endl;
 	if (m_isAlive)
 	{
 		window.draw(m_sprite);

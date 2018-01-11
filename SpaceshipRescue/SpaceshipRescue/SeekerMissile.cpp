@@ -5,11 +5,11 @@ using namespace std;
 SeekerMissile::SeekerMissile() {}
 SeekerMissile::~SeekerMissile() {} //deconstructor
 
-void SeekerMissile::initialise(int i)
+void SeekerMissile::initialise(int i, sf::Vector2f pos)
 {
 	m_texture.loadFromFile("ai.png"); //reset relevant vars
 	m_image.setTexture(m_texture); //apply texture to image
-	m_position = sf::Vector2f(100, 100); //offset each SeekerMissile (formerly i* 86) CONST
+	m_position = pos; //offset each SeekerMissile (formerly i* 86) CONST
 
 	m_isAlive = true; //for test only
 

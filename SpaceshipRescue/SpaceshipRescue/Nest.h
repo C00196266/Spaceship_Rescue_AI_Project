@@ -7,12 +7,12 @@
 class Nest {
 public:
 	Nest();
-	Nest(sf::Vector2f pos, NodeLayout &nodes, Player &player, std::vector<Wall*> &walls);
+	Nest(sf::Vector2f pos, NodeLayout &nodes, Player* player, std::vector<Wall*> &walls);
 
 	void render(sf::RenderWindow &window);
 	void init(int i);
 
-	void update(float deltaTime, Player player);
+	void update(float deltaTime, Player* player);
 
 	//Player player;
 	//SpaceStation m_spaceStation;
@@ -28,7 +28,7 @@ private:
 	Player* m_player;
 
 	sf::Vector2f m_position;
-	bool m_isAlive;
+	bool m_isAlive = true;
 
 	//SeekerMissile sampleSeekerMissile;
 	//SeekerMissile sample2;
@@ -42,12 +42,14 @@ private:
 	sf::Texture m_texture; //reset relevant vars
 	sf::Sprite m_image; //apply texture to image
 
+	int m_health = 4;
+
 //	sf::Vector2f& m_playerPos;
 	NodeLayout& m_nodeLayout;
 	std::vector<Wall*>& m_walls;
 	std::vector<Wall*> m_closestWalls;
-	float offSetX;
-	float offSetY;
+	float offSetX = m_texture.getSize().x / 2.0f;
+	float offSetY = m_texture.getSize().y / 2.0f;
 
 };
 

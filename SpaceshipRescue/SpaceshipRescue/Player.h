@@ -64,7 +64,7 @@ public:
 	void Init();
 	//void Update();
 	void Draw(sf::RenderWindow &window);
-
+	float getFireRate();
 
 	void update(float time);
 
@@ -79,6 +79,7 @@ public:
 	void setHealth(float healthChange);
 	void setVelocity(sf::Vector2f velocity);
 
+	std::vector<Projectile*> getBullets();
 	sf::FloatRect getRect();
 
 	sf::Vector2f getVelocity();

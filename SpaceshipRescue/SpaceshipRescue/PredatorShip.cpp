@@ -8,7 +8,7 @@ PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, sf::FloatRect &p
 	m_nextPosX = pos;
 	m_nextPosY = pos;
 
-	m_maxSpeed = 3.0f;
+	m_maxSpeed = 12.0f;
 
 	m_image.loadFromFile("assets/PredatorShip.png");
 	m_texture.loadFromImage(m_image);

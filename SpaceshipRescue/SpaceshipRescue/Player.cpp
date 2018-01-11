@@ -92,6 +92,11 @@ void Player::Draw(sf::RenderWindow &window)
 
 }
 
+float Player::getFireRate()
+{
+	return fireRate;
+}
+
 void Player::setFireRate(float rate)
 {
 	fireRate = rate;
@@ -103,7 +108,7 @@ void Player::update(float time)
 
 	//m_position += m_velocity;
 
-	if (fireTime.asMilliseconds() > 5000)
+	if (fireTime.asMilliseconds() > (5000 / fireRate))
 	{
 	//	std::cout << "bullet timeout" << endl;
 
@@ -137,6 +142,10 @@ void Player::update(float time)
 
 	m_velocity.y = cos((3.14 / 180)*angle)* speed; //* t.asSeconds();
 
+	if (speed < 0.2f)
+	{
+		speed = 0.2f;
+	}
 
 
 	m_position = m_position + m_velocity;
@@ -200,6 +209,7 @@ void Player::update(float time)
 	}
 
 
+
 	m_sprite.setPosition(m_position); //set position of sprite
 
 									  //if (m_position.x > 0 && m_position.x < 1000) {
@@ -230,6 +240,11 @@ void Player::checkCollisions(Wall* wall, float deltaTime) {
 
 	}
 
+}
+
+std::vector<Projectile*> Player::getBullets()
+{
+	return bulletVector;
 }
 
 float Player::getHealth()

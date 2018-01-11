@@ -26,6 +26,9 @@ private:
 	sf::Sprite radarSprite;
 	sf::Texture radarTexture;
 
+	sf::Sprite m_shieldSprite;
+	sf::Texture m_shieldTexture;
+
 	std::vector<Wall*>& m_walls;
 	std::vector<Wall*> m_closestWalls;
 	sf::Vector2f maxVelo;

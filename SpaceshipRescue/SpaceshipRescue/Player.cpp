@@ -34,6 +34,10 @@ void Player::Init()
 	radarSprite.setOrigin(radarTexture.getSize().x / 2.0f, radarTexture.getSize().y / 2.0f);
 	radarSprite.setScale(0.2f, 0.2f);
 
+	m_shieldTexture.loadFromFile("assets/Shield.png");
+	m_shieldSprite.setTexture(m_shieldTexture);
+	m_shieldSprite.setOrigin(m_shieldTexture.getSize().x / 2, m_shieldTexture.getSize().y / 2);
+
 	m_view = sf::View(m_position, sf::Vector2f(360, 240));
 	m_texture.loadFromFile("playertrans.png");
 	m_texture.setSmooth(true);
@@ -77,7 +81,8 @@ void Player::Init()
 	fireTime = sf::Time::Zero;
 
 	m_health = m_maxHealth;
-	m_shielded = false;
+	//m_shielded = false;
+	m_shielded = true;
 }
 
 //Draw method used to draw the animated sprite and also to set the view of the render window to center on the player object.
@@ -97,6 +102,10 @@ void Player::Draw(sf::RenderWindow &window)
 	if (m_isAlive)
 	{
 		window.draw(m_sprite);
+
+		if (m_shielded == true) {
+			window.draw(m_shieldSprite);
+		}
 
 		window.setView(m_view);
 
@@ -254,6 +263,7 @@ void Player::update(float time)
 		}
 
 		radarSprite.setPosition(m_position);
+		m_shieldSprite.setPosition(sf::Vector2f(m_position.x, m_position.y));
 	}
 }
 

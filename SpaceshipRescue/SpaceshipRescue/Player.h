@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Wall.h"
+
 //Class definition for the Player game object
 class Player {
 private:

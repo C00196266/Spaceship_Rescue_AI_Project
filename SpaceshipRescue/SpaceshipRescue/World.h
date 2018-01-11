@@ -17,10 +17,10 @@ public:
 	sf::View m_radar;
 	Player* player;
 	SpaceStation m_spaceStation;
-	PredatorShip* m_predator;
+//$$	PredatorShip* m_predator;
 
 
-	Nest m_nest;
+	Nest* m_nest;
 	AStar* aStar;
 	//SeekerMissile sampleSeekerMissile;
 	//SeekerMissile sample2;

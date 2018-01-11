@@ -42,6 +42,7 @@ private:
 
 	sf::Vector2f& m_playerPos;
 
+
 	sf::Image m_image;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;

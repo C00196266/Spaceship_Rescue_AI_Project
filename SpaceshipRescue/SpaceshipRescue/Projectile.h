@@ -19,7 +19,7 @@ public:
 	void initialise(sf::Vector2f pos, float rot, sf::Vector2f velocity);
 
 
-	void update(float i, sf::Vector2f target, float deltaTime);
+	void update(float i, float deltaTime);
 
 	sf::Time lifetime;
 	sf::Clock lifeClock;

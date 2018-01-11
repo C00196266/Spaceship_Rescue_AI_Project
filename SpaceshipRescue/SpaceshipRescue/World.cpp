@@ -7,13 +7,20 @@ World::World() {
 void World::init() {
 	srand(time(NULL));
 
-	player.Init();
-	m_predator = new PredatorShip(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), player.getPositionRef(), m_spaceStation.getWalls());
+	//player.Init();
+	//m_predator = new PredatorShip(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), player.getPositionRef(), m_spaceStation.getWalls());
 
 	// gives worker random position on map
 	m_worker = new Worker(m_spaceStation.getFloors().at(rand() % (m_spaceStation.getFloors().size() - 1))->getPos(), m_spaceStation.getNodeLayout(), m_spaceStation.getWalls());
+	player = new Player(m_spaceStation.getWalls());
+
+	player->Init();
+
+	//$$m_predator = new PredatorShip(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), player->getPositionRef(), m_spaceStation.getWalls());
 	
-	m_nest.init();
+	m_nest = new Nest(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), *player, m_spaceStation.getWalls());
+
+	m_nest->init(0);
 	//seekerMissileArray[0].initialise(0);
 	//seekerMissileArray[1].initialise(0);
 
@@ -38,16 +45,18 @@ void World::render(sf::RenderWindow &window)
 
 	//some sort of nest draw
 
-	m_nest.render(window);
+	m_nest->render(window);
 
 	//for (seekerMissileIterator = seekerMissileVector.begin(); seekerMissileIterator != seekerMissileVector.end(); seekerMissileIterator++)
 	//{
 	//	seekerMissileIterator->Draw(window);
 	//}
 
-	player.Draw(window);
-	m_predator->render(window);
+	//player.Draw(window);
+	//m_predator->render(window);
 	m_worker->render(window);
+	player->Draw(window);
+	//$$m_predator->render(window);
 
 
 	//view #2 minimap
@@ -55,26 +64,24 @@ void World::render(sf::RenderWindow &window)
 
 	m_spaceStation.render(window);
 
-	m_nest.render(window);
+	m_nest->render(window);
 
 	//for (seekerMissileIterator = seekerMissileVector.begin(); seekerMissileIterator != seekerMissileVector.end(); seekerMissileIterator++)
 	//{
 	//	seekerMissileIterator->Draw(window);
 	//}
 
-	player.Draw(window);
+	player->Draw(window);
 }
 
 
 void World::update(float deltaTime) {
-	player.update(deltaTime);
-	m_predator->update(deltaTime);
+	player->update(deltaTime);
+	//m_predator->update(deltaTime);
 
 	if (m_worker->getAbducted() == false && m_worker->getRescued() == false) {
 		m_worker->update(deltaTime);
 	}
-
-	m_nest.update(deltaTime, player);
 
 	//for (auto i = m_spaceStation.getPowerUps().begin(), e = m_spaceStation.getPowerUps().end(); i != e; i++) {
 	//	if ((*i)->getAlive() == true) {
@@ -110,6 +117,10 @@ void World::update(float deltaTime) {
 		//	m_spaceStation.getPowerUps().at(i)->checkCollision(player);
 		//}
 	}
+
+//$$	m_predator->update(deltaTime);
+
+	m_nest->update(deltaTime, *player);
 	//int count = 0;
 
 	//for (seekerMissileIterator = seekerMissileVector.begin(); seekerMissileIterator != seekerMissileVector.end(); seekerMissileIterator++)
@@ -125,5 +136,5 @@ void World::update(float deltaTime) {
 	//	count++; //compromised by isalive atm
 	//}
 
-	player.update(deltaTime);
+	player->update(deltaTime);
 }

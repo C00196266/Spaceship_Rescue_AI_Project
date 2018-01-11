@@ -20,6 +20,11 @@ void Tile::render(sf::RenderWindow &window) {
 	window.draw(m_sprite);
 }
 
+sf::Sprite Tile::getSprite()
+{
+	return m_sprite;
+}
+
 sf::Vector2f Tile::getPos() {
 	return m_pos;
 }

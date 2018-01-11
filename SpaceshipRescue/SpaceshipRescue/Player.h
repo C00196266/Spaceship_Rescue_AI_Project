@@ -1,8 +1,8 @@
 #pragma once
 
 #include "stdafx.h"
+#include "Wall.h"
 #include "Projectile.h"
-
 //Class definition for the Player game object
 class Player {
 private:
@@ -18,16 +18,13 @@ private:
 	Animation m_animation;
 	bool keyUp;
 
-	Projectile* bulletArray[30];
+	sf::Clock fireClock;
+	sf::Time fireTime;
+	bool canFire;
+	float fireRate = 1;
 
-	std::vector<Projectile*> bulletVector;
-
-//	Projectile ProjectileArray[50];
-
-	//std::vector<Projectile> ProjectileVector;
-
-	std::vector<Projectile*>::iterator bulletIterator;
-
+	std::vector<Wall*>& m_walls;
+	std::vector<Wall*> m_closestWalls;
 	sf::Vector2f maxVelo;
 	sf::Vector2f minVelo;
 	int minSpeed;
@@ -42,14 +39,25 @@ private:
 	int currentWaypoint; //the current waypoint in a vector
 	const int maxWaypoint = 5; //the maximum number of waypoints in a vector
 	int rPath; //random path
-	sf::Vector2f m_velocity; //Player velocity
+	sf::Vector2f m_velocity;
 	int PlayerType; //fed a random distrubution to see if Player is type 1, 2 or 3
 	float speed;
 
-//	sf::View m_radar;
+	bool firstSpacePressed = false;
+	Projectile* bulletArray[30];
 
+	std::vector<Projectile*> bulletVector;
+
+	//	Projectile ProjectileArray[50];
+
+	//std::vector<Projectile> ProjectileVector;
+
+	std::vector<Projectile*>::iterator bulletIterator;
+
+	float m_width = m_texture.getSize().x;
+	float m_height = m_texture.getSize().y;
 public:
-	Player();
+	Player(std::vector<Wall*> &walls);
 	~Player();
 
 
@@ -64,9 +72,8 @@ public:
 	sf::Vector2f& getPositionRef();
 	bool getAlive();
 	float getHealth();
-	//sf::Vector2f getPosition();
-	sf::Vector2f getVelocity();
-
+	void setFireRate(float rate);
+	void checkCollisions(Wall* wall, float deltaTime);
 	void setPosition(sf::Vector2f position);
 	void setAlive(bool alive);
 	void setHealth(float healthChange);
@@ -74,6 +81,7 @@ public:
 
 	sf::FloatRect getRect();
 
+	sf::Vector2f getVelocity();
 };
 
 

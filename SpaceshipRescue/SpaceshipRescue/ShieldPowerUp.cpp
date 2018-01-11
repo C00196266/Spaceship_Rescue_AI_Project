@@ -18,11 +18,11 @@ ShieldPowerUp::ShieldPowerUp(sf::Vector2f pos) {
 	id = "shield";
 }
 
-void ShieldPowerUp::checkCollision(Player &player) {
-	if (player.getPosition().x < m_pos.x + m_width
-		&& player.getPosition().x + player.getRect().width > m_pos.x
-		&& player.getPosition().y <  m_pos.y + m_height
-		&& player.getPosition().y + player.getRect().height > m_pos.y)
+void ShieldPowerUp::checkCollision(Player* player) {
+	if (player->getPosition().x < m_pos.x + m_width
+		&& player->getPosition().x + player->getRect().width > m_pos.x
+		&& player->getPosition().y <  m_pos.y + m_height
+		&& player->getPosition().y + player->getRect().height > m_pos.y)
 	{
 		// adds shield that protects from one attack... to be complete
 

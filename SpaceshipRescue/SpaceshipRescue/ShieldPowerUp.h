@@ -7,5 +7,5 @@ public:
 	ShieldPowerUp() {}
 	ShieldPowerUp(sf::Vector2f pos);
 
-	void checkCollision(Player &player);
+	void checkCollision(Player* player);
 };

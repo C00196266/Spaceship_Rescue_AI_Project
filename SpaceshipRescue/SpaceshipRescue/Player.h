@@ -16,6 +16,11 @@ private:
 	Animation m_animation;
 	bool keyUp;
 
+	sf::Clock fireClock;
+	sf::Time fireTime;
+	bool canFire;
+	float fireRate = 1;
+
 	std::vector<Wall*>& m_walls;
 	std::vector<Wall*> m_closestWalls;
 	sf::Vector2f maxVelo;
@@ -32,10 +37,11 @@ private:
 	int currentWaypoint; //the current waypoint in a vector
 	const int maxWaypoint = 5; //the maximum number of waypoints in a vector
 	int rPath; //random path
-	sf::Vector2f m_velocity = sf::Vector2f(0, 1); //Player velocity
+	sf::Vector2f m_velocity;
 	int PlayerType; //fed a random distrubution to see if Player is type 1, 2 or 3
 	float speed;
 
+	bool firstSpacePressed = false;
 	Projectile* bulletArray[30];
 
 	std::vector<Projectile*> bulletVector;
@@ -64,7 +70,7 @@ public:
 	sf::Vector2f& getPositionRef();
 	bool getAlive();
 	float getHealth();
-
+	void setFireRate(float rate);
 	void checkCollisions(Wall* wall, float deltaTime);
 	void setPosition(sf::Vector2f position);
 	void setAlive(bool alive);

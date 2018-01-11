@@ -4,7 +4,7 @@ using namespace std;
 
 Player::Player(std::vector<Wall*> &walls) : m_walls(walls)
 {
-
+	m_velocity	= sf::Vector2f(0, 6); //Player velocity
 }
 
 Player::~Player()
@@ -16,7 +16,7 @@ void Player::Init()
 {
 
 	m_isAlive = true; //for test only
-	speed = 0;
+	speed = 1;
 	maxVelo = sf::Vector2f(0, -2);
 	minVelo = sf::Vector2f(0, 0);
 	angle = 0;
@@ -57,15 +57,18 @@ void Player::Init()
 	m_sprite.setLooped(true);
 
 	m_sprite.setOrigin(24, 23.5f);
-	m_position = sf::Vector2f(-1240, 300);
+	m_position = sf::Vector2f(300, 300);
 
 	m_sprite.setRotation(180);
 
 	m_sprite.setAnimation(m_animation);
 	m_sprite.setScale(0.3, 0.3); //was 0.2
 
-	m_view.zoom(10.0f);
+	m_view.zoom(1);
 	m_view.setCenter(m_sprite.getPosition());
+
+	fireClock.restart();
+	fireTime = sf::Time::Zero;
 }
 
 
@@ -83,13 +86,11 @@ void Player::Draw(sf::RenderWindow &window)
 		if ((*bulletIterator)->getAlive())
 		{
 			(*bulletIterator)->Draw(window);
-			cout << "bull update" << endl;
+		//	cout << "bull update" << endl;
 		}
 	}
 
 }
-
-
 
 
 sf::FloatRect Player::getRect()
@@ -97,8 +98,30 @@ sf::FloatRect Player::getRect()
 	return m_sprite.getGlobalBounds();
 }
 
+void Player::setFireRate(float rate)
+{
+	fireRate = rate;
+}
+
 void Player::update(float time)
 {
+	fireTime += fireClock.getElapsedTime();
+
+	//m_position += m_velocity;
+
+	if (fireTime.asMilliseconds() > 5000)
+	{
+	//	std::cout << "bullet timeout" << endl;
+
+	//	m_isAlive = false;
+		canFire = true;
+	
+	}
+	else
+	{
+		canFire = false;
+	}
+
 
 	//m_view.setCenter(m_sprite.getPosition());
 
@@ -155,15 +178,21 @@ void Player::update(float time)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
 	{
+		if (canFire == true)
+		{
+			
+			float mag = m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y;
 
-		float mag = m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y;
+			mag = sqrt(mag); //length of vector
 
-		mag = sqrt(mag); //length of vector
-
-		bulletVector.push_back(new Projectile(m_position, m_sprite.getRotation(), mag, m_velocity));
-		bulletVector.front()->initialise(m_position, angle, m_velocity);
+			bulletVector.push_back(new Projectile(m_position, m_sprite.getRotation(), mag, m_velocity));
+		//	bulletVector.front()->initialise(m_position, angle, m_velocity);
 
 			std::cout << "bang" << endl;
+
+			fireClock.restart();
+			fireTime = sf::Time::Zero;
+		}
 	}
 
 
@@ -176,15 +205,6 @@ void Player::update(float time)
 		angle += 360;
 	}
 
-	/*cout << "angle: " << angle << endl;
-	cout << "angleSPR: " << m_sprite.getRotation() << endl;
-
-
-	cout << "x: " << std::to_string(m_velocity.y) << " y: " << std::to_string(m_velocity.y) << endl;
-
-	cout << "speed: " << speed << endl;*/
-
-	//m_position += m_velocity;
 
 	m_sprite.setPosition(m_position); //set position of sprite
 
@@ -198,8 +218,8 @@ void Player::update(float time)
 	{
 		if ((*bulletIterator)->getAlive())
 		{
-			(*bulletIterator)->update(0, sf::Vector2f(0, 0), time);
-			cout << "bull update" << endl;
+			(*bulletIterator)->update(0, time);
+		//	cout << "bull update" << endl;
 		}
 	}
 }
@@ -212,38 +232,10 @@ void Player::checkCollisions(Wall* wall, float deltaTime) {
 	{
 		m_position -= m_velocity;
 
-		cout << "intersect" << endl;
+	//	cout << "intersect" << endl;
 
 	}
 
-
-	//if (m_position.x < wall->getRight()
-	//	&& m_position.x + m_width > wall->getPos().x
-	//	&& m_position.y < wall->getBottom()
-	//	&& m_position.y + m_height > wall->getPos().y)
-	//{
-	//	// left of predator collides with the right of the wall
-	//	if (m_position.x < wall->getRight() && m_position.x > wall->getPos().x) {
-	//		m_velocity.x = 0;
-	//		m_position.x = m_position.x + wall->getWidth();
-	//	}
-	//	// right of predator collides with the left of the wall
-	//	else if (m_position.x + m_width > wall->getPos().x && m_position.x + m_width < wall->getRight()) {
-	//		m_velocity.x = 0;
-	//		m_position.x = wall->getPos().x - m_width;
-	//	}
-
-	//	// bottom of predator collides with top of the wall
-	//	if (m_position.y + m_height > wall->getPos().y && m_position.y + m_height < wall->getBottom()) {
-	//		m_velocity.y = 0;
-	//		m_position.y = wall->getPos().y - m_height;
-	//	}
-	//	// top of predator collides with bottom of the wall
-	//	else if (m_position.y < wall->getRight() && m_position.y + m_height < wall->getPos().y) {
-	//		m_velocity.y = 0;
-	//		m_position.y = m_position.y + wall->getHeight();
-	//	}
-	//}
 }
 
 float Player::getHealth()

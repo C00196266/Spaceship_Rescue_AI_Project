@@ -22,6 +22,8 @@ Projectile::Projectile(sf::Vector2f pos, float rot, float mag, sf::Vector2f velo
 	m_image.setTexture(m_texture); //apply texture to image}
 	m_image.setScale(0.01f, 0.01f);
 
+	m_width = m_image.getGlobalBounds().width;
+	m_height = m_image.getGlobalBounds().height;
 }; //reset relevant vars
 
 
@@ -75,13 +77,9 @@ void Projectile::setAlive(bool alive)
 }
 
 
-sf::Vector2f Projectile::getPosition()
-{
-	return m_position;
-}
 
 //if enemies are alive, they should be doing stuff
-void Projectile::update(float i, float deltaTime)
+void Projectile::update(float deltaTime)
 {
 	//float mag = m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y;
 
@@ -146,6 +144,16 @@ bool Projectile::getAlive()
 	return m_isAlive;
 }
 
+float Projectile::getWidth()
+{
+	return m_width;
+}
+
+float Projectile::getHeight()
+{
+	return m_height;
+}
+
 float Projectile::getOrient(float orientation, sf::Vector2f velocity, sf::Vector2f target)
 {
 	float bearingRad = atan2f(target.x - m_position.x, target.y - m_position.y);
@@ -155,7 +163,10 @@ float Projectile::getOrient(float orientation, sf::Vector2f velocity, sf::Vector
 	return bearingDegrees;
 }
 
-
+sf::Vector2f Projectile::getPosition()
+{
+	return m_position;
+}
 
 void Projectile::setPosition(sf::Vector2f pos)
 {

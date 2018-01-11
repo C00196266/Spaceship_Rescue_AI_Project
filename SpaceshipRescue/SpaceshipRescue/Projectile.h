@@ -19,7 +19,7 @@ public:
 	void initialise(sf::Vector2f pos, float rot, sf::Vector2f velocity);
 
 
-	void update(float i, float deltaTime);
+	void update(float deltaTime);
 
 	sf::Time lifetime;
 	sf::Clock lifeClock;
@@ -31,6 +31,9 @@ public:
 
 	sf::Vector2f getVelocity();
 	float getOrient(float orientation, sf::Vector2f velocity, sf::Vector2f target);
+
+	float getWidth();
+	float getHeight();
 
 	void setPosition(sf::Vector2f position);
 	void setAlive(bool alive);
@@ -45,6 +48,8 @@ private:
 	sf::Sprite m_image; //Projectile sprite
 	sf::Texture m_texture;  //Projectile texture
 	int m_size;
+	float m_width;
+	float m_height;
 	sf::Vector2f m_position; //position of Projectile
 	const float m_maxHealth = 1; //max Projectile health
 	float m_health = m_maxHealth; //Projectile health

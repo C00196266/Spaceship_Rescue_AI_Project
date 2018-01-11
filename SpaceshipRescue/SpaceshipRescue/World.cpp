@@ -20,6 +20,7 @@ void World::init() {
 	
 	m_nest = new Nest(sf::Vector2f(1344, 640), m_spaceStation.getNodeLayout(), player, m_spaceStation.getWalls());
 
+
 	m_nest->init(0);
 	//seekerMissileArray[0].initialise(0);
 	//seekerMissileArray[1].initialise(0);
@@ -83,40 +84,26 @@ void World::update(float deltaTime) {
 		m_worker->update(deltaTime);
 	}
 
-	//for (auto i = m_spaceStation.getPowerUps().begin(), e = m_spaceStation.getPowerUps().end(); i != e; i++) {
-	//	if ((*i)->getAlive() == true) {
-	//		if ((*i)->getID() == "health") {
-	//			static_cast<HealthPowerUp*>(*i)->checkCollision(player);
-	//		}
-	//		else if ((*i)->getID() == "shield") {
-	//			static_cast<ShieldPowerUp*>(*i)->checkCollision(player);
-	//		}
-	//		else {
-	//			static_cast<FireRatePowerUp*>(*i)->checkCollision(player);
-	//		}
-	//	}
-	//}
-
-	for (int i = 0; i < m_spaceStation.getPowerUps().size(); i++) {
-		if (m_spaceStation.getPowerUps().at(i)->getAlive() == true) {
-			if (m_spaceStation.getPowerUps().at(i)->getID() == "health") {
-				//static_cast<HealthPowerUp*>m_spaceStation.get
-				static_cast<HealthPowerUp*>(m_spaceStation.getPowerUps().at(i))->checkCollision(player);
+	for (std::vector<PowerUp*>::iterator i = m_spaceStation.getPowerUps().begin(); i != m_spaceStation.getPowerUps().end(); i++) {
+		if ((*i)->getAlive() == true) {
+			if ((*i)->getID() == "health") {
+				static_cast<HealthPowerUp*>(*i)->checkCollision(player);
 			}
-			else if (m_spaceStation.getPowerUps().at(i)->getID() == "shield") {
-				static_cast<ShieldPowerUp*>(m_spaceStation.getPowerUps().at(i))->checkCollision(player);
+			else if ((*i)->getID() == "shield") {
+				static_cast<ShieldPowerUp*>(*i)->checkCollision(player);
 			}
 			else {
-				static_cast<FireRatePowerUp*>(m_spaceStation.getPowerUps().at(i))->checkCollision(player);
+				static_cast<FireRatePowerUp*>(*i)->checkCollision(player);
 			}
 		}
-		else {
+	}
+
+	// deletes powerups that have been collected from the vector
+	for (int i = 0; i < m_spaceStation.getPowerUps().size(); i++) {
+		if (m_spaceStation.getPowerUps().at(i)->getAlive() == false) {
 			m_spaceStation.getPowerUps().erase(m_spaceStation.getPowerUps().begin() + i);
 		}
-		//if (m_spaceStation.getPowerUps().at(i)->getAlive() == true) {
-		//	m_spaceStation.getPowerUps().at(i)->checkCollision(player);
-		//}
-	}
+	} 
 
 //$$	m_predator->update(deltaTime);
 

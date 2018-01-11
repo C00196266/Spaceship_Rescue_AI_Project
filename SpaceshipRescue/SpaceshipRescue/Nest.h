@@ -9,6 +9,7 @@ public:
 	Nest();
 	Nest(sf::Vector2f pos, NodeLayout &nodes, Player* player, std::vector<Wall*> &walls);
 
+
 	void render(sf::RenderWindow &window);
 	void init(int i);
 

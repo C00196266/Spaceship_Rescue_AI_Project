@@ -69,6 +69,8 @@ void Player::Init()
 
 	fireClock.restart();
 	fireTime = sf::Time::Zero;
+
+	m_health = m_maxHealth;
 }
 
 
@@ -76,20 +78,21 @@ void Player::Init()
 //Draw method used to draw the animated sprite and also to set the view of the render window to center on the player object.
 void Player::Draw(sf::RenderWindow &window)
 {
-
-	window.draw(m_sprite);
-
-	window.setView(m_view);
-
-	for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
+	if (m_isAlive)
 	{
-		if ((*bulletIterator)->getAlive())
+		window.draw(m_sprite);
+
+		window.setView(m_view);
+
+		for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
 		{
-			(*bulletIterator)->Draw(window);
-		//	cout << "bull update" << endl;
+			if ((*bulletIterator)->getAlive())
+			{
+				(*bulletIterator)->Draw(window);
+				//	cout << "bull update" << endl;
+			}
 		}
 	}
-
 }
 
 float Player::getFireRate()
@@ -104,126 +107,133 @@ void Player::setFireRate(float rate)
 
 void Player::update(float time)
 {
-	fireTime += fireClock.getElapsedTime();
-
-	//m_position += m_velocity;
-
-	if (fireTime.asMilliseconds() > (5000 / fireRate))
+	if (m_health <= 0)
 	{
-	//	std::cout << "bullet timeout" << endl;
-
-	//	m_isAlive = false;
-		canFire = true;
-	
+		m_isAlive = false;
 	}
-	else
+	if (m_isAlive)
 	{
-		canFire = false;
-	}
+		fireTime += fireClock.getElapsedTime();
 
+		//m_position += m_velocity;
 
-	//m_view.setCenter(m_sprite.getPosition());
-
-	m_sprite.update(sf::seconds(0.05));
-
-	m_sprite.setPosition(m_position);
-
-	// check collisions with wall
-	auto iter = m_walls.begin();
-	auto endIter = m_walls.end();
-
-	for (; iter != endIter; iter++) {
-		checkCollisions((*iter), time);
-	}
-
-
-	m_velocity.x = sin((3.14 / 180)*angle) * speed;// * t.asSeconds();
-
-
-	m_velocity.y = cos((3.14 / 180)*angle)* speed; //* t.asSeconds();
-
-	if (speed < 0.2f)
-	{
-		speed = 0.2f;
-	}
-
-
-	m_position = m_position + m_velocity;
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
-	{
-		if (speed < maxSpeed)
+		if (fireTime.asMilliseconds() > (5000 / fireRate))
 		{
-			speed += 1;
+			//	std::cout << "bullet timeout" << endl;
+
+			//	m_isAlive = false;
+			canFire = true;
+
 		}
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-	{
-		if (speed > minSpeed)
+		else
 		{
-			speed -= 0.1;
+			canFire = false;
 		}
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
-	{
-		angle += 5;
-		m_sprite.rotate(-5);
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-	{
-		angle -= 5;
-		m_sprite.rotate(5);
-	}
 
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
-	{
-		if (canFire == true)
-		{
-			
-			float mag = m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y;
+		//m_view.setCenter(m_sprite.getPosition());
 
-			mag = sqrt(mag); //length of vector
+		m_sprite.update(sf::seconds(0.05));
 
-			bulletVector.push_back(new Projectile(m_position, m_sprite.getRotation(), mag, m_velocity));
-		//	bulletVector.front()->initialise(m_position, angle, m_velocity);
+		m_sprite.setPosition(m_position);
 
-			std::cout << "bang" << endl;
+		// check collisions with wall
+		auto iter = m_walls.begin();
+		auto endIter = m_walls.end();
 
-			fireClock.restart();
-			fireTime = sf::Time::Zero;
+		for (; iter != endIter; iter++) {
+			checkCollisions((*iter), time);
 		}
-	}
 
 
-	if (angle > 360)
-	{
-		angle -= 360;
-	}
-	if (angle < -360)
-	{
-		angle += 360;
-	}
+		m_velocity.x = sin((3.14 / 180)*angle) * speed;// * t.asSeconds();
 
 
+		m_velocity.y = cos((3.14 / 180)*angle)* speed; //* t.asSeconds();
 
-	m_sprite.setPosition(m_position); //set position of sprite
-
-									  //if (m_position.x > 0 && m_position.x < 1000) {
-	m_view.setCenter(m_position);
-	//}
-
-	int count = 0;
-
-	for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
-	{
-		if ((*bulletIterator)->getAlive())
+		if (speed < 0.2f)
 		{
-			(*bulletIterator)->update(0, time);
-		//	cout << "bull update" << endl;
+			speed = 0.2f;
+		}
+
+
+		m_position = m_position + m_velocity;
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+		{
+			if (speed < maxSpeed)
+			{
+				speed += 1;
+			}
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+		{
+			if (speed > minSpeed)
+			{
+				speed -= 0.1;
+			}
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+		{
+			angle += 5;
+			m_sprite.rotate(-5);
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+		{
+			angle -= 5;
+			m_sprite.rotate(5);
+		}
+
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+		{
+			if (canFire == true)
+			{
+
+				float mag = m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y;
+
+				mag = sqrt(mag); //length of vector
+
+				bulletVector.push_back(new Projectile(m_position, m_sprite.getRotation(), mag, m_velocity));
+				//	bulletVector.front()->initialise(m_position, angle, m_velocity);
+
+				std::cout << "bang" << endl;
+
+				fireClock.restart();
+				fireTime = sf::Time::Zero;
+			}
+		}
+
+
+		if (angle > 360)
+		{
+			angle -= 360;
+		}
+		if (angle < -360)
+		{
+			angle += 360;
+		}
+
+
+
+		m_sprite.setPosition(m_position); //set position of sprite
+
+										  //if (m_position.x > 0 && m_position.x < 1000) {
+		m_view.setCenter(m_position);
+		//}
+
+		int count = 0;
+
+		for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
+		{
+			if ((*bulletIterator)->getAlive())
+			{
+				(*bulletIterator)->update(0, time);
+				//	cout << "bull update" << endl;
+			}
 		}
 	}
 }

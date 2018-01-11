@@ -122,7 +122,7 @@ void Nest::update(float deltaTime, Player* player)
 			if (seekerMissileIterator->getAlive())
 			{
 
-				seekerMissileIterator->update(count, (*player).getPosition(), deltaTime);
+				seekerMissileIterator->update(count, player, deltaTime);
 
 			}
 			else

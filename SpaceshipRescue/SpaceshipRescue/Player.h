@@ -32,7 +32,7 @@ private:
 	float angle;
 	int m_size;
 	sf::Vector2f m_position; //position of Player
-	const float m_maxHealth = 1; //max Player health
+	const float m_maxHealth = 4; //max Player health
 	float m_health = m_maxHealth; //Player health
 	bool m_isAlive = false; //is Player alive
 	std::vector<sf::Vector2f> m_waypoint; //vector of vector2s that hold the waypoints set for the Player

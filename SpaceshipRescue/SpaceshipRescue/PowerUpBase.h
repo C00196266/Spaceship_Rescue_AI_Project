@@ -9,7 +9,7 @@ public:
 
 	void render(sf::RenderWindow &window);
 
-	void checkCollision(Player &player);
+	void checkCollision(Player &player) {}
 
 	std::string getID();
 	bool getAlive();

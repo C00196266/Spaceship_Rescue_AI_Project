@@ -74,8 +74,42 @@ void World::update(float deltaTime) {
 		m_worker->update(deltaTime);
 	}
 
-
 	m_nest.update(deltaTime, player);
+
+	//for (auto i = m_spaceStation.getPowerUps().begin(), e = m_spaceStation.getPowerUps().end(); i != e; i++) {
+	//	if ((*i)->getAlive() == true) {
+	//		if ((*i)->getID() == "health") {
+	//			static_cast<HealthPowerUp*>(*i)->checkCollision(player);
+	//		}
+	//		else if ((*i)->getID() == "shield") {
+	//			static_cast<ShieldPowerUp*>(*i)->checkCollision(player);
+	//		}
+	//		else {
+	//			static_cast<FireRatePowerUp*>(*i)->checkCollision(player);
+	//		}
+	//	}
+	//}
+
+	for (int i = 0; i < m_spaceStation.getPowerUps().size(); i++) {
+		if (m_spaceStation.getPowerUps().at(i)->getAlive() == true) {
+			if (m_spaceStation.getPowerUps().at(i)->getID() == "health") {
+				//static_cast<HealthPowerUp*>m_spaceStation.get
+				static_cast<HealthPowerUp*>(m_spaceStation.getPowerUps().at(i))->checkCollision(player);
+			}
+			else if (m_spaceStation.getPowerUps().at(i)->getID() == "shield") {
+				static_cast<ShieldPowerUp*>(m_spaceStation.getPowerUps().at(i))->checkCollision(player);
+			}
+			else {
+				static_cast<FireRatePowerUp*>(m_spaceStation.getPowerUps().at(i))->checkCollision(player);
+			}
+		}
+		else {
+			m_spaceStation.getPowerUps().erase(m_spaceStation.getPowerUps().begin() + i);
+		}
+		//if (m_spaceStation.getPowerUps().at(i)->getAlive() == true) {
+		//	m_spaceStation.getPowerUps().at(i)->checkCollision(player);
+		//}
+	}
 	//int count = 0;
 
 	//for (seekerMissileIterator = seekerMissileVector.begin(); seekerMissileIterator != seekerMissileVector.end(); seekerMissileIterator++)

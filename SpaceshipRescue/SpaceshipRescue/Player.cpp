@@ -262,3 +262,8 @@ void Player::setVelocity(sf::Vector2f velocity)
 {
 	m_velocity = velocity;
 }
+
+sf::FloatRect Player::getRect()
+{
+	return m_sprite.getGlobalBounds();
+}

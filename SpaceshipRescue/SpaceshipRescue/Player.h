@@ -70,7 +70,7 @@ public:
 	void setHealth(float healthChange);
 	void setVelocity(sf::Vector2f velocity);
 
-
+	sf::FloatRect getRect();
 
 };
 

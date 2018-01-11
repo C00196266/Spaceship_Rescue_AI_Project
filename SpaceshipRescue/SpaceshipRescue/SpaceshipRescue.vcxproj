@@ -131,7 +131,9 @@
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="HealthPowerUp.cpp" />
     <ClCompile Include="Nest.cpp" />
+    <ClCompile Include="PowerUpBase.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="SeekerMissile.cpp" />
     <ClCompile Include="Arc.cpp" />
@@ -152,7 +154,10 @@
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.hpp" />
     <ClInclude Include="Animation.hpp" />
+    <ClInclude Include="FireRatePowerUp.h" />
+    <ClInclude Include="HealthPowerUp.h" />
     <ClInclude Include="Nest.h" />
+    <ClInclude Include="PowerUpBase.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="SeekerMissile.h" />
     <ClInclude Include="Arc.h" />
@@ -163,6 +168,7 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PredatorShip.h" />
+    <ClInclude Include="ShieldPowerUp.h" />
     <ClInclude Include="SpaceStation.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tile.h" />

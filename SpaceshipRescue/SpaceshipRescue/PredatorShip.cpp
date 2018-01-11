@@ -22,7 +22,7 @@ PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, Player** player,
 
 	m_fireClock.restart();
 	m_fireTime = sf::Time::Zero;
-	m_fireRange = 600;
+	m_fireRange = 250;
 }
 
 void PredatorShip::render(sf::RenderWindow &window) {
@@ -35,8 +35,6 @@ void PredatorShip::render(sf::RenderWindow &window) {
 
 void PredatorShip::update(float deltaTime) {
 	setupPath();
-
-	//m_playerPos = sf::Vector2f(m_playerRect.left, m_playerRect.top);
 
 	// chooses whether to seek towards player or next node
 	chooseTarget(deltaTime);
@@ -51,11 +49,8 @@ void PredatorShip::update(float deltaTime) {
 	m_nextPosY.y += m_vel.y;
 
 	// check collisions with wall
-	auto iter = m_walls.begin();
-	auto endIter = m_walls.end();
-	
-	for (; iter != endIter; iter++) {
-		checkCollisions((*iter), deltaTime);
+	for (std::vector<Wall*>::iterator i = m_walls.begin(); i != m_walls.end(); i++) {
+		checkWallCollisions((*i), deltaTime);
 	}
 
 	m_pos.x = m_nextPosX.x;
@@ -73,6 +68,7 @@ void PredatorShip::update(float deltaTime) {
 
 	for (std::vector<Projectile*>::iterator i = m_bullets.begin(); i != m_bullets.end(); i++) {
 		if ((*i)->getAlive() == true) {
+			checkBulletCollision((*i));
 			(*i)->update(deltaTime);
 		}
 	}
@@ -185,24 +181,24 @@ void PredatorShip::setupPath() {
 void PredatorShip::fireBullet() {
 	m_fireTime += m_fireClock.getElapsedTime();
 
-	if (m_fireTime.asMilliseconds() > 6000) {
-		m_bullets.push_back(new Projectile(sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2) + 2), m_orientation, calculateMagnitude(m_vel), m_vel));
+	// if the player is within firing range
+	if (m_distToPlayer < m_fireRange) {
+		// if the player is within a certain angle in front of the player
+		m_angleToPlayer = (atan2((*m_player)->getPosition().y - m_pos.y, (*m_player)->getPosition().x - m_pos.x) * 180 / 3.14) + 90;
+		
+		if (m_angleToPlayer > m_orientation - 15 && m_angleToPlayer < m_orientation + 15) {
+			// fire rate
+			if (m_fireTime.asMilliseconds() > 7000) {
+				m_bullets.push_back(new Projectile(sf::Vector2f(m_pos.x + (m_width / 2) + 2, m_pos.y + (m_height / 2) + 2), m_orientation, calculateMagnitude(m_vel), m_vel));
 
-		m_fireClock.restart();
-		m_fireTime = sf::Time::Zero;
+				m_fireClock.restart();
+				m_fireTime = sf::Time::Zero;
+			}
+		}
 	}
-
-	//if (m_fireTime.asMilliseconds() > 6000) {
-	//	m_canFire = true;
-	//}
-	//else {
-	//	if (m_canFire != false) {
-	//		m_canFire = false;
-	//	}
-	//}
 }
 
-void PredatorShip::checkCollisions(Wall* wall, float deltaTime) {
+void PredatorShip::checkWallCollisions(Wall* wall, float deltaTime) {
 	// checks for intersection along x between the predator and the wall
 	if (m_nextPosX.x < wall->getRight()
 		&& m_nextPosX.x + m_width > wall->getPos().x
@@ -237,6 +233,16 @@ void PredatorShip::checkCollisions(Wall* wall, float deltaTime) {
 			m_vel.y = 0;
 			m_nextPosY.y = wall->getPos().y + wall->getHeight();
 		}
+	}
+}
+
+void PredatorShip::checkBulletCollision(Projectile* p) {
+	if (p->getPosition().x < (*m_player)->getPosition().x + (*m_player)->getRect().width
+		&& p->getPosition().x + p->getWidth() > (*m_player)->getPosition().x
+		&& p->getPosition().y < (*m_player)->getPosition().y + (*m_player)->getRect().height
+		&& p->getPosition().y + p->getHeight() > (*m_player)->getPosition().y) 
+	{
+		p->setAlive(false);
 	}
 }
 

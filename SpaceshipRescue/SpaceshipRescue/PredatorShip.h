@@ -17,7 +17,8 @@ public:
 	void update(float deltaTime);
 	void chooseTarget(float deltaTime);
 	void seek(float deltaTime, sf::Vector2f v, float dist, bool seekingPlayer);
-	void checkCollisions(Wall* wall, float deltaTime);
+	void checkWallCollisions(Wall* wall, float deltaTime);
+	void checkBulletCollision(Projectile* p);
 	void setupPath();
 	void fireBullet();
 
@@ -43,13 +44,11 @@ private:
 	float m_distToPlayer;
 
 	float m_orientation;
-
-	//sf::Vector2f m_playerPos;
+	float m_angleToPlayer;
 
 	sf::Image m_image;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
-	//sf::FloatRect& m_playerRect;
 	Player** m_player;
 	float m_maxSpeed;
 

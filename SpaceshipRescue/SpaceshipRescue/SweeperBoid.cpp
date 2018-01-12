@@ -87,21 +87,22 @@ void SweeperBoid::update(float deltaTime)
 
 void SweeperBoid::chooseBehaviour() {
 	// if any workers are in sight, it will swap to abducting behaviour
-	if (m_behaviour != ABDUCT && m_behaviour != FLEE)
-	for (int i = 0; i < m_workers.size(); i++) {
-		if (calculateMagnitude(m_workers.at(i)->getCenter()) < 150) {
-			float angle = (atan2(m_workers.at(i)->getCenter().y - m_pos.y, m_workers.at(i)->getCenter().x - m_pos.x) * 180 / 3.14) + 90;
+	if (m_behaviour != ABDUCT && m_behaviour != FLEE) {
+		for (int i = 0; i < m_workers.size(); i++) {
+			if (calculateMagnitude(m_workers.at(i)->getCenter(), m_pos) < 150) {
+				float angle = (atan2(m_workers.at(i)->getCenter().y - m_pos.y, m_workers.at(i)->getCenter().x - m_pos.x) * 180 / 3.14) + 90;
 
-			if (angle > m_orientation - 22.5 && angle < m_orientation + 22.5) {
-				m_behaviour = ABDUCT;
-				break;
+				if (angle > m_orientation - 22.5 && angle < m_orientation + 22.5) {
+					m_behaviour = ABDUCT;
+					break;
+				}
 			}
 		}
 	}
 
 	// fleeing behaviour takes precedance if player is in sight
 	if (m_behaviour != FLEE) {
-		if (calculateMagnitude(m_player->getPosition()) < 200) {
+		if (calculateMagnitude(m_player->getPosition(), m_pos) < 150) {
 			float angle = (atan2(m_player->getPosition().y - m_pos.y, m_player->getPosition().x - m_pos.x) * 180 / 3.14) + 90;
 
 			if (angle > m_orientation - 22.5 && angle < m_orientation + 22.5) {

@@ -1,7 +1,7 @@
 #include "SweeperBoid.h"
 
 SweeperBoid::SweeperBoid(NodeLayout &nodes, Player* player, std::vector<Wall*> &walls, std::vector<Worker*> &workers, int pathNo) : m_nodeLayout(nodes), m_player(player), m_walls(walls), m_workers(workers) {
-	m_maxSpeed = 12.0f;
+	m_maxSpeed = 3;
 
 	m_astar = new AStar(nodes);
 
@@ -25,6 +25,8 @@ SweeperBoid::SweeperBoid(NodeLayout &nodes, Player* player, std::vector<Wall*> &
 
 	m_width = m_texture.getSize().x;
 	m_height = m_texture.getSize().y;
+
+	m_currentPatrolNode = 0;
 }
 
 void SweeperBoid::render(sf::RenderWindow &window) {
@@ -38,6 +40,7 @@ void SweeperBoid::update(float deltaTime)
 
 	// chooses whether to seek towards worker or next node
 	//chooseTarget(deltaTime);
+	patrol(deltaTime);
 
 	// checks if the velocity is greater than its max velocity
 	if (calculateMagnitude(m_vel) > m_maxSpeed) {
@@ -186,6 +189,43 @@ void SweeperBoid::setupPatrol(int pathNo) {
 		// faces next node in path
 		m_orientation = 90;
 	}
+}
+
+void SweeperBoid::patrol(float deltaTime) {
+	float targetSpeed = 0;
+	sf::Vector2f v = m_patrolPath.at(m_currentPatrolNode)->getPos() - m_pos;
+	m_distToNode = calculateMagnitude(v);
+
+	if (m_distToNode < 65) {
+		// change to seek to next node upon reaching current node
+		if (m_currentPatrolNode < m_patrolPath.size() - 1) {
+			m_currentPatrolNode++;
+		}
+		else {
+			m_currentPatrolNode = 0;
+		}
+
+		v = m_patrolPath.at(m_currentPatrolNode)->getPos() - m_pos;
+	}
+	else if (m_distToNode > 200) {
+		targetSpeed = m_maxSpeed;
+	}
+	else {
+		targetSpeed = m_maxSpeed * (m_distToNode / 200);
+	}
+
+	normalise(v);
+	v *= targetSpeed;
+
+	float timeToTarget = 4;
+
+	m_accel = v - (m_vel / timeToTarget);
+
+	if (calculateMagnitude(m_accel) > m_maxAccel) {
+		normalise(m_accel);
+	}
+
+	m_vel += m_accel * deltaTime;
 }
 
 void SweeperBoid::checkWallCollisions(Wall* wall, float deltaTime) {

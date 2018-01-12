@@ -19,7 +19,7 @@ public:
 	void checkWallCollisions(Wall* wall, float deltaTime);
 	//void checkBulletCollision(Projectile* p);
 	void setupPatrol(int pathNo);
-	void patrol();
+	void patrol(float deltaTime);
 
 	void normalise(sf::Vector2f &v);
 	float calculateMagnitude(sf::Vector2f v);
@@ -53,7 +53,10 @@ private:
 	std::vector<Worker*>& m_workers;
 
 	NodeLayout& m_nodeLayout;
+
 	std::vector<Node*> m_patrolPath;
+	int m_currentPatrolNode;
+	float m_distToNode;
 
 	AStar* m_astar;
 };

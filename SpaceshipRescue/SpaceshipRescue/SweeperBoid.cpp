@@ -49,14 +49,15 @@ void SweeperBoid::update(float deltaTime)
 			chooseTarget();
 		}
 		else {
+			setupSeekPath();
 			abduct(deltaTime);
 		}
 	}
 	else if (m_behaviour == RETURN) {
-		// astar
+		returnToPatrol(deltaTime);
 	}
 	else {
-		// flee
+		flee(deltaTime);
 	}
 
 	// checks if the velocity is greater than its max velocity
@@ -125,48 +126,84 @@ void SweeperBoid::chooseTarget() {
 			if (angle > m_orientation - 22.5 && angle < m_orientation + 22.5) {
 				// if closest
 				if (dist < closestDistWorker) {
-					closestDistWorker = dist;
-					m_targetIndex = i;
-					m_targetChosen = true;
+					// if not already abducted
+					if (m_workers.at(i)->getAbducted() == false) {
+						closestDistWorker = dist;
+						m_targetIndex = i;
+						m_targetChosen = true;
+					}
 				}
 			}
 		}
 	}
 }
 
-void SweeperBoid::abduct(float deltaTime) {
-	// seeks to target worker
-	// if collides with target worker, abduct them and set behaviour to return
+void SweeperBoid::setupSeekPath() {
+	int indexClosestToWorker;
+	int indexClosestToSweeper;
 
-	// directional vector to player
-	//sf::Vector2f vecToPlayer = (m_player)->getPosition() - m_pos;
-	//m_distToPlayer = calculateMagnitude(vecToPlayer);
-	//
+	float closestDistWorker = 99999;
+	float closestDistSweeper = 99999;
+
+	for (int i = 0; i < m_nodeLayout.getNoOfNodes() - 1; i++) {
+		float distWorker = calculateMagnitude(m_nodeLayout.getNodes()[i]->getPos(), m_workers.at(m_targetIndex)->getPos());
+
+		if (distWorker < closestDistWorker) {
+			closestDistWorker = distWorker;
+			indexClosestToWorker = i;
+		}
+
+		float distSweeper = calculateMagnitude(m_nodeLayout.getNodes()[i]->getPos(), m_pos);
+
+		if (distSweeper < closestDistSweeper) {
+			closestDistSweeper = distSweeper;
+			indexClosestToSweeper = i;
+		}
+	}
+
+	if (!m_seekPath.empty()) {
+		// if the node that is closest (the destination) to the player has changed
+		if (m_nodeLayout.getNodes()[indexClosestToWorker] != m_seekPath.at(m_seekPath.size() - 1)) {
+			m_seekPath.clear();
+			m_astar->calculatePath(m_nodeLayout.getNodes()[indexClosestToWorker], m_nodeLayout.getNodes()[indexClosestToSweeper], m_seekPath);
+		}
+	}
+	else {
+		// create initial path
+		m_astar->calculatePath(m_nodeLayout.getNodes()[indexClosestToWorker], m_nodeLayout.getNodes()[indexClosestToSweeper], m_seekPath);
+	}
+}
+
+void SweeperBoid::abduct(float deltaTime) {
+	// directional vector to worker
+	sf::Vector2f vecToWorker = m_workers.at(m_targetIndex)->getPos() - m_pos;
+	m_distToWorker = calculateMagnitude(vecToWorker);
+	
 	//// if there are nodes to seek to
-	//if (!m_path.empty()) {
-	//	// directional vector to next node
-	//	sf::Vector2f vecToNextPoint = m_path.at(0)->getPos() - m_pos;
-	//
-	//	// distance to next node
-	//	m_distToNextPoint = calculateMagnitude(vecToNextPoint);
-	//
-	//	// if the next node is closer than the player
-	//	if (m_distToNextPoint < m_distToPlayer) {
-	//		seek(deltaTime, vecToNextPoint, m_distToNextPoint, false);
-	//
-	//		if (m_distToNextPoint < 80) {
-	//			m_path.erase(m_path.begin());
-	//		}
-	//	}
-	//	// if the player is closer than the next node
-	//	else {
-	//		seek(deltaTime, vecToPlayer, m_distToPlayer, true);
-	//	}
-	//}
-	//// if there aren't nodes to seek to
-	//else {
-	//	seek(deltaTime, vecToPlayer, m_distToPlayer, true);
-	//}
+	if (!m_seekPath.empty()) {
+		// directional vector to next node
+		sf::Vector2f vecToNextPoint = m_seekPath.at(0)->getPos() - m_pos;
+	
+		// distance to next node
+		m_distToSeekNode = calculateMagnitude(vecToNextPoint);
+	
+		// if the next node is closer than the worker
+		if (m_distToSeekNode < m_distToWorker) {
+			seek(deltaTime, vecToNextPoint, m_distToSeekNode, false);
+	
+			if (m_distToSeekNode < 70) {
+				m_seekPath.erase(m_seekPath.begin());
+			}
+		}
+		// if the worker is closer than the next node
+		else {
+			seek(deltaTime, vecToWorker, m_distToWorker, true);
+		}
+	}
+	// if there aren't nodes to seek to
+	else {
+		seek(deltaTime, vecToWorker, m_distToWorker, true);
+	}
 }
 
 void SweeperBoid::returnToPatrol(float deltaTime) {
@@ -184,6 +221,11 @@ void SweeperBoid::seek(float deltaTime, sf::Vector2f v, float dist, bool seeking
 	float targetSpeed;
 
 	if (seekingWorker == false) {
+		if (m_workers.at(m_targetIndex)->getAbducted() == true) {
+			// if someone else catches their target
+			m_behaviour = RETURN;
+		}
+
 		if (dist < 70) {
 			targetSpeed = 0;
 		}
@@ -192,6 +234,13 @@ void SweeperBoid::seek(float deltaTime, sf::Vector2f v, float dist, bool seeking
 		}
 		else {
 			targetSpeed = m_maxSpeed * (dist / 200);
+		}
+	}
+	else {
+		if (dist < 30) {
+			// abducts player and returns to patrol
+			m_workers.at(m_targetIndex)->setAbducted(true);
+			m_behaviour = RETURN;
 		}
 	}
 

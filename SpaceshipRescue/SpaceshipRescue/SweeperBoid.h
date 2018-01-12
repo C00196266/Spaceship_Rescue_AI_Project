@@ -21,6 +21,7 @@ public:
 	//void checkBulletCollision(Projectile* p);
 	void setupPatrol(int pathNo);
 	void patrol(float deltaTime);
+	void setupSeekPath();
 	void abduct(float deltaTime);
 	void returnToPatrol(float deltaTime);
 	void flee(float deltaTime);
@@ -54,9 +55,6 @@ private:
 
 	Player* m_player;
 
-	bool m_targetChosen;
-	int m_targetIndex;
-
 	bool m_fleeing;
 
 	std::vector<Wall*>& m_walls;
@@ -69,6 +67,11 @@ private:
 	float m_distToNode;
 
 	std::vector<Node*> m_seekPath;
+	bool m_targetChosen;
+	int m_targetIndex;
+	float m_distToWorker;
+	float m_distToSeekNode;
+
 	std::vector<Node*> m_returnPath;
 	std::vector<Node*> m_fleePath;
 

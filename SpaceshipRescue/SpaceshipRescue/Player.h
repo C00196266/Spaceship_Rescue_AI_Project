@@ -25,7 +25,8 @@ private:
 
 	sf::Sprite radarSprite;
 	sf::Texture radarTexture;
-
+	sf::Vector2f m_nextPosX;
+	sf::Vector2f m_nextPosY;
 	std::vector<Wall*>& m_walls;
 	std::vector<Wall*> m_closestWalls;
 	sf::Vector2f maxVelo;
@@ -57,8 +58,8 @@ private:
 
 	std::vector<Projectile*>::iterator bulletIterator;
 
-	float m_width = m_texture.getSize().x;
-	float m_height = m_texture.getSize().y;
+	float m_width = 48;
+	float m_height = 47;
 public:
 	Player(std::vector<Wall*> &walls);
 	~Player();

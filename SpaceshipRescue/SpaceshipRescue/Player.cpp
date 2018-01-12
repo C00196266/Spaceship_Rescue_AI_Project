@@ -193,14 +193,14 @@ void Player::update(float time)
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
 		{
-			angle += 5;
-			m_sprite.rotate(-5);
+			angle += 8;
+			m_sprite.rotate(-8);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
 		{
-			angle -= 5;
-			m_sprite.rotate(5);
+			angle -= 8;
+			m_sprite.rotate(8);
 		}
 
 
@@ -263,7 +263,7 @@ void Player::checkCollisions(Wall* wall, float deltaTime) {
 
 	if (m_sprite.getGlobalBounds().intersects(wall->getSprite().getGlobalBounds()))
 	{
-		m_position -= m_velocity;
+		m_position -= m_velocity * 1.1f;
 
 	//	cout << "intersect" << endl;
 

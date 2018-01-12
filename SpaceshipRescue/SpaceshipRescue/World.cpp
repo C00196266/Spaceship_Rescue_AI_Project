@@ -132,6 +132,4 @@ void World::update(float deltaTime) {
 	//	}
 	//	count++; //compromised by isalive atm
 	//}
-
-	player->update(deltaTime);
 }

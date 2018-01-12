@@ -21,6 +21,11 @@ Worker::Worker(sf::Vector2f pos, NodeLayout &nodes, std::vector<Wall*> &walls) :
 
 	m_abducted = false;
 	m_rescued = false;
+
+	m_radarTexture.loadFromFile("assets/default.png");
+	m_radarSprite.setTexture(m_radarTexture);
+	m_radarSprite.setOrigin(m_radarTexture.getSize().x / 2.0f, m_radarTexture.getSize().y / 2.0f);
+	m_radarSprite.setScale(0.2f, 0.2f);
 }
 
 void Worker::render(sf::RenderWindow &window) {
@@ -32,6 +37,18 @@ void Worker::render(sf::RenderWindow &window) {
 		window.draw(m_sprite);
 	}
 }
+
+
+void Worker::renderRadar(sf::RenderWindow &window) {
+	/********************************************//**
+												  *  ...  renders the worker in the game world
+												  ***********************************************/
+	if (m_rescued != true && m_abducted != true)
+	{
+		window.draw(m_radarSprite);
+	}
+}
+
 
 void Worker::update(float deltaTime) {
 	/********************************************//**

@@ -30,8 +30,10 @@ public:
 
 	sf::Vector2f getPos();
 	sf::Vector2f getCenter();
-
+	void renderRadar(sf::RenderWindow &window);
 private:
+	sf::Sprite m_radarSprite;
+	sf::Texture m_radarTexture;
 	sf::Vector2f m_pos;
 	sf::Vector2f m_nextPosX;
 	sf::Vector2f m_nextPosY;

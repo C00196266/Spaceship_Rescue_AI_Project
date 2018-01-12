@@ -82,6 +82,10 @@ void World::render(sf::RenderWindow &window)
 
 	player->DrawRadar(window);
 
+	for (int i = 0; i < m_workers.size(); i++) {
+		m_workers.at(i)->renderRadar(window);
+	}
+
 
 }
 
@@ -154,6 +158,13 @@ void World::update(float deltaTime) {
 
 	text.setString("Health: " + std::to_string(temp) + "      " + "Saved: " + std::to_string(activeSweeps) + "      " + "unsaved: " + std::to_string(atRisk - activeSweeps));
 
+	if (atRisk - activeSweeps == 0)
+	{
+		text.setCharacterSize(24);
+		text.setPosition(player->getPosition());
+
+		text.setString("VICTORY");
+	}
 
 	text.setPosition(player->getPosition() - sf::Vector2f(160, 100));
 }

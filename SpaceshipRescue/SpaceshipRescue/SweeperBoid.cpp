@@ -142,7 +142,7 @@ void SweeperBoid::chooseTarget() {
 				// if closest
 				if (dist < closestDistWorker) {
 					// if not already abducted
-					if (m_workers.at(i)->getAbducted() == false) {
+					if (m_workers.at(i)->getAbducted() == false && m_workers.at(i)->getRescued() == false) {
 						closestDistWorker = dist;
 						m_targetIndex = i;
 						m_targetChosen = true;

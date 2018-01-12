@@ -7,7 +7,7 @@
 \item 
 \mbox{\hyperlink{class_player_a749d2c00e1fe0f5c2746f7505a58c062}{$\sim$\+Player}} ()
 \item 
-void \mbox{\hyperlink{class_player_a4523bf2e637fcb0e36a3f456ec397e7d}{Init}} ()
+void \mbox{\hyperlink{class_player_adc476f05d1e17ce5f8aaa8a60432b3d4}{Init}} (std\+::vector$<$ \mbox{\hyperlink{class_worker}{Worker}} $\ast$$>$ workers)
 \item 
 void \mbox{\hyperlink{class_player_a6a0b48c845f9c341283b5fc5a7898f9b}{Draw}} (sf\+::\+Render\+Window \&window)
 \item 
@@ -87,7 +87,7 @@ void {\bfseries set\+Shieled} (bool shielded)
 {\footnotesize\ttfamily void Player\+::check\+Collisions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_wall}{Wall}} $\ast$}]{wall,  }\item[{float}]{delta\+Time }\end{DoxyParamCaption})}
 
 ~\newline
-... checks for intersection between the player and the wall and handles collision\mbox{\Hypertarget{class_player_a6a0b48c845f9c341283b5fc5a7898f9b}\label{class_player_a6a0b48c845f9c341283b5fc5a7898f9b}} 
+... checks for intersection between the player and the wall/workers and handles collision\mbox{\Hypertarget{class_player_a6a0b48c845f9c341283b5fc5a7898f9b}\label{class_player_a6a0b48c845f9c341283b5fc5a7898f9b}} 
 \index{Player@{Player}!Draw@{Draw}}
 \index{Draw@{Draw}!Player@{Player}}
 \subsubsection{\texorpdfstring{Draw()}{Draw()}}
@@ -100,11 +100,11 @@ void {\bfseries set\+Shieled} (bool shielded)
 \subsubsection{\texorpdfstring{Draw\+Radar()}{DrawRadar()}}
 {\footnotesize\ttfamily void Player\+::\+Draw\+Radar (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
 
-... Draws radar blip of player on minimap\mbox{\Hypertarget{class_player_a4523bf2e637fcb0e36a3f456ec397e7d}\label{class_player_a4523bf2e637fcb0e36a3f456ec397e7d}} 
+... Draws radar blip of player on minimap\mbox{\Hypertarget{class_player_adc476f05d1e17ce5f8aaa8a60432b3d4}\label{class_player_adc476f05d1e17ce5f8aaa8a60432b3d4}} 
 \index{Player@{Player}!Init@{Init}}
 \index{Init@{Init}!Player@{Player}}
 \subsubsection{\texorpdfstring{Init()}{Init()}}
-{\footnotesize\ttfamily void Player\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Player\+::\+Init (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{class_worker}{Worker}} $\ast$$>$}]{workers }\end{DoxyParamCaption})}
 
 ... Initialiser for player variables\mbox{\Hypertarget{class_player_a194b7082791d882887071d8d2893c5e4}\label{class_player_a194b7082791d882887071d8d2893c5e4}} 
 \index{Player@{Player}!update@{update}}

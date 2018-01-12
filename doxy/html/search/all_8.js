@@ -5,5 +5,5 @@ var searchData=
   ['nodelayout',['NodeLayout',['../class_node_layout.html',1,'']]],
   ['nodesearchcostcomparerastar',['NodeSearchCostComparerAStar',['../class_node_search_cost_comparer_a_star.html',1,'']]],
   ['nodesearchcostcomparerucs',['NodeSearchCostComparerUCS',['../class_node_search_cost_comparer_u_c_s.html',1,'']]],
-  ['normalise',['normalise',['../class_predator_ship.html#ad240f08c5f508a3447452d665080cf73',1,'PredatorShip']]]
+  ['normalise',['normalise',['../class_predator_ship.html#ad240f08c5f508a3447452d665080cf73',1,'PredatorShip::normalise()'],['../class_worker.html#ae9b32488617a0086772afd11529e3014',1,'Worker::normalise()']]]
 ];

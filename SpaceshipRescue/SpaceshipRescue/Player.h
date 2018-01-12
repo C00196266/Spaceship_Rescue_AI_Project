@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "Wall.h"
+#include "Worker.h"
 #include "Projectile.h"
 //Class definition for the Player game object
 class Player {
@@ -22,7 +23,7 @@ private:
 	sf::Texture radarTexture;
 	sf::Sprite m_shieldSprite;
 	sf::Texture m_shieldTexture;
-
+	std::vector<Worker*> m_workers;
 	std::vector<Wall*>& m_walls;
 	int minSpeed;
 	int maxSpeed;
@@ -51,7 +52,7 @@ public:
 	~Player();
 
 
-	void Init();
+	void Init(std::vector<Worker*> workers);
 	void Draw(sf::RenderWindow &window);
 	float getFireRate();
 

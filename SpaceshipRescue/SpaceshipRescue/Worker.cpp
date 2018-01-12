@@ -24,49 +24,72 @@ Worker::Worker(sf::Vector2f pos, NodeLayout &nodes, std::vector<Wall*> &walls) :
 }
 
 void Worker::render(sf::RenderWindow &window) {
-	window.draw(m_sprite);
+	/********************************************//**
+*  ...  renders the worker in the game world
+	***********************************************/
+	if (m_rescued != true && m_abducted != true)
+	{
+		window.draw(m_sprite);
+	}
 }
 
 void Worker::update(float deltaTime) {
+	/********************************************//**
+  *  ...  updates workers who havent been abducted or rescued
+ ***********************************************/
 	// set up new path for worker
-	if (m_path.empty()) {
-		setupPath();
+	if (m_rescued != true)
+	{
+		if (m_path.empty()) {
+			setupPath();
+		}
+		// seek to next node in path
+		else {
+			seek(deltaTime, m_path.at(0)->getPos() - m_pos);
+		}
+
+		// checks if the velocity is greater than its max velocity
+		if (calculateMagnitude(m_vel) > m_maxSpeed) {
+			normalise(m_vel);
+			m_vel *= m_maxSpeed;
+		}
+
+		m_nextPosX.x += m_vel.x;
+		m_nextPosY.y += m_vel.y;
+
+		// check collisions with wall
+		auto iter = m_walls.begin();
+		auto endIter = m_walls.end();
+
+		for (; iter != endIter; iter++) {
+			checkCollisions((*iter), deltaTime);
+		}
+
+		m_pos.x = m_nextPosX.x;
+		m_pos.y = m_nextPosY.y;
+
+		m_nextPosX.y = m_pos.y;
+		m_nextPosY.x = m_pos.x;
+
+		m_sprite.setPosition(m_pos.x + m_width / 2, m_pos.y + m_height / 2);
+
+		m_orientation = (atan2(m_vel.x, -m_vel.y) * 180 / 3.14159265);
+		m_sprite.setRotation(m_orientation);
 	}
-	// seek to next node in path
-	else {
-		seek(deltaTime, m_path.at(0)->getPos() - m_pos);
-	}
+}
 
-	// checks if the velocity is greater than its max velocity
-	if (calculateMagnitude(m_vel) > m_maxSpeed) {
-		normalise(m_vel);
-		m_vel *= m_maxSpeed;
-	}
 
-	m_nextPosX.x += m_vel.x;
-	m_nextPosY.y += m_vel.y;
-
-	// check collisions with wall
-	auto iter = m_walls.begin();
-	auto endIter = m_walls.end();
-
-	for (; iter != endIter; iter++) {
-		checkCollisions((*iter), deltaTime);
-	}
-
-	m_pos.x = m_nextPosX.x;
-	m_pos.y = m_nextPosY.y;
-
-	m_nextPosX.y = m_pos.y;
-	m_nextPosY.x = m_pos.x;
-
-	m_sprite.setPosition(m_pos.x + m_width / 2, m_pos.y + m_height / 2);
-
-	m_orientation = (atan2(m_vel.x, -m_vel.y) * 180 / 3.14159265);
-	m_sprite.setRotation(m_orientation);
+sf::Sprite Worker::getSprite()
+{
+	return m_sprite;
 }
 
 void Worker::seek(float deltaTime, sf::Vector2f v) {
+	/********************************************//**
+ *  ...  seeks to target
+***********************************************/
+
+
 	// gets distance to next node
 	m_distToNextNode = calculateMagnitude(v);
 
@@ -97,6 +120,10 @@ void Worker::seek(float deltaTime, sf::Vector2f v) {
 }
 
 void Worker::checkCollisions(Wall* wall, float deltaTime) {
+	/********************************************//**
+	 *  ...  collision between worker and wall
+ ***********************************************/
+
 	// checks for intersection along x between the worker and the wall
 	if (m_nextPosX.x < wall->getRight()
 		&& m_nextPosX.x + m_width > wall->getPos().x
@@ -136,7 +163,9 @@ void Worker::checkCollisions(Wall* wall, float deltaTime) {
 
 void Worker::setupPath() {
 	srand(time(NULL));
-
+	/********************************************//**
+	  *  ...  generates random path for worker
+	 ***********************************************/
 	//gets node closest to worker
 	float closestNodeDist = 99999;
 	int closestNodeIndex;
@@ -154,6 +183,10 @@ void Worker::setupPath() {
 }
 
 void Worker::pickRandomDest(int randomIndex, int startIndex) {
+	/********************************************//**
+*  ...  selects random destination for worker
+***********************************************/
+
 	// stops the random dest node to be the same as the starting node
 	if (randomIndex == startIndex) {
 		pickRandomDest(rand() % (m_nodeLayout.getNoOfNodes() - 1), startIndex);
@@ -164,6 +197,10 @@ void Worker::pickRandomDest(int randomIndex, int startIndex) {
 }
 
 void Worker::normalise(sf::Vector2f &v) {
+	/********************************************//**
+  *  ...  normalise vector 
+	 ***********************************************/
+
 	float magnitude = calculateMagnitude(v);
 
 	if (magnitude > 0)
@@ -174,10 +211,16 @@ void Worker::normalise(sf::Vector2f &v) {
 }
 
 float Worker::calculateMagnitude(sf::Vector2f v) {
+	/********************************************//**
+  *  ...  calc mag of a vector
+	  ***********************************************/
 	return sqrt((v.x * v.x) + (v.y * v.y));
 }
 
 float Worker::calculateMagnitude(sf::Vector2f v1, sf::Vector2f v2) {
+	/********************************************//**
+	  *  ...  calc mag of two vectors
+  ***********************************************/
 	return sqrt(((v2.x - v1.x) * (v2.x - v1.x)) + ((v2.y - v1.y) * (v2.y - v1.y)));
 }
 

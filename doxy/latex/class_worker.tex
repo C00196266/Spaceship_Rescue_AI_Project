@@ -6,32 +6,23 @@
 \mbox{\Hypertarget{class_worker_abcca1d98cfe682b3c80be626f97c2fb2}\label{class_worker_abcca1d98cfe682b3c80be626f97c2fb2}} 
 {\bfseries Worker} (sf\+::\+Vector2f pos, \mbox{\hyperlink{class_node_layout}{Node\+Layout}} \&nodes, std\+::vector$<$ \mbox{\hyperlink{class_wall}{Wall}} $\ast$$>$ \&walls)
 \item 
-\mbox{\Hypertarget{class_worker_ad79617e69aff5ed4a22835f5e2b3cf7a}\label{class_worker_ad79617e69aff5ed4a22835f5e2b3cf7a}} 
-void {\bfseries update} (float delta\+Time)
+void \mbox{\hyperlink{class_worker_ad79617e69aff5ed4a22835f5e2b3cf7a}{update}} (float delta\+Time)
 \item 
-\mbox{\Hypertarget{class_worker_a18940af5e921feefc2373e120d66ff24}\label{class_worker_a18940af5e921feefc2373e120d66ff24}} 
-void {\bfseries render} (sf\+::\+Render\+Window \&window)
+void \mbox{\hyperlink{class_worker_a18940af5e921feefc2373e120d66ff24}{render}} (sf\+::\+Render\+Window \&window)
 \item 
-\mbox{\Hypertarget{class_worker_a5d3aefa5dd3ad224ac861b4d69db95ed}\label{class_worker_a5d3aefa5dd3ad224ac861b4d69db95ed}} 
-void {\bfseries seek} (float delta\+Time, sf\+::\+Vector2f v)
+void \mbox{\hyperlink{class_worker_a5d3aefa5dd3ad224ac861b4d69db95ed}{seek}} (float delta\+Time, sf\+::\+Vector2f v)
 \item 
-\mbox{\Hypertarget{class_worker_aa28cb0d23b4fc8e4a9480bab8d4724cf}\label{class_worker_aa28cb0d23b4fc8e4a9480bab8d4724cf}} 
-void {\bfseries check\+Collisions} (\mbox{\hyperlink{class_wall}{Wall}} $\ast$wall, float delta\+Time)
+void \mbox{\hyperlink{class_worker_aa28cb0d23b4fc8e4a9480bab8d4724cf}{check\+Collisions}} (\mbox{\hyperlink{class_wall}{Wall}} $\ast$wall, float delta\+Time)
 \item 
-\mbox{\Hypertarget{class_worker_a1d02fa53eec27493717027977ffb6c54}\label{class_worker_a1d02fa53eec27493717027977ffb6c54}} 
-void {\bfseries setup\+Path} ()
+void \mbox{\hyperlink{class_worker_a1d02fa53eec27493717027977ffb6c54}{setup\+Path}} ()
 \item 
-\mbox{\Hypertarget{class_worker_a6f0cfcb460a9bc7fa3b2f1fa5ecc8b8a}\label{class_worker_a6f0cfcb460a9bc7fa3b2f1fa5ecc8b8a}} 
-void {\bfseries pick\+Random\+Dest} (int random\+Index, int start\+Index)
+void \mbox{\hyperlink{class_worker_a6f0cfcb460a9bc7fa3b2f1fa5ecc8b8a}{pick\+Random\+Dest}} (int random\+Index, int start\+Index)
 \item 
-\mbox{\Hypertarget{class_worker_ae9b32488617a0086772afd11529e3014}\label{class_worker_ae9b32488617a0086772afd11529e3014}} 
-void {\bfseries normalise} (sf\+::\+Vector2f \&v)
+void \mbox{\hyperlink{class_worker_ae9b32488617a0086772afd11529e3014}{normalise}} (sf\+::\+Vector2f \&v)
 \item 
-\mbox{\Hypertarget{class_worker_afaf8d6984011df1daa5ef9cd53abb4cc}\label{class_worker_afaf8d6984011df1daa5ef9cd53abb4cc}} 
-float {\bfseries calculate\+Magnitude} (sf\+::\+Vector2f v)
+float \mbox{\hyperlink{class_worker_afaf8d6984011df1daa5ef9cd53abb4cc}{calculate\+Magnitude}} (sf\+::\+Vector2f v)
 \item 
-\mbox{\Hypertarget{class_worker_a00fc71b506eeeef4c431c40145057306}\label{class_worker_a00fc71b506eeeef4c431c40145057306}} 
-float {\bfseries calculate\+Magnitude} (sf\+::\+Vector2f v1, sf\+::\+Vector2f v2)
+float \mbox{\hyperlink{class_worker_a00fc71b506eeeef4c431c40145057306}{calculate\+Magnitude}} (sf\+::\+Vector2f v1, sf\+::\+Vector2f v2)
 \item 
 \mbox{\Hypertarget{class_worker_a6bbf4cf7f718e3055f3fdc62a9482c58}\label{class_worker_a6bbf4cf7f718e3055f3fdc62a9482c58}} 
 void {\bfseries set\+Rescued} (bool rescued)
@@ -44,8 +35,80 @@ void {\bfseries set\+Abducted} (bool abducted)
 \item 
 \mbox{\Hypertarget{class_worker_acae6aa29c48a0da9b274cba3eb083319}\label{class_worker_acae6aa29c48a0da9b274cba3eb083319}} 
 bool {\bfseries get\+Abducted} ()
+\item 
+\mbox{\Hypertarget{class_worker_ab4adcdb749d44a8be633466d2f20c9bd}\label{class_worker_ab4adcdb749d44a8be633466d2f20c9bd}} 
+sf\+::\+Sprite {\bfseries get\+Sprite} ()
+\item 
+\mbox{\Hypertarget{class_worker_af8d4a69952c44caf94b37b75f42f343c}\label{class_worker_af8d4a69952c44caf94b37b75f42f343c}} 
+sf\+::\+Vector2f {\bfseries get\+Pos} ()
+\item 
+\mbox{\Hypertarget{class_worker_a06c1679fcf49735590f36c4a84745ca1}\label{class_worker_a06c1679fcf49735590f36c4a84745ca1}} 
+sf\+::\+Vector2f {\bfseries get\+Center} ()
 \end{DoxyCompactItemize}
 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_worker_afaf8d6984011df1daa5ef9cd53abb4cc}\label{class_worker_afaf8d6984011df1daa5ef9cd53abb4cc}} 
+\index{Worker@{Worker}!calculate\+Magnitude@{calculate\+Magnitude}}
+\index{calculate\+Magnitude@{calculate\+Magnitude}!Worker@{Worker}}
+\subsubsection{\texorpdfstring{calculate\+Magnitude()}{calculateMagnitude()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily float Worker\+::calculate\+Magnitude (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f}]{v }\end{DoxyParamCaption})}
+
+~\newline
+... calc mag of a vector\mbox{\Hypertarget{class_worker_a00fc71b506eeeef4c431c40145057306}\label{class_worker_a00fc71b506eeeef4c431c40145057306}} 
+\index{Worker@{Worker}!calculate\+Magnitude@{calculate\+Magnitude}}
+\index{calculate\+Magnitude@{calculate\+Magnitude}!Worker@{Worker}}
+\subsubsection{\texorpdfstring{calculate\+Magnitude()}{calculateMagnitude()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily float Worker\+::calculate\+Magnitude (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f}]{v1,  }\item[{sf\+::\+Vector2f}]{v2 }\end{DoxyParamCaption})}
+
+... calc mag of two vectors\mbox{\Hypertarget{class_worker_aa28cb0d23b4fc8e4a9480bab8d4724cf}\label{class_worker_aa28cb0d23b4fc8e4a9480bab8d4724cf}} 
+\index{Worker@{Worker}!check\+Collisions@{check\+Collisions}}
+\index{check\+Collisions@{check\+Collisions}!Worker@{Worker}}
+\subsubsection{\texorpdfstring{check\+Collisions()}{checkCollisions()}}
+{\footnotesize\ttfamily void Worker\+::check\+Collisions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_wall}{Wall}} $\ast$}]{wall,  }\item[{float}]{delta\+Time }\end{DoxyParamCaption})}
+
+... collision between worker and wall\mbox{\Hypertarget{class_worker_ae9b32488617a0086772afd11529e3014}\label{class_worker_ae9b32488617a0086772afd11529e3014}} 
+\index{Worker@{Worker}!normalise@{normalise}}
+\index{normalise@{normalise}!Worker@{Worker}}
+\subsubsection{\texorpdfstring{normalise()}{normalise()}}
+{\footnotesize\ttfamily void Worker\+::normalise (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f \&}]{v }\end{DoxyParamCaption})}
+
+~\newline
+... normalise vector\mbox{\Hypertarget{class_worker_a6f0cfcb460a9bc7fa3b2f1fa5ecc8b8a}\label{class_worker_a6f0cfcb460a9bc7fa3b2f1fa5ecc8b8a}} 
+\index{Worker@{Worker}!pick\+Random\+Dest@{pick\+Random\+Dest}}
+\index{pick\+Random\+Dest@{pick\+Random\+Dest}!Worker@{Worker}}
+\subsubsection{\texorpdfstring{pick\+Random\+Dest()}{pickRandomDest()}}
+{\footnotesize\ttfamily void Worker\+::pick\+Random\+Dest (\begin{DoxyParamCaption}\item[{int}]{random\+Index,  }\item[{int}]{start\+Index }\end{DoxyParamCaption})}
+
+~\newline
+... selects random destination for worker\mbox{\Hypertarget{class_worker_a18940af5e921feefc2373e120d66ff24}\label{class_worker_a18940af5e921feefc2373e120d66ff24}} 
+\index{Worker@{Worker}!render@{render}}
+\index{render@{render}!Worker@{Worker}}
+\subsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily void Worker\+::render (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+~\newline
+... renders the worker in the game world\mbox{\Hypertarget{class_worker_a5d3aefa5dd3ad224ac861b4d69db95ed}\label{class_worker_a5d3aefa5dd3ad224ac861b4d69db95ed}} 
+\index{Worker@{Worker}!seek@{seek}}
+\index{seek@{seek}!Worker@{Worker}}
+\subsubsection{\texorpdfstring{seek()}{seek()}}
+{\footnotesize\ttfamily void Worker\+::seek (\begin{DoxyParamCaption}\item[{float}]{delta\+Time,  }\item[{sf\+::\+Vector2f}]{v }\end{DoxyParamCaption})}
+
+~\newline
+... seeks to target\mbox{\Hypertarget{class_worker_a1d02fa53eec27493717027977ffb6c54}\label{class_worker_a1d02fa53eec27493717027977ffb6c54}} 
+\index{Worker@{Worker}!setup\+Path@{setup\+Path}}
+\index{setup\+Path@{setup\+Path}!Worker@{Worker}}
+\subsubsection{\texorpdfstring{setup\+Path()}{setupPath()}}
+{\footnotesize\ttfamily void Worker\+::setup\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+... generates random path for worker\mbox{\Hypertarget{class_worker_ad79617e69aff5ed4a22835f5e2b3cf7a}\label{class_worker_ad79617e69aff5ed4a22835f5e2b3cf7a}} 
+\index{Worker@{Worker}!update@{update}}
+\index{update@{update}!Worker@{Worker}}
+\subsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Worker\+::update (\begin{DoxyParamCaption}\item[{float}]{delta\+Time }\end{DoxyParamCaption})}
+
+~\newline
+... updates workers who havent been abducted or rescued
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

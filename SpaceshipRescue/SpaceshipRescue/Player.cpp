@@ -17,8 +17,9 @@ Player::~Player()
  ***********************************************/
 }
 
-void Player::Init()
+void Player::Init(vector<Worker*> workers)
 {
+	m_workers = workers;
 	/********************************************//**
 	 *  ... Initialiser for player variables
 	***********************************************/
@@ -285,7 +286,7 @@ void Player::update(float time)
 void Player::checkCollisions(Wall* wall, float deltaTime) {
 
 	/********************************************//**
- *  ...  checks for intersection between the player and the wall and handles collision
+ *  ...  checks for intersection between the player and the wall/workers and handles collision
 ***********************************************/
 
 	if (circle.getGlobalBounds().intersects(wall->getSprite().getGlobalBounds()))
@@ -295,6 +296,21 @@ void Player::checkCollisions(Wall* wall, float deltaTime) {
 	//	cout << "intersect" << endl;
 
 	}
+
+	//std::vector<Projectile*> bulletVector = (*m_player).getBullets();
+	std::vector<Worker*>::iterator workerIterator;
+
+	
+	for (workerIterator = m_workers.begin(); workerIterator != m_workers.end(); ++workerIterator)
+	{
+		if ((*workerIterator)->getAbducted() == false && (*workerIterator)->getRescued() == false)
+		if(circle.getGlobalBounds().intersects((*workerIterator)->getSprite().getGlobalBounds()))
+		{
+			(*workerIterator)->setRescued(true);
+			cout << "rescued boi" << endl;
+		}
+	}
+
 }
 
 std::vector<Projectile*> Player::getBullets()

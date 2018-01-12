@@ -26,6 +26,8 @@ public:
 	void setAbducted(bool abducted);
 	bool getAbducted();
 
+	sf::Sprite getSprite();
+
 	sf::Vector2f getPos();
 	sf::Vector2f getCenter();
 

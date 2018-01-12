@@ -13,7 +13,7 @@ void World::init() {
 	}
 	player = new Player(m_spaceStation.getWalls());
 
-	player->Init();
+	player->Init(m_workers);
 	
 	m_nest = new Nest( m_spaceStation.getNodeLayout(), player, m_spaceStation.getWalls());
 

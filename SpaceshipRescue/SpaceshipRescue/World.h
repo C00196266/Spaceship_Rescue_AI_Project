@@ -46,6 +46,7 @@ private:
 	SpaceStation m_spaceStation;
 	*/
 	int activeSweeps;
+	int atRisk;
 	std::vector<Worker*> m_workers;
 	std::vector<SweeperBoid*> m_sweepers;
 };

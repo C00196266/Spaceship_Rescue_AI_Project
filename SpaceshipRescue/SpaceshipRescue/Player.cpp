@@ -307,6 +307,7 @@ void Player::checkCollisions(Wall* wall, float deltaTime) {
 		if(circle.getGlobalBounds().intersects((*workerIterator)->getSprite().getGlobalBounds()))
 		{
 			(*workerIterator)->setRescued(true);
+			(*workerIterator)->setAbducted(false);
 			cout << "rescued boi" << endl;
 		}
 	}

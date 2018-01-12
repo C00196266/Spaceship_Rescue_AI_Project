@@ -91,10 +91,19 @@ void World::update(float deltaTime) {
 
 	player->update(deltaTime);
 	activeSweeps = 0;
+	atRisk = 0;
 	for (int i = 0; i < m_workers.size(); i++) {
+		if (m_workers.at(i)->getRescued())
+		{
+			activeSweeps++;
+		}
 		if (m_workers.at(i)->getAbducted() == false && m_workers.at(i)->getAbducted() == false) {
 			m_workers.at(i)->update(deltaTime);
-			activeSweeps++;
+			atRisk++;
+		}
+		if (m_workers.at(i)->getAbducted() == true)
+		{
+			atRisk++;
 		}
 	}
 
@@ -143,7 +152,7 @@ void World::update(float deltaTime) {
 
 	int temp = player->getHealth();
 
-	text.setString("Health: " + std::to_string(temp) + "                     " + "Workers active: " + std::to_string(activeSweeps));
+	text.setString("Health: " + std::to_string(temp) + "      " + "Saved: " + std::to_string(activeSweeps) + "      " + "unsaved: " + std::to_string(atRisk - activeSweeps));
 
 
 	text.setPosition(player->getPosition() - sf::Vector2f(160, 100));

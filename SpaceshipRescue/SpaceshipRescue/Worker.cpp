@@ -25,7 +25,7 @@ Worker::Worker(sf::Vector2f pos, NodeLayout &nodes, std::vector<Wall*> &walls) :
 	m_radarTexture.loadFromFile("assets/default.png");
 	m_radarSprite.setTexture(m_radarTexture);
 	m_radarSprite.setOrigin(m_radarTexture.getSize().x / 2.0f, m_radarTexture.getSize().y / 2.0f);
-	m_radarSprite.setScale(0.2f, 0.2f);
+	m_radarSprite.setScale(1.2f, 1.2);
 }
 
 void Worker::render(sf::RenderWindow &window) {
@@ -41,8 +41,8 @@ void Worker::render(sf::RenderWindow &window) {
 
 void Worker::renderRadar(sf::RenderWindow &window) {
 	/********************************************//**
-												  *  ...  renders the worker in the game world
-												  ***********************************************/
+	*  ...  renders the worker on minimap
+	***********************************************/
 	if (m_rescued != true && m_abducted != true)
 	{
 		window.draw(m_radarSprite);
@@ -92,6 +92,8 @@ void Worker::update(float deltaTime) {
 
 		m_orientation = (atan2(m_vel.x, -m_vel.y) * 180 / 3.14159265);
 		m_sprite.setRotation(m_orientation);
+
+		m_radarSprite.setPosition(m_pos);
 	}
 }
 

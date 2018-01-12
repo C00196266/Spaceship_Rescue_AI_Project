@@ -53,7 +53,6 @@ void World::init() {
 
 void World::render(sf::RenderWindow &window) 
 {
-
 	m_spaceStation.render(window);
 
 	m_nest->render(window);
@@ -70,6 +69,7 @@ void World::render(sf::RenderWindow &window)
 
 	player->Draw(window);
 	window.draw(text);
+
 	//view #2 minimap
 	window.setView(m_radar);
 
@@ -80,13 +80,11 @@ void World::render(sf::RenderWindow &window)
 	m_nest2->radarRender(window);
 	m_nest3->radarRender(window);
 
-	player->DrawRadar(window);
-
 	for (int i = 0; i < m_workers.size(); i++) {
 		m_workers.at(i)->renderRadar(window);
 	}
 
-
+	player->DrawRadar(window);
 }
 
 void World::update(float deltaTime) {

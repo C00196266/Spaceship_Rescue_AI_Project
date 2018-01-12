@@ -99,7 +99,6 @@ void Player::DrawRadar(sf::RenderWindow &window)
 		window.draw(radarSprite);
 
 		window.setView(m_view);
-
 }
 
 

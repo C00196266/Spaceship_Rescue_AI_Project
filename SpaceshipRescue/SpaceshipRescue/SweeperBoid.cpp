@@ -102,6 +102,10 @@ void SweeperBoid::update(float deltaTime)
 }
 
 void SweeperBoid::chooseBehaviour() {
+	/********************************************//**
+	*  ...  // chooses which behaviour the sweeper follows
+	***********************************************/
+
 	// if any workers are in sight, it will swap to abducting behaviour
 	if (m_behaviour != ABDUCT && m_behaviour != FLEE) {
 		for (int i = 0; i < m_workers.size(); i++) {
@@ -129,6 +133,9 @@ void SweeperBoid::chooseBehaviour() {
 }
 
 void SweeperBoid::chooseTarget() {
+	/********************************************//**
+	*  ...  // chooses target to abduct
+	***********************************************/
 	float closestDistWorker = 99999;
 
 	for (int i = 0; i < m_workers.size(); i++) {
@@ -154,6 +161,9 @@ void SweeperBoid::chooseTarget() {
 }
 
 void SweeperBoid::setupSeekPath() {
+	/********************************************//**
+	 *  ...  // setup path to seek to worker
+	 ***********************************************/
 	int indexClosestToWorker;
 	int indexClosestToSweeper;
 
@@ -190,6 +200,9 @@ void SweeperBoid::setupSeekPath() {
 }
 
 void SweeperBoid::abduct(float deltaTime) {
+	/********************************************//**
+	*  ...  // chooeses whether to follow astar path or directly to target, depending on which is closer
+	***********************************************/
 	// directional vector to worker
 	sf::Vector2f vecToWorker = m_workers.at(m_targetIndex)->getPos() - m_pos;
 	m_distToWorker = calculateMagnitude(vecToWorker);
@@ -222,6 +235,9 @@ void SweeperBoid::abduct(float deltaTime) {
 }
 
 void SweeperBoid::setupReturnPath() {
+	/********************************************//**
+	*  ...  // sets up path to return to patrol path
+	***********************************************/
 	int indexClosestToSweeper;
 	float closestDistSweeper = 99999;
 
@@ -248,6 +264,9 @@ void SweeperBoid::setupReturnPath() {
 }
 
 void SweeperBoid::returnToPatrol(float deltaTime) {
+	/********************************************//**
+	*  ...  // seeks back to the next node that it was going to patrol to
+	***********************************************/
 	float targetSpeed = 0;
 	sf::Vector2f v = m_patrolPath.at(m_currentPatrolNode)->getPos() - m_pos;
 	m_distToNode = calculateMagnitude(v);
@@ -282,6 +301,10 @@ void SweeperBoid::returnToPatrol(float deltaTime) {
 }
 
 void SweeperBoid::setupFleePath(float minDist) {
+	/********************************************//**
+	*  ...  // sets up path to run away from player
+	***********************************************/
+
 	// checks which node is closest to the player and the predator
 	int indexClosestToPlayer;
 	int indexClosestToSweeper;
@@ -333,6 +356,9 @@ void SweeperBoid::setupFleePath(float minDist) {
 }
 
 void SweeperBoid::flee(float deltaTime, sf::Vector2f v) {
+	/********************************************//**
+	*  ...  // follows path to flee from player
+	***********************************************/
 	float targetSpeed = 0;
 	m_distToNextNode = calculateMagnitude(v, m_pos);
 
@@ -368,6 +394,9 @@ void SweeperBoid::flee(float deltaTime, sf::Vector2f v) {
 }
 
 void SweeperBoid::seek(float deltaTime, sf::Vector2f v, float dist, bool seekingWorker) {
+	/********************************************//**
+	*  ...  // seeks to a given position
+	***********************************************/
 	float targetSpeed;
 
 	if (seekingWorker == false) {
@@ -411,6 +440,10 @@ void SweeperBoid::seek(float deltaTime, sf::Vector2f v, float dist, bool seeking
 }
 
 void SweeperBoid::setupPatrol(int pathNo) {
+	/********************************************//**
+	*  ...  // sets up patrol path
+	***********************************************/
+
 	// sets up nodes on patrol path
 	if (pathNo == 1) {
 		m_patrolPath.push_back(m_nodeLayout.getNodes()[0]);
@@ -473,6 +506,10 @@ void SweeperBoid::setupPatrol(int pathNo) {
 }
 
 void SweeperBoid::patrol(float deltaTime) {
+	/********************************************//**
+	*  ...  // follows patrol path
+	***********************************************/
+
 	float targetSpeed = 0;
 	sf::Vector2f v = m_patrolPath.at(m_currentPatrolNode)->getPos() - m_pos;
 	m_distToNode = calculateMagnitude(v);
@@ -510,6 +547,9 @@ void SweeperBoid::patrol(float deltaTime) {
 }
 
 void SweeperBoid::checkWallCollisions(Wall* wall, float deltaTime) {
+	/********************************************//**
+	*  ...  // checks collisions with walls
+	***********************************************/
 	// checks for intersection along x between the predator and the wall
 	if (m_nextPosX.x < wall->getRight()
 		&& m_nextPosX.x + m_width > wall->getPos().x

@@ -28,7 +28,8 @@ public:
 	void setupReturnPath();
 	void returnToPatrol(float deltaTime);
 
-	void flee(float deltaTime);
+	void setupFleePath(float minDist);
+	void flee(float deltaTime, sf::Vector2f v);
 
 	void normalise(sf::Vector2f &v);
 	float calculateMagnitude(sf::Vector2f v);
@@ -59,8 +60,6 @@ private:
 
 	Player* m_player;
 
-	bool m_fleeing;
-
 	std::vector<Wall*>& m_walls;
 	std::vector<Worker*>& m_workers;
 
@@ -79,6 +78,8 @@ private:
 	std::vector<Node*> m_returnPath;
 
 	std::vector<Node*> m_fleePath;
+	float m_distToNextNode;
+	bool m_fleeing;
 
 	AStar* m_astar;
 };

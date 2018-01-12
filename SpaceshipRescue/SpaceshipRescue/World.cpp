@@ -98,9 +98,10 @@ void World::update(float deltaTime) {
 		}
 	}
 
-	for (int i = 0; i < m_sweepers.size(); i++) {
-		m_sweepers.at(i)->update(deltaTime);
-	}
+	//for (int i = 0; i < m_sweepers.size(); i++) {
+	//	m_sweepers.at(i)->update(deltaTime);
+	//}
+	m_sweepers.at(1)->update(deltaTime);
 
 	m_nest->update(deltaTime, player);
 	m_nest2->update(deltaTime, player);

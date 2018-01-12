@@ -303,10 +303,6 @@ void PredatorShip::checkBulletCollision(Projectile* p) {
 		p->setAlive(false);
 		m_player->setHealth(1);
 	}
-
-
-
-
 }
 
 void PredatorShip::normalise(sf::Vector2f &v) {

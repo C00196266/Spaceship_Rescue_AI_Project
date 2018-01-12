@@ -27,6 +27,9 @@ SweeperBoid::SweeperBoid(NodeLayout &nodes, Player* player, std::vector<Wall*> &
 	m_height = m_texture.getSize().y;
 
 	m_currentPatrolNode = 0;
+
+	m_behaviour = PATROL;
+	m_targetChosen = false;
 }
 
 void SweeperBoid::render(sf::RenderWindow &window) {
@@ -35,12 +38,26 @@ void SweeperBoid::render(sf::RenderWindow &window) {
 
 void SweeperBoid::update(float deltaTime)
 {
-	//patrol path
-	//setupPath();
-
 	// chooses whether to seek towards worker or next node
-	//chooseTarget(deltaTime);
-	patrol(deltaTime);
+	chooseBehaviour();
+
+	if (m_behaviour == PATROL) {
+		patrol(deltaTime);
+	}
+	else if (m_behaviour == ABDUCT) {
+		if (m_targetChosen == false) {
+			chooseTarget();
+		}
+		else {
+			abduct(deltaTime);
+		}
+	}
+	else if (m_behaviour == RETURN) {
+		// astar
+	}
+	else {
+		// flee
+	}
 
 	// checks if the velocity is greater than its max velocity
 	if (calculateMagnitude(m_vel) > m_maxSpeed) {
@@ -68,7 +85,58 @@ void SweeperBoid::update(float deltaTime)
 	m_sprite.setRotation(m_orientation);
 }
 
-void SweeperBoid::chooseTarget(float deltaTime) {
+void SweeperBoid::chooseBehaviour() {
+	// if any workers are in sight, it will swap to abducting behaviour
+	if (m_behaviour != ABDUCT && m_behaviour != FLEE)
+	for (int i = 0; i < m_workers.size(); i++) {
+		if (calculateMagnitude(m_workers.at(i)->getCenter()) < 150) {
+			float angle = (atan2(m_workers.at(i)->getCenter().y - m_pos.y, m_workers.at(i)->getCenter().x - m_pos.x) * 180 / 3.14) + 90;
+
+			if (angle > m_orientation - 22.5 && angle < m_orientation + 22.5) {
+				m_behaviour = ABDUCT;
+				break;
+			}
+		}
+	}
+
+	// fleeing behaviour takes precedance if player is in sight
+	if (m_behaviour != FLEE) {
+		if (calculateMagnitude(m_player->getPosition()) < 200) {
+			float angle = (atan2(m_player->getPosition().y - m_pos.y, m_player->getPosition().x - m_pos.x) * 180 / 3.14) + 90;
+
+			if (angle > m_orientation - 22.5 && angle < m_orientation + 22.5) {
+				m_behaviour = FLEE;
+			}
+		}
+	}
+}
+
+void SweeperBoid::chooseTarget() {
+	float closestDistWorker = 99999;
+
+	for (int i = 0; i < m_workers.size(); i++) {
+		float dist = calculateMagnitude(m_workers.at(i)->getPos(), m_pos);
+
+		// if within vision range
+		if (dist < 150) {
+			float angle = (atan2(m_workers.at(i)->getCenter().y - m_pos.y, m_workers.at(i)->getCenter().x - m_pos.x) * 180 / 3.14) + 90;
+			// if within cone of vision
+			if (angle > m_orientation - 22.5 && angle < m_orientation + 22.5) {
+				// if closest
+				if (dist < closestDistWorker) {
+					closestDistWorker = dist;
+					m_targetIndex = i;
+					m_targetChosen = true;
+				}
+			}
+		}
+	}
+}
+
+void SweeperBoid::abduct(float deltaTime) {
+	// seeks to target worker
+	// if collides with target worker, abduct them and set behaviour to return
+
 	// directional vector to player
 	//sf::Vector2f vecToPlayer = (m_player)->getPosition() - m_pos;
 	//m_distToPlayer = calculateMagnitude(vecToPlayer);
@@ -98,6 +166,17 @@ void SweeperBoid::chooseTarget(float deltaTime) {
 	//else {
 	//	seek(deltaTime, vecToPlayer, m_distToPlayer, true);
 	//}
+}
+
+void SweeperBoid::returnToPatrol(float deltaTime) {
+	// checks if nearest node is equal to the next node on the patrol path
+	// if not, set next node on patrol path to be dest, and perform astar to it
+}
+
+void SweeperBoid::flee(float deltaTime) {
+	// if it sees the player, checks for nearest node that isn't also the nearest node to the player
+	// pushes to vector, then looks for another node on arc list that isn't nearest to the player
+	// seeks to nodes, then returns to patrol path
 }
 
 void SweeperBoid::seek(float deltaTime, sf::Vector2f v, float dist, bool seekingWorker) {

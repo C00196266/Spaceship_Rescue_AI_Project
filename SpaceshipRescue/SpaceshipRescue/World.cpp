@@ -25,7 +25,6 @@ void World::init() {
 	m_nest2->init(1);
 	m_nest3->init(2);
 
-
 	for (int i = 0; i < 5; i++) {
 		m_sweepers.push_back(new SweeperBoid(m_spaceStation.getNodeLayout(), player, m_spaceStation.getWalls(), m_workers, i));
 	}

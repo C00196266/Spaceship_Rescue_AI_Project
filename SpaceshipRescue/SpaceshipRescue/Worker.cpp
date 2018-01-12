@@ -196,3 +196,11 @@ void Worker::setAbducted(bool abducted) {
 bool Worker::getAbducted() {
 	return m_abducted;
 }
+
+sf::Vector2f Worker::getPos() {
+	return m_pos;
+}
+
+sf::Vector2f Worker::getCenter() {
+	return sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2));
+}

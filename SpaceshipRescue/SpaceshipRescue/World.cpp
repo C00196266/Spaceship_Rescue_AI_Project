@@ -25,7 +25,6 @@ void World::init() {
 	m_nest2->init(1);
 	m_nest3->init(2);
 
-
 	for (int i = 0; i < 5; i++) {
 		m_sweepers.push_back(new SweeperBoid(m_spaceStation.getNodeLayout(), player, m_spaceStation.getWalls(), m_workers, i));
 	}
@@ -99,9 +98,10 @@ void World::update(float deltaTime) {
 		}
 	}
 
-	for (int i = 0; i < m_sweepers.size(); i++) {
-		m_sweepers.at(i)->update(deltaTime);
-	}
+	//for (int i = 0; i < m_sweepers.size(); i++) {
+	//	m_sweepers.at(i)->update(deltaTime);
+	//}
+	m_sweepers.at(1)->update(deltaTime);
 
 	m_nest->update(deltaTime, player);
 	m_nest2->update(deltaTime, player);

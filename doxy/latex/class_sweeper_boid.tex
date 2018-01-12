@@ -1,0 +1,44 @@
+\hypertarget{class_sweeper_boid}{}\section{Sweeper\+Boid Class Reference}
+\label{class_sweeper_boid}\index{Sweeper\+Boid@{Sweeper\+Boid}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_sweeper_boid_a1beb859233e11e9656ce5b501ee739d0}\label{class_sweeper_boid_a1beb859233e11e9656ce5b501ee739d0}} 
+{\bfseries Sweeper\+Boid} (\mbox{\hyperlink{class_node_layout}{Node\+Layout}} \&nodes, \mbox{\hyperlink{class_player}{Player}} $\ast$player, std\+::vector$<$ \mbox{\hyperlink{class_wall}{Wall}} $\ast$$>$ \&walls, std\+::vector$<$ \mbox{\hyperlink{class_worker}{Worker}} $\ast$$>$ \&workers, int path\+No)
+\item 
+\mbox{\Hypertarget{class_sweeper_boid_a060fdd3341601b642bec5f298525acc3}\label{class_sweeper_boid_a060fdd3341601b642bec5f298525acc3}} 
+void {\bfseries render} (sf\+::\+Render\+Window \&window)
+\item 
+\mbox{\Hypertarget{class_sweeper_boid_ace06cb07304ac46df07e70ff77cec967}\label{class_sweeper_boid_ace06cb07304ac46df07e70ff77cec967}} 
+void {\bfseries update} (float delta\+Time)
+\item 
+\mbox{\Hypertarget{class_sweeper_boid_a40ddb4df0d84f897c5c8e831f5e536e9}\label{class_sweeper_boid_a40ddb4df0d84f897c5c8e831f5e536e9}} 
+void {\bfseries choose\+Target} (float delta\+Time)
+\item 
+\mbox{\Hypertarget{class_sweeper_boid_ab88569c90abe8ffea6d199d1c4d25fdf}\label{class_sweeper_boid_ab88569c90abe8ffea6d199d1c4d25fdf}} 
+void {\bfseries seek} (float delta\+Time, sf\+::\+Vector2f v, float dist, bool seeking\+Worker)
+\item 
+\mbox{\Hypertarget{class_sweeper_boid_a718a85eabf5b4e7e8361ae0e4fd70fec}\label{class_sweeper_boid_a718a85eabf5b4e7e8361ae0e4fd70fec}} 
+void {\bfseries check\+Wall\+Collisions} (\mbox{\hyperlink{class_wall}{Wall}} $\ast$wall, float delta\+Time)
+\item 
+\mbox{\Hypertarget{class_sweeper_boid_ae2e5c623aa6d8675eddf5ba2470539cb}\label{class_sweeper_boid_ae2e5c623aa6d8675eddf5ba2470539cb}} 
+void {\bfseries setup\+Patrol} (int path\+No)
+\item 
+\mbox{\Hypertarget{class_sweeper_boid_ad0bba56551cd9fa781c8d04fc6c1c361}\label{class_sweeper_boid_ad0bba56551cd9fa781c8d04fc6c1c361}} 
+void {\bfseries patrol} (float delta\+Time)
+\item 
+\mbox{\Hypertarget{class_sweeper_boid_a065ded798eb1b37ab4cc9944824795c9}\label{class_sweeper_boid_a065ded798eb1b37ab4cc9944824795c9}} 
+void {\bfseries normalise} (sf\+::\+Vector2f \&v)
+\item 
+\mbox{\Hypertarget{class_sweeper_boid_a91e883fffbab6b77c509cd4a482a8137}\label{class_sweeper_boid_a91e883fffbab6b77c509cd4a482a8137}} 
+float {\bfseries calculate\+Magnitude} (sf\+::\+Vector2f v)
+\item 
+\mbox{\Hypertarget{class_sweeper_boid_a148901a7afea04b6bab331053e15655a}\label{class_sweeper_boid_a148901a7afea04b6bab331053e15655a}} 
+float {\bfseries calculate\+Magnitude} (sf\+::\+Vector2f v1, sf\+::\+Vector2f v2)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Sweeper\+Boid.\+h\item 
+Sweeper\+Boid.\+cpp\end{DoxyCompactItemize}

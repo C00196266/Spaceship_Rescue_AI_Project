@@ -9,7 +9,9 @@ Player::Player(std::vector<Wall*> &walls) : m_walls(walls)
 
 Player::~Player()
 {
-
+/********************************************//**
+ *  ... DOXYGEN TEST BLOCK
+ ***********************************************/
 }
 
 void Player::Init()

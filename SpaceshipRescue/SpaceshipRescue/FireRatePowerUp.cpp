@@ -19,6 +19,9 @@ FireRatePowerUp::FireRatePowerUp(sf::Vector2f pos) {
 }
 
 void FireRatePowerUp::checkCollision(Player* player) {
+	/********************************************//**
+ *  ...  checks for collision with fire rate powerup
+***********************************************/
 	if (player->getPosition().x < m_pos.x + m_width
 		&& player->getPosition().x + player->getRect().width > m_pos.x
 		&& player->getPosition().y <  m_pos.y + m_height

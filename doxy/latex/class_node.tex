@@ -1,0 +1,62 @@
+\hypertarget{class_node}{}\section{Node Class Reference}
+\label{class_node}\index{Node@{Node}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_node_a895a106b9d0954d8c12b63ce602bc023}\label{class_node_a895a106b9d0954d8c12b63ce602bc023}} 
+{\bfseries Node} (sf\+::\+Vector2f pos, int id)
+\item 
+\mbox{\Hypertarget{class_node_a54fc4e9571a82fa8518994f44b067f31}\label{class_node_a54fc4e9571a82fa8518994f44b067f31}} 
+void {\bfseries add\+Arc} (\mbox{\hyperlink{class_node}{Node}} $\ast$n)
+\item 
+float \mbox{\hyperlink{class_node_a5f6014a8a8d873312eaf12303305a939}{calculate\+Arc\+Weight}} (sf\+::\+Vector2f other\+Node\+Pos)
+\item 
+\mbox{\Hypertarget{class_node_ae9a4a95cb9db8edaab906e655f565757}\label{class_node_ae9a4a95cb9db8edaab906e655f565757}} 
+sf\+::\+Vector2f {\bfseries get\+Pos} ()
+\item 
+\mbox{\Hypertarget{class_node_a8dd9a1d6ac9638fd1168283ad47e5127}\label{class_node_a8dd9a1d6ac9638fd1168283ad47e5127}} 
+int {\bfseries get\+ID} ()
+\item 
+\mbox{\Hypertarget{class_node_a68db6b1bbbf8d5e3d67b13fc1940ab7f}\label{class_node_a68db6b1bbbf8d5e3d67b13fc1940ab7f}} 
+bool {\bfseries get\+Marked} ()
+\item 
+\mbox{\Hypertarget{class_node_acae0df9df948547644b89814f1ba1c2f}\label{class_node_acae0df9df948547644b89814f1ba1c2f}} 
+void {\bfseries set\+Marked} (bool marked)
+\item 
+\mbox{\Hypertarget{class_node_a0a81fcd9f6bd8cf43f8ccab295411283}\label{class_node_a0a81fcd9f6bd8cf43f8ccab295411283}} 
+\mbox{\hyperlink{class_node}{Node}} $\ast$ {\bfseries get\+Previous} ()
+\item 
+\mbox{\Hypertarget{class_node_af8c0c4e1ecf2f6a49dd899e2a57c14fb}\label{class_node_af8c0c4e1ecf2f6a49dd899e2a57c14fb}} 
+void {\bfseries set\+Previous} (\mbox{\hyperlink{class_node}{Node}} $\ast$previous)
+\item 
+\mbox{\Hypertarget{class_node_a3e121b2968b4a04dc7a8c50fbad63045}\label{class_node_a3e121b2968b4a04dc7a8c50fbad63045}} 
+float {\bfseries get\+Heuristic} ()
+\item 
+\mbox{\Hypertarget{class_node_a3a05e781922425fe74d2774390883d56}\label{class_node_a3a05e781922425fe74d2774390883d56}} 
+void {\bfseries set\+Heuristic} (float heuristic)
+\item 
+\mbox{\Hypertarget{class_node_aed7dd991e4645d166a4e3770d459039a}\label{class_node_aed7dd991e4645d166a4e3770d459039a}} 
+float {\bfseries get\+Cost} ()
+\item 
+\mbox{\Hypertarget{class_node_a9d395cc5439fc53b7d9697f44108e137}\label{class_node_a9d395cc5439fc53b7d9697f44108e137}} 
+void {\bfseries set\+Cost} (float cost)
+\item 
+\mbox{\Hypertarget{class_node_ad341bb693aadd335d8990b48b2cbb1f7}\label{class_node_ad341bb693aadd335d8990b48b2cbb1f7}} 
+std\+::list$<$ \mbox{\hyperlink{class_arc}{Arc}} $>$ \& {\bfseries get\+Arcs} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_node_a5f6014a8a8d873312eaf12303305a939}\label{class_node_a5f6014a8a8d873312eaf12303305a939}} 
+\index{Node@{Node}!calculate\+Arc\+Weight@{calculate\+Arc\+Weight}}
+\index{calculate\+Arc\+Weight@{calculate\+Arc\+Weight}!Node@{Node}}
+\subsubsection{\texorpdfstring{calculate\+Arc\+Weight()}{calculateArcWeight()}}
+{\footnotesize\ttfamily float Node\+::calculate\+Arc\+Weight (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f}]{other\+Node\+Pos }\end{DoxyParamCaption})}
+
+~\newline
+... weight is the distance between the nodes
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Node.\+h\item 
+Node.\+cpp\end{DoxyCompactItemize}

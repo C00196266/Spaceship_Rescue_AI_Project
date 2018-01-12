@@ -2,7 +2,9 @@
 
 SpaceStation::SpaceStation() {
 	layout = (int*)layoutArray;
-
+	/********************************************//**
+  *  ...  // constructor to set up map tiles
+ ***********************************************/
 	// reads 2D array, reads the int stored at a specific position, and places objects based on the number read
 	for (int row = 0; row < 53; row++)
 	{
@@ -49,6 +51,9 @@ SpaceStation::SpaceStation() {
 }
 
 void SpaceStation::render(sf::RenderWindow &window) {
+	/********************************************//**
+*  ...  // render tiles in game world
+***********************************************/
 	for (int i = 0; i < m_walls.size(); i++) {
 		m_walls.at(i)->render(window);
 	}

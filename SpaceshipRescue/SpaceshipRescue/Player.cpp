@@ -4,17 +4,24 @@ using namespace std;
 
 Player::Player(std::vector<Wall*> &walls) : m_walls(walls)
 {
+/********************************************//**
+ *  ... Constructor for player object
+ ***********************************************/
 	m_velocity	= sf::Vector2f(0, 6); //Player velocity
 }
 
 Player::~Player()
 {
-
+/********************************************//**
+ *  ... Deconstructor for player object
+ ***********************************************/
 }
 
 void Player::Init()
 {
-
+	/********************************************//**
+	 *  ... Initialiser for player variables
+	***********************************************/
 	m_isAlive = true; //for test only
 	speed = 1;
 	maxVelo = sf::Vector2f(0, -2);
@@ -91,7 +98,9 @@ void Player::Init()
 //Draw method used to draw the animated sprite and also to set the view of the render window to center on the player object.
 void Player::DrawRadar(sf::RenderWindow &window)
 {
-
+	/********************************************//**
+	*  ... Draws radar blip of player on minimap
+	 ***********************************************/
 		window.draw(radarSprite);
 
 		window.setView(m_view);
@@ -102,6 +111,9 @@ void Player::DrawRadar(sf::RenderWindow &window)
 //Draw method used to draw the animated sprite and also to set the view of the render window to center on the player object.
 void Player::Draw(sf::RenderWindow &window)
 {
+	/********************************************//**
+*  ... Renders player sprite in game world
+***********************************************/
 	//window.draw(circle);
 	//cout << m_health << endl;
 	if (m_isAlive)
@@ -137,6 +149,9 @@ void Player::setFireRate(float rate)
 
 void Player::update(float time)
 {
+	/********************************************//**
+  *  ... Update player state. Handle player input.
+***********************************************/
 	if (m_health <= 0)
 	{
 		m_isAlive = false;
@@ -277,7 +292,11 @@ void Player::update(float time)
 
 
 void Player::checkCollisions(Wall* wall, float deltaTime) {
-	// checks for intersection between the predator and the wall
+	
+
+	/********************************************//**
+ *  ...  checks for intersection between the player and the wall and handles collision
+***********************************************/
 
 	if (circle.getGlobalBounds().intersects(wall->getSprite().getGlobalBounds()))
 	{
@@ -330,7 +349,7 @@ void Player::setAlive(bool alive)
 void Player::setHealth(float healthChange)
 {
 	m_health -= healthChange;
-	cout << "IN THERE" << endl;
+//	cout << "IN THERE" << endl;
 	cout << m_health << endl;
 	if (m_health < 1) {
 		m_isAlive = false;

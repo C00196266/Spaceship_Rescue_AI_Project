@@ -37,6 +37,9 @@ bool PredatorShip::getAlive()
 }
 
 void PredatorShip::render(sf::RenderWindow &window) {
+	/********************************************//**
+	 *  ...  render the predatorship sprite in game world
+	***********************************************/
 	if (m_alive)
 	{
 		for (std::vector<Projectile*>::iterator i = m_bullets.begin(); i != m_bullets.end(); i++) {
@@ -49,6 +52,9 @@ void PredatorShip::render(sf::RenderWindow &window) {
 
 
 void PredatorShip::renderRadar(sf::RenderWindow &window) {
+	/********************************************//**
+  *  ...  render blip of predatorship on minimap
+***********************************************/
 	if (m_alive)
 	{
 		window.draw(m_radarImage);
@@ -58,6 +64,9 @@ void PredatorShip::renderRadar(sf::RenderWindow &window) {
 
 void PredatorShip::update(float deltaTime)
 {
+	/********************************************//**
+  *  ...  update predatorship and bullets of pred ship
+	***********************************************/
 	if (m_alive)
 	{
 		std::vector<Projectile*> bulletVector = (*m_player).getBullets();
@@ -145,6 +154,10 @@ void PredatorShip::update(float deltaTime)
 }
 
 void PredatorShip::chooseTarget(float deltaTime) {
+	/********************************************//**
+*  ...  choose target to seek to
+ ***********************************************/
+
 	// directional vector to player
 	sf::Vector2f vecToPlayer = (m_player)->getPosition() - m_pos;
 	m_distToPlayer = calculateMagnitude(vecToPlayer);
@@ -180,6 +193,10 @@ void PredatorShip::chooseTarget(float deltaTime) {
 }
 
 void PredatorShip::seek(float deltaTime, sf::Vector2f v, float dist, bool seekingPlayer) {
+	/********************************************//**
+  *  ...  seek to chosen target
+  ***********************************************/
+
 	float targetSpeed = 0;
 
 	if (seekingPlayer == false) {
@@ -209,7 +226,10 @@ void PredatorShip::seek(float deltaTime, sf::Vector2f v, float dist, bool seekin
 }
 
 void PredatorShip::setupPath() {
-	// checks which node is closest to the player and the predator
+	/********************************************//**
+ *  ...  // checks which node is closest to the player and the predator
+ ***********************************************/
+	
 	int indexClosestToPlayer;
 	int indexClosestToPredator;
 
@@ -247,6 +267,9 @@ void PredatorShip::setupPath() {
 }
 
 void PredatorShip::fireBullet() {
+	/********************************************//**
+*  ...  predator ship fires bullet
+***********************************************/
 	m_fireTime += m_fireClock.getElapsedTime();
 
 	// if the player is within firing range
@@ -267,6 +290,10 @@ void PredatorShip::fireBullet() {
 }
 
 void PredatorShip::checkWallCollisions(Wall* wall, float deltaTime) {
+	/********************************************//**
+*  ...  // checks and handles predator wall collisions
+***********************************************/
+
 	// checks for intersection along x between the predator and the wall
 	if (m_nextPosX.x < wall->getRight()
 		&& m_nextPosX.x + m_width > wall->getPos().x
@@ -305,6 +332,10 @@ void PredatorShip::checkWallCollisions(Wall* wall, float deltaTime) {
 }
 
 void PredatorShip::checkBulletCollision(Projectile* p) {
+	/********************************************//**
+*  ...  // checks collision between predator bullet and player
+***********************************************/
+
 	if (p->getPosition().x < (m_player)->getPosition().x + (m_player)->getRect().width
 		&& p->getPosition().x + p->getWidth() >(m_player)->getPosition().x
 		&& p->getPosition().y < (m_player)->getPosition().y + (m_player)->getRect().height
@@ -320,6 +351,10 @@ void PredatorShip::checkBulletCollision(Projectile* p) {
 }
 
 void PredatorShip::normalise(sf::Vector2f &v) {
+
+	/********************************************//**
+ *  ...  //get normal vector
+***********************************************/
 	float magnitude = calculateMagnitude(v);
 
 	if (magnitude > 0)
@@ -331,45 +366,31 @@ void PredatorShip::normalise(sf::Vector2f &v) {
 
 
 float PredatorShip::calculateMagnitude(sf::Vector2f vec) {
+	/********************************************//**
+	*  ...  // get mag of vector 
+ ***********************************************/
 	return sqrt((vec.x * vec.x) + (vec.y * vec.y));
 }
 
 float PredatorShip::calculateMagnitude(sf::Vector2f vec1, sf::Vector2f vec2) {
+	/********************************************//**
+	  *  ...  // gets mag of 2 vectors added
+	***********************************************/
+
 	return sqrt(((vec2.x - vec1.x) * (vec2.x - vec1.x)) + ((vec2.y - vec1.y) * (vec2.y - vec1.y)));
 }
 
 sf::FloatRect PredatorShip::getRect() {
+	/********************************************//**
+	*  ...  // gets predator rectangle
+	 ***********************************************/
+
 	return m_sprite.getGlobalBounds();
 }
 
 void PredatorShip::checkPlayerBulletColl()
 {
-
-	//std::vector<Projectile*> bulletVector = (*m_player).getBullets();
-	//std::vector<Projectile*>::iterator bulletIterator;
-
-	//for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
-	//{
-	//	if ((*bulletIterator)->getAlive())
-	//	{
-	//		if ((*bulletIterator)->getPosition().x < m_pos.x + m_width
-	//			&& (*bulletIterator)->getPosition().x + (*m_player).getRect().width > m_pos.x
-	//			&& (*bulletIterator)->getPosition().y < m_pos.y + m_height
-	//			&& (*bulletIterator)->getPosition().y + (*m_player).getRect().height > m_pos.y)
-	//		{
-	//			(*bulletIterator)->setAlive(false);
-	//			m_alive = false;
-	//		}
-	//		if (m_player->getShielded() == false)
-	//		{
-	//			m_player->setHealth(-1);
-	//		}
-	//		else
-	//		{
-	//			m_player->setShieled(false);
-	//		}
-	//	}
-	//}
+	//i died
 }
 
 

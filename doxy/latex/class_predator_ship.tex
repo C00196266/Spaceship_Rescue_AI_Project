@@ -1,0 +1,136 @@
+\hypertarget{class_predator_ship}{}\section{Predator\+Ship Class Reference}
+\label{class_predator_ship}\index{Predator\+Ship@{Predator\+Ship}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_predator_ship_a4af0d2cfa90c67811bc8cd0e3cb26e58}\label{class_predator_ship_a4af0d2cfa90c67811bc8cd0e3cb26e58}} 
+{\bfseries Predator\+Ship} (sf\+::\+Vector2f pos, \mbox{\hyperlink{class_node_layout}{Node\+Layout}} \&nodes, \mbox{\hyperlink{class_player}{Player}} $\ast$player, std\+::vector$<$ \mbox{\hyperlink{class_wall}{Wall}} $\ast$$>$ \&walls)
+\item 
+void \mbox{\hyperlink{class_predator_ship_abd172d5ef1713de0e79e33ce7b23c13a}{render}} (sf\+::\+Render\+Window \&window)
+\item 
+void \mbox{\hyperlink{class_predator_ship_aaecc92f60ecbaaaf2f41edbe15a458ea}{update}} (float delta\+Time)
+\item 
+void \mbox{\hyperlink{class_predator_ship_a5143808a096196286fa4b3c546c183ce}{choose\+Target}} (float delta\+Time)
+\item 
+void \mbox{\hyperlink{class_predator_ship_a941925b4c228dcbb9fae0d8f9ee8af24}{seek}} (float delta\+Time, sf\+::\+Vector2f v, float dist, bool seeking\+Player)
+\item 
+void \mbox{\hyperlink{class_predator_ship_aa7763a0a0b525421f672ef3e05c1b9ea}{check\+Wall\+Collisions}} (\mbox{\hyperlink{class_wall}{Wall}} $\ast$wall, float delta\+Time)
+\item 
+void \mbox{\hyperlink{class_predator_ship_a5b3c56caa2c17fbe78d377c0b4ad5408}{check\+Bullet\+Collision}} (\mbox{\hyperlink{class_projectile}{Projectile}} $\ast$p)
+\item 
+void \mbox{\hyperlink{class_predator_ship_a68003be2e0126853481903bccb5473ed}{setup\+Path}} ()
+\item 
+void \mbox{\hyperlink{class_predator_ship_aac64b6592bb9e75c34335f0150a68d12}{fire\+Bullet}} ()
+\item 
+void \mbox{\hyperlink{class_predator_ship_ad240f08c5f508a3447452d665080cf73}{normalise}} (sf\+::\+Vector2f \&v)
+\item 
+float \mbox{\hyperlink{class_predator_ship_acaef1f914f1cd32445977927fd4f2d85}{calculate\+Magnitude}} (sf\+::\+Vector2f v)
+\item 
+float \mbox{\hyperlink{class_predator_ship_a8000ba5e3ef3024de39cc7763048af72}{calculate\+Magnitude}} (sf\+::\+Vector2f v1, sf\+::\+Vector2f v2)
+\item 
+sf\+::\+Float\+Rect \mbox{\hyperlink{class_predator_ship_a91fdb3bab56c53417c0fa33237768f64}{get\+Rect}} ()
+\item 
+void \mbox{\hyperlink{class_predator_ship_a4f32416e9d9175ec61bab70008ad709f}{render\+Radar}} (sf\+::\+Render\+Window \&window)
+\item 
+\mbox{\Hypertarget{class_predator_ship_a7a85b35820234fa6cefa69b6108498e7}\label{class_predator_ship_a7a85b35820234fa6cefa69b6108498e7}} 
+void {\bfseries check\+Player\+Bullet\+Coll} ()
+\item 
+\mbox{\Hypertarget{class_predator_ship_aae0461ff2cd58e4b6249d3375b297281}\label{class_predator_ship_aae0461ff2cd58e4b6249d3375b297281}} 
+bool {\bfseries get\+Alive} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_predator_ship_acaef1f914f1cd32445977927fd4f2d85}\label{class_predator_ship_acaef1f914f1cd32445977927fd4f2d85}} 
+\index{Predator\+Ship@{Predator\+Ship}!calculate\+Magnitude@{calculate\+Magnitude}}
+\index{calculate\+Magnitude@{calculate\+Magnitude}!Predator\+Ship@{Predator\+Ship}}
+\subsubsection{\texorpdfstring{calculate\+Magnitude()}{calculateMagnitude()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily float Predator\+Ship\+::calculate\+Magnitude (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f}]{v }\end{DoxyParamCaption})}
+
+... // get mag of vector\mbox{\Hypertarget{class_predator_ship_a8000ba5e3ef3024de39cc7763048af72}\label{class_predator_ship_a8000ba5e3ef3024de39cc7763048af72}} 
+\index{Predator\+Ship@{Predator\+Ship}!calculate\+Magnitude@{calculate\+Magnitude}}
+\index{calculate\+Magnitude@{calculate\+Magnitude}!Predator\+Ship@{Predator\+Ship}}
+\subsubsection{\texorpdfstring{calculate\+Magnitude()}{calculateMagnitude()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily float Predator\+Ship\+::calculate\+Magnitude (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f}]{v1,  }\item[{sf\+::\+Vector2f}]{v2 }\end{DoxyParamCaption})}
+
+... // gets mag of 2 vectors added\mbox{\Hypertarget{class_predator_ship_a5b3c56caa2c17fbe78d377c0b4ad5408}\label{class_predator_ship_a5b3c56caa2c17fbe78d377c0b4ad5408}} 
+\index{Predator\+Ship@{Predator\+Ship}!check\+Bullet\+Collision@{check\+Bullet\+Collision}}
+\index{check\+Bullet\+Collision@{check\+Bullet\+Collision}!Predator\+Ship@{Predator\+Ship}}
+\subsubsection{\texorpdfstring{check\+Bullet\+Collision()}{checkBulletCollision()}}
+{\footnotesize\ttfamily void Predator\+Ship\+::check\+Bullet\+Collision (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_projectile}{Projectile}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+~\newline
+... // checks collision between predator bullet and player\mbox{\Hypertarget{class_predator_ship_aa7763a0a0b525421f672ef3e05c1b9ea}\label{class_predator_ship_aa7763a0a0b525421f672ef3e05c1b9ea}} 
+\index{Predator\+Ship@{Predator\+Ship}!check\+Wall\+Collisions@{check\+Wall\+Collisions}}
+\index{check\+Wall\+Collisions@{check\+Wall\+Collisions}!Predator\+Ship@{Predator\+Ship}}
+\subsubsection{\texorpdfstring{check\+Wall\+Collisions()}{checkWallCollisions()}}
+{\footnotesize\ttfamily void Predator\+Ship\+::check\+Wall\+Collisions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_wall}{Wall}} $\ast$}]{wall,  }\item[{float}]{delta\+Time }\end{DoxyParamCaption})}
+
+~\newline
+... // checks and handles predator wall collisions\mbox{\Hypertarget{class_predator_ship_a5143808a096196286fa4b3c546c183ce}\label{class_predator_ship_a5143808a096196286fa4b3c546c183ce}} 
+\index{Predator\+Ship@{Predator\+Ship}!choose\+Target@{choose\+Target}}
+\index{choose\+Target@{choose\+Target}!Predator\+Ship@{Predator\+Ship}}
+\subsubsection{\texorpdfstring{choose\+Target()}{chooseTarget()}}
+{\footnotesize\ttfamily void Predator\+Ship\+::choose\+Target (\begin{DoxyParamCaption}\item[{float}]{delta\+Time }\end{DoxyParamCaption})}
+
+~\newline
+... choose target to seek to\mbox{\Hypertarget{class_predator_ship_aac64b6592bb9e75c34335f0150a68d12}\label{class_predator_ship_aac64b6592bb9e75c34335f0150a68d12}} 
+\index{Predator\+Ship@{Predator\+Ship}!fire\+Bullet@{fire\+Bullet}}
+\index{fire\+Bullet@{fire\+Bullet}!Predator\+Ship@{Predator\+Ship}}
+\subsubsection{\texorpdfstring{fire\+Bullet()}{fireBullet()}}
+{\footnotesize\ttfamily void Predator\+Ship\+::fire\+Bullet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+... predator ship fires bullet\mbox{\Hypertarget{class_predator_ship_a91fdb3bab56c53417c0fa33237768f64}\label{class_predator_ship_a91fdb3bab56c53417c0fa33237768f64}} 
+\index{Predator\+Ship@{Predator\+Ship}!get\+Rect@{get\+Rect}}
+\index{get\+Rect@{get\+Rect}!Predator\+Ship@{Predator\+Ship}}
+\subsubsection{\texorpdfstring{get\+Rect()}{getRect()}}
+{\footnotesize\ttfamily sf\+::\+Float\+Rect Predator\+Ship\+::get\+Rect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+... // gets predator rectangle\mbox{\Hypertarget{class_predator_ship_ad240f08c5f508a3447452d665080cf73}\label{class_predator_ship_ad240f08c5f508a3447452d665080cf73}} 
+\index{Predator\+Ship@{Predator\+Ship}!normalise@{normalise}}
+\index{normalise@{normalise}!Predator\+Ship@{Predator\+Ship}}
+\subsubsection{\texorpdfstring{normalise()}{normalise()}}
+{\footnotesize\ttfamily void Predator\+Ship\+::normalise (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f \&}]{v }\end{DoxyParamCaption})}
+
+~\newline
+... //get normal vector\mbox{\Hypertarget{class_predator_ship_abd172d5ef1713de0e79e33ce7b23c13a}\label{class_predator_ship_abd172d5ef1713de0e79e33ce7b23c13a}} 
+\index{Predator\+Ship@{Predator\+Ship}!render@{render}}
+\index{render@{render}!Predator\+Ship@{Predator\+Ship}}
+\subsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily void Predator\+Ship\+::render (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+... render the predatorship sprite in game world\mbox{\Hypertarget{class_predator_ship_a4f32416e9d9175ec61bab70008ad709f}\label{class_predator_ship_a4f32416e9d9175ec61bab70008ad709f}} 
+\index{Predator\+Ship@{Predator\+Ship}!render\+Radar@{render\+Radar}}
+\index{render\+Radar@{render\+Radar}!Predator\+Ship@{Predator\+Ship}}
+\subsubsection{\texorpdfstring{render\+Radar()}{renderRadar()}}
+{\footnotesize\ttfamily void Predator\+Ship\+::render\+Radar (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+~\newline
+... render blip of predatorship on minimap\mbox{\Hypertarget{class_predator_ship_a941925b4c228dcbb9fae0d8f9ee8af24}\label{class_predator_ship_a941925b4c228dcbb9fae0d8f9ee8af24}} 
+\index{Predator\+Ship@{Predator\+Ship}!seek@{seek}}
+\index{seek@{seek}!Predator\+Ship@{Predator\+Ship}}
+\subsubsection{\texorpdfstring{seek()}{seek()}}
+{\footnotesize\ttfamily void Predator\+Ship\+::seek (\begin{DoxyParamCaption}\item[{float}]{delta\+Time,  }\item[{sf\+::\+Vector2f}]{v,  }\item[{float}]{dist,  }\item[{bool}]{seeking\+Player }\end{DoxyParamCaption})}
+
+~\newline
+... seek to chosen target\mbox{\Hypertarget{class_predator_ship_a68003be2e0126853481903bccb5473ed}\label{class_predator_ship_a68003be2e0126853481903bccb5473ed}} 
+\index{Predator\+Ship@{Predator\+Ship}!setup\+Path@{setup\+Path}}
+\index{setup\+Path@{setup\+Path}!Predator\+Ship@{Predator\+Ship}}
+\subsubsection{\texorpdfstring{setup\+Path()}{setupPath()}}
+{\footnotesize\ttfamily void Predator\+Ship\+::setup\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+... // checks which node is closest to the player and the predator\mbox{\Hypertarget{class_predator_ship_aaecc92f60ecbaaaf2f41edbe15a458ea}\label{class_predator_ship_aaecc92f60ecbaaaf2f41edbe15a458ea}} 
+\index{Predator\+Ship@{Predator\+Ship}!update@{update}}
+\index{update@{update}!Predator\+Ship@{Predator\+Ship}}
+\subsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Predator\+Ship\+::update (\begin{DoxyParamCaption}\item[{float}]{delta\+Time }\end{DoxyParamCaption})}
+
+~\newline
+... update predatorship and bullets of pred ship
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Predator\+Ship.\+h\item 
+Predator\+Ship.\+cpp\end{DoxyCompactItemize}

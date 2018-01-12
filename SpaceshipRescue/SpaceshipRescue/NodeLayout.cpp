@@ -14,6 +14,9 @@ NodeLayout::NodeLayout(std::vector<sf::Vector2f> &nodeData) {
 }
 
 void NodeLayout::addArcs() {
+	/********************************************//**
+	*  ...  add arcs between nodes
+***********************************************/
 	m_nodes[0]->addArc(m_nodes[1]);
 	m_nodes[1]->addArc(m_nodes[0]);
 

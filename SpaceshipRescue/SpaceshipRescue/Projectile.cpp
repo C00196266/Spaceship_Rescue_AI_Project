@@ -31,17 +31,9 @@ Projectile::~Projectile() {} //deconstructor
 
 void Projectile::initialise(sf::Vector2f pos, float rot, sf::Vector2f velocity)
 {
-	//float mag = velocity.x * velocity.x + velocity.y * velocity.y;
-	//if (mag > 0)
-	//{
-	//	m_velocity = velocity / mag;
-	//}
-	//else
-	//{
-	//	m_isAlive = false;
-	//}
-	//m_velocity.x *= 12;
-	//m_velocity.y *= 12;
+	/********************************************//**
+*  ...  //initialise projectile variables
+ ***********************************************/
 	
 	m_position = pos; //offset each Projectile (formerly i* 86) CONST
 
@@ -65,6 +57,9 @@ void Projectile::initialise(sf::Vector2f pos, float rot, sf::Vector2f velocity)
 
 void Projectile::Draw(sf::RenderWindow &window)
 {
+	/********************************************//**
+	*  ...  // draw projectiles 
+	***********************************************/
 	if (m_isAlive)
 	{
  		window.draw(m_image);// , sf::BlendAdd);
@@ -81,13 +76,9 @@ void Projectile::setAlive(bool alive)
 //if enemies are alive, they should be doing stuff
 void Projectile::update(float deltaTime)
 {
-	//float mag = m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y;
-
-	//if (mag <= 0)
-	//{
-	//	m_isAlive = false;
-	//}
-
+	/********************************************//**
+*  ...  // update projectiles 
+***********************************************/
 	lifetime += lifeClock.getElapsedTime();
 
 	//m_position += m_velocity;
@@ -116,16 +107,7 @@ void Projectile::update(float deltaTime)
 
 		m_position += m_velocity;
 
-		//int tempOri = orient;
-
-		//tempOri += 360;
-
-		//tempOri = tempOri % 360;
-		//tempOri *= -1;
-
 		m_image.setRotation((rotation));
-
-	//	m_image.setRotation(tempOri);
 
 		m_image.setPosition(m_position); //set position of sprite
 	}
@@ -156,6 +138,7 @@ float Projectile::getHeight()
 
 float Projectile::getOrient(float orientation, sf::Vector2f velocity, sf::Vector2f target)
 {
+
 	float bearingRad = atan2f(target.x - m_position.x, target.y - m_position.y);
 	float bearingDegrees = bearingRad * (180 / 3.14);
 	bearingDegrees = (bearingDegrees > 0.0 ? bearingDegrees : (360.0 + bearingDegrees));

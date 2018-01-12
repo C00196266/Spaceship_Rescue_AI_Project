@@ -7,7 +7,10 @@ Floor::Floor(sf::Vector2f pos, int type) {
 }
 
 void Floor::loadImage(int type) {
-	// type determines the floor texture that is loaded
+	/********************************************//**
+  *  ...  type determines the floor texture that is loaded
+	 ***********************************************/
+
 	if (type == 0) {
 		m_image.loadFromFile("assets/ground1.png");
 	}

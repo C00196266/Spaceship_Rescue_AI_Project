@@ -1,0 +1,82 @@
+\hypertarget{class_projectile}{}\section{Projectile Class Reference}
+\label{class_projectile}\index{Projectile@{Projectile}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_projectile_aa89daaa748dc847bd0ed4c5b131e18c1}\label{class_projectile_aa89daaa748dc847bd0ed4c5b131e18c1}} 
+{\bfseries Projectile} (sf\+::\+Vector2f pos, float rot, float mag, sf\+::\+Vector2f velocity)
+\item 
+void \mbox{\hyperlink{class_projectile_a9b1fe47f547a234439f87adc8759df8d}{initialise}} (sf\+::\+Vector2f pos, float rot, sf\+::\+Vector2f velocity)
+\item 
+void \mbox{\hyperlink{class_projectile_a5bc646de87829b911d6817a6478c353e}{update}} (float delta\+Time)
+\item 
+\mbox{\Hypertarget{class_projectile_a88ed5be04ec9eddeb83deb201607368c}\label{class_projectile_a88ed5be04ec9eddeb83deb201607368c}} 
+sf\+::\+Vector2f {\bfseries get\+Position} ()
+\item 
+\mbox{\Hypertarget{class_projectile_acdcf53a4c078135f7d7cd86871c9bb91}\label{class_projectile_acdcf53a4c078135f7d7cd86871c9bb91}} 
+bool {\bfseries get\+Alive} ()
+\item 
+\mbox{\Hypertarget{class_projectile_a983d5d433a3dc8c6124e7efe2a57c635}\label{class_projectile_a983d5d433a3dc8c6124e7efe2a57c635}} 
+float {\bfseries get\+Health} ()
+\item 
+\mbox{\Hypertarget{class_projectile_a92bcfb9a5b0fdcdaf73bf38502f22304}\label{class_projectile_a92bcfb9a5b0fdcdaf73bf38502f22304}} 
+sf\+::\+Vector2f {\bfseries get\+Velocity} ()
+\item 
+\mbox{\Hypertarget{class_projectile_aebced9bbe25d8b9a3b214a12201a04d9}\label{class_projectile_aebced9bbe25d8b9a3b214a12201a04d9}} 
+float {\bfseries get\+Orient} (float orientation, sf\+::\+Vector2f velocity, sf\+::\+Vector2f target)
+\item 
+\mbox{\Hypertarget{class_projectile_afb7d5c794f26e495ccbc5b597bb01246}\label{class_projectile_afb7d5c794f26e495ccbc5b597bb01246}} 
+float {\bfseries get\+Width} ()
+\item 
+\mbox{\Hypertarget{class_projectile_a70d55ea52a1d6cdaf74c894d412597d1}\label{class_projectile_a70d55ea52a1d6cdaf74c894d412597d1}} 
+float {\bfseries get\+Height} ()
+\item 
+\mbox{\Hypertarget{class_projectile_ae07f879ff7091e007f89e1e875f08962}\label{class_projectile_ae07f879ff7091e007f89e1e875f08962}} 
+void {\bfseries set\+Position} (sf\+::\+Vector2f position)
+\item 
+\mbox{\Hypertarget{class_projectile_a7125bb834b93eb0dbe6484c015949e80}\label{class_projectile_a7125bb834b93eb0dbe6484c015949e80}} 
+void {\bfseries set\+Alive} (bool alive)
+\item 
+\mbox{\Hypertarget{class_projectile_a98891d8de7607df133f975ec8e249ccf}\label{class_projectile_a98891d8de7607df133f975ec8e249ccf}} 
+void {\bfseries set\+Velocity} (sf\+::\+Vector2f velocity)
+\item 
+void \mbox{\hyperlink{class_projectile_a0c13be2f57f656bae015fa3ecfffa572}{Draw}} (sf\+::\+Render\+Window \&window)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_projectile_ada05bf23fbcb757cd7121dec3d0a72bd}\label{class_projectile_ada05bf23fbcb757cd7121dec3d0a72bd}} 
+sf\+::\+Time {\bfseries lifetime}
+\item 
+\mbox{\Hypertarget{class_projectile_a2a4fb9a99683ea017ca05a8a0d8a670c}\label{class_projectile_a2a4fb9a99683ea017ca05a8a0d8a670c}} 
+sf\+::\+Clock {\bfseries life\+Clock}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_projectile_a0c13be2f57f656bae015fa3ecfffa572}\label{class_projectile_a0c13be2f57f656bae015fa3ecfffa572}} 
+\index{Projectile@{Projectile}!Draw@{Draw}}
+\index{Draw@{Draw}!Projectile@{Projectile}}
+\subsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void Projectile\+::\+Draw (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+... // draw projectiles\mbox{\Hypertarget{class_projectile_a9b1fe47f547a234439f87adc8759df8d}\label{class_projectile_a9b1fe47f547a234439f87adc8759df8d}} 
+\index{Projectile@{Projectile}!initialise@{initialise}}
+\index{initialise@{initialise}!Projectile@{Projectile}}
+\subsubsection{\texorpdfstring{initialise()}{initialise()}}
+{\footnotesize\ttfamily void Projectile\+::initialise (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f}]{pos,  }\item[{float}]{rot,  }\item[{sf\+::\+Vector2f}]{velocity }\end{DoxyParamCaption})}
+
+~\newline
+... //initialise projectile variables\mbox{\Hypertarget{class_projectile_a5bc646de87829b911d6817a6478c353e}\label{class_projectile_a5bc646de87829b911d6817a6478c353e}} 
+\index{Projectile@{Projectile}!update@{update}}
+\index{update@{update}!Projectile@{Projectile}}
+\subsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Projectile\+::update (\begin{DoxyParamCaption}\item[{float}]{delta\+Time }\end{DoxyParamCaption})}
+
+~\newline
+... // update projectiles
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Projectile.\+h\item 
+Projectile.\+cpp\end{DoxyCompactItemize}

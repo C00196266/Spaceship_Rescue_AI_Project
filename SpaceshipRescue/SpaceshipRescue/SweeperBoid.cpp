@@ -54,7 +54,12 @@ void SweeperBoid::update(float deltaTime)
 		}
 	}
 	else if (m_behaviour == RETURN) {
-		returnToPatrol(deltaTime);
+		setupReturnPath();
+
+		// if the behaviour has been changed to patrol
+		if (m_behaviour != PATROL) {
+			returnToPatrol(deltaTime);
+		}
 	}
 	else {
 		flee(deltaTime);
@@ -206,9 +211,63 @@ void SweeperBoid::abduct(float deltaTime) {
 	}
 }
 
+void SweeperBoid::setupReturnPath() {
+	int indexClosestToSweeper;
+	float closestDistSweeper = 99999;
+
+	for (int i = 0; i < m_nodeLayout.getNoOfNodes() - 1; i++) {
+		float distSweeper = calculateMagnitude(m_nodeLayout.getNodes()[i]->getPos(), m_pos);
+	
+		if (distSweeper < closestDistSweeper) {
+			closestDistSweeper = distSweeper;
+			indexClosestToSweeper = i;
+		}
+	}
+
+	if (indexClosestToSweeper != m_patrolPath.at(m_currentPatrolNode)->getID()) {
+		if (!m_returnPath.empty()) {
+			// if the node that is closest (the destination) to the player has changed
+			m_returnPath.clear();
+			m_astar->calculatePath(m_nodeLayout.getNodes()[m_patrolPath.at(m_currentPatrolNode)->getID()], m_nodeLayout.getNodes()[indexClosestToSweeper], m_returnPath);
+		}
+	}
+	else {
+		m_behaviour = PATROL;
+	}
+}
+
 void SweeperBoid::returnToPatrol(float deltaTime) {
-	// checks if nearest node is equal to the next node on the patrol path
-	// if not, set next node on patrol path to be dest, and perform astar to it
+	float targetSpeed = 0;
+	sf::Vector2f v = m_patrolPath.at(m_currentPatrolNode)->getPos() - m_pos;
+	m_distToNode = calculateMagnitude(v);
+
+	if (m_distToNode < 65) {
+		// change to seek to next node upon reaching current node
+		m_returnPath.erase(m_returnPath.begin());
+
+		if (m_returnPath.size() == 0) {
+			m_behaviour = PATROL;
+		}
+	}
+	else if (m_distToNode > 200) {
+		targetSpeed = m_maxSpeed;
+	}
+	else {
+		targetSpeed = m_maxSpeed * (m_distToNode / 200);
+	}
+
+	normalise(v);
+	v *= targetSpeed;
+
+	float timeToTarget = 4;
+
+	m_accel = v - (m_vel / timeToTarget);
+
+	if (calculateMagnitude(m_accel) > m_maxAccel) {
+		normalise(m_accel);
+	}
+
+	m_vel += m_accel * deltaTime;
 }
 
 void SweeperBoid::flee(float deltaTime) {
@@ -224,6 +283,7 @@ void SweeperBoid::seek(float deltaTime, sf::Vector2f v, float dist, bool seeking
 		if (m_workers.at(m_targetIndex)->getAbducted() == true) {
 			// if someone else catches their target
 			m_behaviour = RETURN;
+			m_targetChosen = false;
 		}
 
 		if (dist < 70) {

@@ -21,9 +21,13 @@ public:
 	//void checkBulletCollision(Projectile* p);
 	void setupPatrol(int pathNo);
 	void patrol(float deltaTime);
+
 	void setupSeekPath();
 	void abduct(float deltaTime);
+
+	void setupReturnPath();
 	void returnToPatrol(float deltaTime);
+
 	void flee(float deltaTime);
 
 	void normalise(sf::Vector2f &v);
@@ -73,6 +77,7 @@ private:
 	float m_distToSeekNode;
 
 	std::vector<Node*> m_returnPath;
+
 	std::vector<Node*> m_fleePath;
 
 	AStar* m_astar;

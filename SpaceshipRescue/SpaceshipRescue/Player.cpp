@@ -21,7 +21,7 @@ void Player::Init()
 	minVelo = sf::Vector2f(0, 0);
 	angle = 0;
 	minSpeed = 0;
-	maxSpeed = 6;
+	maxSpeed = 3;
 
 	circle.setRadius(12);
 	circle.setOutlineColor(sf::Color::Red);
@@ -85,7 +85,7 @@ void Player::Init()
 
 	m_health = m_maxHealth;
 	//m_shielded = false;
-	m_shielded = true;
+	m_shielded = false;
 }
 
 //Draw method used to draw the animated sprite and also to set the view of the render window to center on the player object.
@@ -143,6 +143,7 @@ void Player::update(float time)
 	}
 	if (m_isAlive)
 	{
+		cout << m_health << endl;
 		fireTime += fireClock.getElapsedTime();
 
 		//m_position += m_velocity;
@@ -328,8 +329,9 @@ void Player::setAlive(bool alive)
 
 void Player::setHealth(float healthChange)
 {
-	m_health += healthChange;
-
+	m_health -= healthChange;
+	cout << "IN THERE" << endl;
+	cout << m_health << endl;
 	if (m_health < 1) {
 		m_isAlive = false;
 	}

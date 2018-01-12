@@ -5,7 +5,7 @@ PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, Player* player, 
 	m_nextPosX = pos;
 	m_nextPosY = pos;
 
-	m_maxSpeed = 6.0f;
+	m_maxSpeed = 3.0f;
 
 	m_image.loadFromFile("assets/PredatorShip.png");
 	m_texture.loadFromImage(m_image);
@@ -60,6 +60,33 @@ void PredatorShip::update(float deltaTime)
 {
 	if (m_alive)
 	{
+		std::vector<Projectile*> bulletVector = (*m_player).getBullets();
+		std::vector<Projectile*>::iterator bulletIterator;
+
+		for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
+		{
+			if ((*bulletIterator)->getAlive())
+			{
+				if ((*bulletIterator)->getPosition().x < m_pos.x + m_width
+					&& (*bulletIterator)->getPosition().x + (*m_player).getRect().width > m_pos.x
+					&& (*bulletIterator)->getPosition().y < m_pos.y + m_height
+					&& (*bulletIterator)->getPosition().y + (*m_player).getRect().height > m_pos.y)
+				{
+					(*bulletIterator)->setAlive(false);
+					m_alive = false;
+				}
+				if (m_player->getShielded() == false)
+				{
+					//m_player->setHealth(-1);
+				}
+				else
+				{
+					m_player->setShieled(false);
+				}
+			}
+		}
+
+
 		setupPath();
 		//m_playerPos = playerPos;
 		m_radarImage.setPosition(m_pos);
@@ -113,24 +140,7 @@ void PredatorShip::update(float deltaTime)
 			}
 		}
 
-
-		std::vector<Projectile*> bulletVector = (*m_player).getBullets();
-		std::vector<Projectile*>::iterator bulletIterator;
-
-		for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
-		{
-			if ((*bulletIterator)->getAlive())
-			{
-				if ((*bulletIterator)->getPosition().x < m_pos.x + m_width
-					&& (*bulletIterator)->getPosition().x + (*m_player).getRect().width > m_pos.x
-					&& (*bulletIterator)->getPosition().y < m_pos.y + m_height
-					&& (*bulletIterator)->getPosition().y + (*m_player).getRect().height > m_pos.y)
-				{
-					(*bulletIterator)->setAlive(false);
-					m_alive = false;
-				}
-			}
-		}
+	
 	}
 }
 
@@ -335,31 +345,31 @@ sf::FloatRect PredatorShip::getRect() {
 void PredatorShip::checkPlayerBulletColl()
 {
 
-	std::vector<Projectile*> bulletVector = (*m_player).getBullets();
-	std::vector<Projectile*>::iterator bulletIterator;
+	//std::vector<Projectile*> bulletVector = (*m_player).getBullets();
+	//std::vector<Projectile*>::iterator bulletIterator;
 
-	for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
-	{
-		if ((*bulletIterator)->getAlive())
-		{
-			if ((*bulletIterator)->getPosition().x < m_pos.x + m_width
-				&& (*bulletIterator)->getPosition().x + (*m_player).getRect().width > m_pos.x
-				&& (*bulletIterator)->getPosition().y < m_pos.y + m_height
-				&& (*bulletIterator)->getPosition().y + (*m_player).getRect().height > m_pos.y)
-			{
-				(*bulletIterator)->setAlive(false);
-				m_alive = false;
-			}
-			if (m_player->getShielded() == false)
-			{
-				m_player->setHealth(-1);
-			}
-			else
-			{
-				m_player->setShieled(false);
-			}
-		}
-	}
+	//for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
+	//{
+	//	if ((*bulletIterator)->getAlive())
+	//	{
+	//		if ((*bulletIterator)->getPosition().x < m_pos.x + m_width
+	//			&& (*bulletIterator)->getPosition().x + (*m_player).getRect().width > m_pos.x
+	//			&& (*bulletIterator)->getPosition().y < m_pos.y + m_height
+	//			&& (*bulletIterator)->getPosition().y + (*m_player).getRect().height > m_pos.y)
+	//		{
+	//			(*bulletIterator)->setAlive(false);
+	//			m_alive = false;
+	//		}
+	//		if (m_player->getShielded() == false)
+	//		{
+	//			m_player->setHealth(-1);
+	//		}
+	//		else
+	//		{
+	//			m_player->setShieled(false);
+	//		}
+	//	}
+	//}
 }
 
 

@@ -18,7 +18,7 @@ void SeekerMissile::initialise(int i, sf::Vector2f pos)
 	minSpeed = 0;
 	maxSpeed = 2;//8.2f;
 	speed = 2;//8.2f;
-	m_image.setScale(0.2f, 0.2f);
+	m_image.setScale(0.02f, 0.02f);
 	m_image.rotate(180);
 
 	offSetX = m_image.getGlobalBounds().width / 2.0f;
@@ -63,7 +63,7 @@ void SeekerMissile::update(float i, Player* player, float deltaTime)
 	lifetime += lifeClock.getElapsedTime();
 
 
-	if (lifetime.asMilliseconds() > 250000)
+	if (lifetime.asMilliseconds() > 350000)
 	{
 		std::cout << "timeout" << endl;
 
@@ -73,7 +73,7 @@ void SeekerMissile::update(float i, Player* player, float deltaTime)
 		lifetime = sf::Time::Zero;
 	}
 
-	if (m_isAlive)
+	if (m_isAlive && lifetime.asMilliseconds() > 100000)
 	{
 		delta = deltaTime;
 
@@ -96,7 +96,7 @@ void SeekerMissile::update(float i, Player* player, float deltaTime)
 
 		m_image.setRotation((tempOri + 180));
 
-		m_image.setRotation(tempOri); 
+	//	m_image.setRotation(tempOri); 
 
 		m_image.setPosition(m_position); //set position of sprite
 	}
@@ -147,8 +147,10 @@ float SeekerMissile::Arrive(sf::Vector2f target, Player* player)
 
 		
 		cout << "kaboom" << endl;
-		player->setHealth(1);
+		int temp = player->getHealth();
 
+		player->setHealth(1);
+		
 		lifeClock.restart();
 		lifetime = sf::Time::Zero;
 

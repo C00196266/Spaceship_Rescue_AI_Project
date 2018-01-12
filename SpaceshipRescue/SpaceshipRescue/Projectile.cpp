@@ -15,8 +15,8 @@ Projectile::Projectile(sf::Vector2f pos, float rot, float mag, sf::Vector2f velo
 	{
 		m_isAlive = false;
 	}
-	m_velocity.x *= 12;
-	m_velocity.y *= 12;
+	m_velocity.x *= 6;
+	m_velocity.y *= 6;
 	m_texture.loadFromFile("missile.png");
 	m_image.setOrigin(sf::Vector2f(m_image.getGlobalBounds().width / 2.0f, (m_image.getGlobalBounds().height / 2.0f)));
 	m_image.setTexture(m_texture); //apply texture to image}

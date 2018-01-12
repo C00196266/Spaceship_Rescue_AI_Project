@@ -23,7 +23,10 @@ void Player::Init()
 	minSpeed = 0;
 	maxSpeed = 6;
 
-
+	circle.setRadius(12);
+	circle.setOutlineColor(sf::Color::Red);
+	circle.setOutlineThickness(5);
+	circle.setPosition(m_position);
 
 	//initialization logic for player
 	keyUp = true;
@@ -62,7 +65,7 @@ void Player::Init()
 	m_sprite.setAnimation(m_animation);
 	m_sprite.setLooped(true);
 
-	m_sprite.setOrigin(24, 23.5f);
+	m_sprite.setOrigin(24, 24);
 	m_position = sf::Vector2f(300, 300);
 
 	m_sprite.setRotation(180);
@@ -93,6 +96,7 @@ void Player::DrawRadar(sf::RenderWindow &window)
 //Draw method used to draw the animated sprite and also to set the view of the render window to center on the player object.
 void Player::Draw(sf::RenderWindow &window)
 {
+	//window.draw(circle);
 	cout << m_health << endl;
 	if (m_isAlive)
 	{
@@ -152,6 +156,8 @@ void Player::update(float time)
 		m_sprite.update(sf::seconds(0.05));
 
 		m_sprite.setPosition(m_position);
+
+		circle.setPosition(sf::Vector2f(m_position.x - 12, m_position.y - 12));
 
 		// check collisions with wall
 		auto iter = m_walls.begin();
@@ -261,7 +267,7 @@ void Player::update(float time)
 void Player::checkCollisions(Wall* wall, float deltaTime) {
 	// checks for intersection between the predator and the wall
 
-	if (m_sprite.getGlobalBounds().intersects(wall->getSprite().getGlobalBounds()))
+	if (circle.getGlobalBounds().intersects(wall->getSprite().getGlobalBounds()))
 	{
 		m_position -= m_velocity * 1.1f;
 

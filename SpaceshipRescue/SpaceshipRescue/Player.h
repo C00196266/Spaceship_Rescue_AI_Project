@@ -46,6 +46,8 @@ private:
 	sf::Vector2f m_velocity;
 	int PlayerType; //fed a random distrubution to see if Player is type 1, 2 or 3
 	float speed;
+	sf::CircleShape circle;
+
 
 	bool firstSpacePressed = false;
 	Projectile* bulletArray[30];

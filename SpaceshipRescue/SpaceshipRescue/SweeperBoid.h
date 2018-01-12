@@ -18,7 +18,7 @@ public:
 	void seek(float deltaTime, sf::Vector2f v, float dist, bool seekingWorker);
 	void checkWallCollisions(Wall* wall, float deltaTime);
 	void chooseBehaviour();
-	//void checkBulletCollision(Projectile* p);
+	void checkBulletCollision(Projectile* p);
 	void setupPatrol(int pathNo);
 	void patrol(float deltaTime);
 
@@ -34,6 +34,8 @@ public:
 	void normalise(sf::Vector2f &v);
 	float calculateMagnitude(sf::Vector2f v);
 	float calculateMagnitude(sf::Vector2f v1, sf::Vector2f v2);
+
+	bool getAlive();
 
 private:
 	enum Behaviour { PATROL, FLEE, ABDUCT, RETURN };
@@ -57,6 +59,8 @@ private:
 	sf::Sprite m_sprite;
 
 	float m_orientation;
+
+	bool m_alive;
 
 	Player* m_player;
 

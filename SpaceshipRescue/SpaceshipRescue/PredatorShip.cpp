@@ -84,14 +84,6 @@ void PredatorShip::update(float deltaTime)
 					(*bulletIterator)->setAlive(false);
 					m_alive = false;
 				}
-				if (m_player->getShielded() == false)
-				{
-					//m_player->setHealth(-1);
-				}
-				else
-				{
-					m_player->setShieled(false);
-				}
 			}
 		}
 

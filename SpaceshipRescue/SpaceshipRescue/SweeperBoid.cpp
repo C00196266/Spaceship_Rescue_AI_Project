@@ -29,6 +29,7 @@ SweeperBoid::SweeperBoid(NodeLayout &nodes, Player* player, std::vector<Wall*> &
 	m_behaviour = PATROL;
 	m_targetChosen = false;
 	m_fleeing = false;
+	m_alive = true;
 }
 
 void SweeperBoid::render(sf::RenderWindow &window) {
@@ -79,6 +80,10 @@ void SweeperBoid::update(float deltaTime)
 	// check collisions with wall
 	for (std::vector<Wall*>::iterator i = m_walls.begin(); i != m_walls.end(); i++) {
 		checkWallCollisions((*i), deltaTime);
+	}
+
+	for (int i = 0; i < m_player->getBullets().size(); i++) {
+		checkBulletCollision(m_player->getBullets().at(i));
 	}
 
 	m_pos.x = m_nextPosX.x;
@@ -538,6 +543,21 @@ void SweeperBoid::checkWallCollisions(Wall* wall, float deltaTime) {
 	}
 }
 
+void SweeperBoid::checkBulletCollision(Projectile* p) {
+	/********************************************//**
+	*  ...  // checks collision between sweeper and player bullets
+	***********************************************/
+
+	if (p->getPosition().x < m_pos.x + m_width
+		&& p->getPosition().x + p->getWidth() >m_pos.x
+		&& p->getPosition().y < m_pos.y + m_height
+		&& p->getPosition().y + p->getHeight() >m_pos.y)
+	{
+		p->setAlive(false);
+		m_alive = false;
+	}
+}
+
 void SweeperBoid::normalise(sf::Vector2f &v) {
 	float magnitude = calculateMagnitude(v);
 
@@ -554,4 +574,8 @@ float SweeperBoid::calculateMagnitude(sf::Vector2f vec) {
 
 float SweeperBoid::calculateMagnitude(sf::Vector2f vec1, sf::Vector2f vec2) {
 	return sqrt(((vec2.x - vec1.x) * (vec2.x - vec1.x)) + ((vec2.y - vec1.y) * (vec2.y - vec1.y)));
+}
+
+bool SweeperBoid::getAlive() {
+	return m_alive;
 }

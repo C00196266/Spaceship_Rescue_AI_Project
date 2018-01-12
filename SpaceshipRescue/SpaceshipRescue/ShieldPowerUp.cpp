@@ -19,6 +19,10 @@ ShieldPowerUp::ShieldPowerUp(sf::Vector2f pos) {
 }
 
 void ShieldPowerUp::checkCollision(Player* player) {
+	/********************************************//**
+ *  ...  //check collision for player and shield powerup
+ ***********************************************/
+
 	if (player->getPosition().x < m_pos.x + m_width
 		&& player->getPosition().x + player->getRect().width > m_pos.x
 		&& player->getPosition().y <  m_pos.y + m_height

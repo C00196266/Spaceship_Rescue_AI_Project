@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SpaceshipRescue: Projectile Class Reference</title>
+<title>Spaceship Rescue: Projectile Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -20,11 +20,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="DJmtdfvV4AE6Lj3.jpg"/></td>
+  <td id="projectlogo"><img alt="Logo" src="boss stage.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">SpaceshipRescue
+   <div id="projectname">Spaceship Rescue
    </div>
-   <div id="projectbrief">Space battles in space</div>
   </td>
  </tr>
  </tbody>
@@ -77,11 +76,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa89daaa748dc847bd0ed4c5b131e18c1"><td class="memItemLeft" align="right" valign="top"><a id="aa89daaa748dc847bd0ed4c5b131e18c1"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Projectile</b> (sf::Vector2f pos, float rot, float mag, sf::Vector2f velocity)</td></tr>
 <tr class="separator:aa89daaa748dc847bd0ed4c5b131e18c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b1fe47f547a234439f87adc8759df8d"><td class="memItemLeft" align="right" valign="top"><a id="a9b1fe47f547a234439f87adc8759df8d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>initialise</b> (sf::Vector2f pos, float rot, sf::Vector2f velocity)</td></tr>
+<tr class="memitem:a9b1fe47f547a234439f87adc8759df8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_projectile.html#a9b1fe47f547a234439f87adc8759df8d">initialise</a> (sf::Vector2f pos, float rot, sf::Vector2f velocity)</td></tr>
 <tr class="separator:a9b1fe47f547a234439f87adc8759df8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5bc646de87829b911d6817a6478c353e"><td class="memItemLeft" align="right" valign="top"><a id="a5bc646de87829b911d6817a6478c353e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (float deltaTime)</td></tr>
+<tr class="memitem:a5bc646de87829b911d6817a6478c353e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_projectile.html#a5bc646de87829b911d6817a6478c353e">update</a> (float deltaTime)</td></tr>
 <tr class="separator:a5bc646de87829b911d6817a6478c353e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88ed5be04ec9eddeb83deb201607368c"><td class="memItemLeft" align="right" valign="top"><a id="a88ed5be04ec9eddeb83deb201607368c"></a>
 sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><b>getPosition</b> ()</td></tr>
@@ -113,8 +110,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setAlive</b> (bool al
 <tr class="memitem:a98891d8de7607df133f975ec8e249ccf"><td class="memItemLeft" align="right" valign="top"><a id="a98891d8de7607df133f975ec8e249ccf"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setVelocity</b> (sf::Vector2f velocity)</td></tr>
 <tr class="separator:a98891d8de7607df133f975ec8e249ccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c13be2f57f656bae015fa3ecfffa572"><td class="memItemLeft" align="right" valign="top"><a id="a0c13be2f57f656bae015fa3ecfffa572"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Draw</b> (sf::RenderWindow &amp;window)</td></tr>
+<tr class="memitem:a0c13be2f57f656bae015fa3ecfffa572"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_projectile.html#a0c13be2f57f656bae015fa3ecfffa572">Draw</a> (sf::RenderWindow &amp;window)</td></tr>
 <tr class="separator:a0c13be2f57f656bae015fa3ecfffa572"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -126,6 +122,82 @@ sf::Time&#160;</td><td class="memItemRight" valign="bottom"><b>lifetime</b></td>
 sf::Clock&#160;</td><td class="memItemRight" valign="bottom"><b>lifeClock</b></td></tr>
 <tr class="separator:a2a4fb9a99683ea017ca05a8a0d8a670c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0c13be2f57f656bae015fa3ecfffa572"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c13be2f57f656bae015fa3ecfffa572">&#9670;&nbsp;</a></span>Draw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Projectile::Draw </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderWindow &amp;&#160;</td>
+          <td class="paramname"><em>window</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>... // draw projectiles</p>
+
+</div>
+</div>
+<a id="a9b1fe47f547a234439f87adc8759df8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b1fe47f547a234439f87adc8759df8d">&#9670;&nbsp;</a></span>initialise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Projectile::initialise </td>
+          <td>(</td>
+          <td class="paramtype">sf::Vector2f&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>rot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::Vector2f&#160;</td>
+          <td class="paramname"><em>velocity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><br />
+... //initialise projectile variables</p>
+
+</div>
+</div>
+<a id="a5bc646de87829b911d6817a6478c353e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bc646de87829b911d6817a6478c353e">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Projectile::update </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>deltaTime</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><br />
+... // update projectiles</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_projectile_8h_source.html">Projectile.h</a></li>
 <li>Projectile.cpp</li>

@@ -7,6 +7,9 @@ SeekerMissile::~SeekerMissile() {} //deconstructor
 
 void SeekerMissile::initialise(int i, sf::Vector2f pos)
 {
+	/********************************************//**
+ *  ...  // initialise seekermissile variables
+ ***********************************************/
 	m_texture.loadFromFile("ai.png"); //reset relevant vars
 	m_image.setTexture(m_texture); //apply texture to image
 	m_position = pos; //offset each SeekerMissile (formerly i* 86) CONST
@@ -26,23 +29,14 @@ void SeekerMissile::initialise(int i, sf::Vector2f pos)
 
 	lifetime = sf::Time::Zero;
 	lifeClock.restart();
-
-	//currentWaypoint = 0; //head to first waypoint at first.
-	//int hund = 100;
-	//m_waypoint.reserve(5);
-	//cout << std::to_string(m_waypoint.size()) << endl;
-
-	//random_device rando; //rng 
-	//mt19937 gen(rando());
-	//uniform_int_distribution<> dist(0, 1);
-	//uniform_int_distribution<> dist2(0, 2);
-	//rPath = dist(gen); //select 
-	//m_waypoint.clear(); //if game restarts we want a fresh vector
 }
 
 
 void SeekerMissile::Draw(sf::RenderWindow &window)
 {
+	/********************************************//**
+  *  ...  // draw seekermissile object in game world
+ ***********************************************/
 	if (m_isAlive)
 	{
 		window.draw(m_image);// , sf::BlendAdd);
@@ -57,7 +51,9 @@ void SeekerMissile::setAlive(bool alive)
 //if enemies are alive, they should be doing stuff
 void SeekerMissile::update(float i, Player* player, float deltaTime)
 {
-
+	/********************************************//**
+*  ...  // update seeker missile 
+	***********************************************/
 	m_target = (*player).getPosition();
 
 	lifetime += lifeClock.getElapsedTime();
@@ -135,6 +131,9 @@ void SeekerMissile::setPosition(sf::Vector2f pos)
 
 float SeekerMissile::Arrive(sf::Vector2f target, Player* player)
 {
+	/********************************************//**
+	*  ...  // detonate missile on arrival
+	***********************************************/
 	sf::Vector2f temp = sf::Vector2f(target.x + offSetX, target.y + offSetY) - sf::Vector2f(m_position.x + offSetX, m_position.y + offSetY);
 
 	float mag = temp.x * temp.x + temp.y * temp.y;
@@ -160,6 +159,9 @@ float SeekerMissile::Arrive(sf::Vector2f target, Player* player)
 
 void SeekerMissile::Seek(sf::Vector2f target, Player* player)
 {
+	/********************************************//**
+*  ...  // seek to player
+***********************************************/
 	m_velocity = sf::Vector2f(target.x + offSetX, target.y + offSetY) - sf::Vector2f(m_position.x + offSetX, m_position.y + offSetY); 
 
 	float mag = m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y;

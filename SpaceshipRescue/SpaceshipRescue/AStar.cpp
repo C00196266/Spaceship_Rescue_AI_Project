@@ -1,10 +1,15 @@
 #include "AStar.h"
 
 AStar::AStar(NodeLayout &nodes) : m_nodeLayout(nodes){
-
+	/********************************************//**
+	*  ...  constructor for astar
+***********************************************/
 }
 
 void AStar::calculatePath(Node* start, Node* dest, std::vector<Node*>& path) {
+	/********************************************//**
+	 *  ...  calculate astar path through nodes
+ ***********************************************/
 	if (start != NULL) {
 		// computes the actual cost of each path from dest to start
 		ucs(dest, start, path);
@@ -79,6 +84,9 @@ void AStar::calculatePath(Node* start, Node* dest, std::vector<Node*>& path) {
 }
 
 void AStar::ucs(Node* start, Node* dest, std::vector<Node*>& path) {
+	/********************************************//**
+	*  ...  usc implementation
+***********************************************/
 	if (start != NULL) {
 		for (int i = 0; i < m_nodeLayout.getNoOfNodes() - 1; i++) {
 			// sets cost to infinity

@@ -15,7 +15,10 @@ void Node::addArc(Node *n) {
 }
 
 float Node::calculateArcWeight(sf::Vector2f otherNodePos) {
-	// weight is the distance between the nodes
+	/********************************************//**
+ *  ...  weight is the distance between the nodes
+ ***********************************************/
+
 	return sqrt(((otherNodePos.x - m_pos.x) * (otherNodePos.x - m_pos.x)) + ((otherNodePos.y - m_pos.y) * (otherNodePos.y - m_pos.y)));
 }
 

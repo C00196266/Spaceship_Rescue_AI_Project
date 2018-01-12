@@ -1,6 +1,9 @@
 #include "World.h"
 
 int main() {
+	/********************************************//**
+ *  ...  main entry point
+***********************************************/
 	bool running = true;
 
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Spaceship Rescue");

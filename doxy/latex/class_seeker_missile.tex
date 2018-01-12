@@ -3,11 +3,9 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_seeker_missile_a09c20c51520a2ee6c3282d7284ec1528}\label{class_seeker_missile_a09c20c51520a2ee6c3282d7284ec1528}} 
-void {\bfseries initialise} (int i, sf\+::\+Vector2f pos)
+void \mbox{\hyperlink{class_seeker_missile_a09c20c51520a2ee6c3282d7284ec1528}{initialise}} (int i, sf\+::\+Vector2f pos)
 \item 
-\mbox{\Hypertarget{class_seeker_missile_af3baaea8b9680a9acb037a1596d9403b}\label{class_seeker_missile_af3baaea8b9680a9acb037a1596d9403b}} 
-void {\bfseries update} (float i, \mbox{\hyperlink{class_player}{Player}} $\ast$player, float delta\+Time)
+void \mbox{\hyperlink{class_seeker_missile_af3baaea8b9680a9acb037a1596d9403b}{update}} (float i, \mbox{\hyperlink{class_player}{Player}} $\ast$player, float delta\+Time)
 \item 
 \mbox{\Hypertarget{class_seeker_missile_aec565a6d030044f0b96b6b9e599aff80}\label{class_seeker_missile_aec565a6d030044f0b96b6b9e599aff80}} 
 sf\+::\+Vector2f {\bfseries get\+Position} ()
@@ -24,14 +22,12 @@ sf\+::\+Vector2f {\bfseries get\+Velocity} ()
 \mbox{\Hypertarget{class_seeker_missile_aaead4b6d7f967a6a7de3b53a4b5b425a}\label{class_seeker_missile_aaead4b6d7f967a6a7de3b53a4b5b425a}} 
 void {\bfseries Flee} (sf\+::\+Vector2f target)
 \item 
-\mbox{\Hypertarget{class_seeker_missile_a1fe0f447573c340c2a11c0313ebf9ea2}\label{class_seeker_missile_a1fe0f447573c340c2a11c0313ebf9ea2}} 
-void {\bfseries Seek} (sf\+::\+Vector2f target, \mbox{\hyperlink{class_player}{Player}} $\ast$player)
+void \mbox{\hyperlink{class_seeker_missile_a1fe0f447573c340c2a11c0313ebf9ea2}{Seek}} (sf\+::\+Vector2f target, \mbox{\hyperlink{class_player}{Player}} $\ast$player)
 \item 
 \mbox{\Hypertarget{class_seeker_missile_a0cf52290284abf389c795efc9a1db3d1}\label{class_seeker_missile_a0cf52290284abf389c795efc9a1db3d1}} 
 void {\bfseries Wander} (sf\+::\+Vector2f target)
 \item 
-\mbox{\Hypertarget{class_seeker_missile_afd7d8339af95452635f7ed84373c66b0}\label{class_seeker_missile_afd7d8339af95452635f7ed84373c66b0}} 
-float {\bfseries Arrive} (sf\+::\+Vector2f target, \mbox{\hyperlink{class_player}{Player}} $\ast$player)
+float \mbox{\hyperlink{class_seeker_missile_afd7d8339af95452635f7ed84373c66b0}{Arrive}} (sf\+::\+Vector2f target, \mbox{\hyperlink{class_player}{Player}} $\ast$player)
 \item 
 \mbox{\Hypertarget{class_seeker_missile_aa730a51000b8b61385d5725febda4962}\label{class_seeker_missile_aa730a51000b8b61385d5725febda4962}} 
 void {\bfseries rotate\+Over\+Time} (sf\+::\+Vector2f vec, sf\+::\+Time timespan, sf\+::\+Time elapsed\+Time\+Since\+Start)
@@ -51,8 +47,7 @@ void {\bfseries set\+Velocity} (sf\+::\+Vector2f velocity)
 \mbox{\Hypertarget{class_seeker_missile_acb47a64a571ad9660ebe47ebd1595d20}\label{class_seeker_missile_acb47a64a571ad9660ebe47ebd1595d20}} 
 float {\bfseries get\+Orient} (float orientation, sf\+::\+Vector2f velocity, sf\+::\+Vector2f target)
 \item 
-\mbox{\Hypertarget{class_seeker_missile_a8744918a81a590920c2555ac68dac04c}\label{class_seeker_missile_a8744918a81a590920c2555ac68dac04c}} 
-void {\bfseries Draw} (sf\+::\+Render\+Window \&window)
+void \mbox{\hyperlink{class_seeker_missile_a8744918a81a590920c2555ac68dac04c}{Draw}} (sf\+::\+Render\+Window \&window)
 \end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -64,6 +59,43 @@ sf\+::\+Time {\bfseries lifetime}
 sf\+::\+Clock {\bfseries life\+Clock}
 \end{DoxyCompactItemize}
 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_seeker_missile_afd7d8339af95452635f7ed84373c66b0}\label{class_seeker_missile_afd7d8339af95452635f7ed84373c66b0}} 
+\index{Seeker\+Missile@{Seeker\+Missile}!Arrive@{Arrive}}
+\index{Arrive@{Arrive}!Seeker\+Missile@{Seeker\+Missile}}
+\subsubsection{\texorpdfstring{Arrive()}{Arrive()}}
+{\footnotesize\ttfamily float Seeker\+Missile\+::\+Arrive (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f}]{target,  }\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{player }\end{DoxyParamCaption})}
+
+... // detonate missile on arrival\mbox{\Hypertarget{class_seeker_missile_a8744918a81a590920c2555ac68dac04c}\label{class_seeker_missile_a8744918a81a590920c2555ac68dac04c}} 
+\index{Seeker\+Missile@{Seeker\+Missile}!Draw@{Draw}}
+\index{Draw@{Draw}!Seeker\+Missile@{Seeker\+Missile}}
+\subsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void Seeker\+Missile\+::\+Draw (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+~\newline
+... // draw seekermissile object in game world\mbox{\Hypertarget{class_seeker_missile_a09c20c51520a2ee6c3282d7284ec1528}\label{class_seeker_missile_a09c20c51520a2ee6c3282d7284ec1528}} 
+\index{Seeker\+Missile@{Seeker\+Missile}!initialise@{initialise}}
+\index{initialise@{initialise}!Seeker\+Missile@{Seeker\+Missile}}
+\subsubsection{\texorpdfstring{initialise()}{initialise()}}
+{\footnotesize\ttfamily void Seeker\+Missile\+::initialise (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{sf\+::\+Vector2f}]{pos }\end{DoxyParamCaption})}
+
+~\newline
+... // initialise seekermissile variables\mbox{\Hypertarget{class_seeker_missile_a1fe0f447573c340c2a11c0313ebf9ea2}\label{class_seeker_missile_a1fe0f447573c340c2a11c0313ebf9ea2}} 
+\index{Seeker\+Missile@{Seeker\+Missile}!Seek@{Seek}}
+\index{Seek@{Seek}!Seeker\+Missile@{Seeker\+Missile}}
+\subsubsection{\texorpdfstring{Seek()}{Seek()}}
+{\footnotesize\ttfamily void Seeker\+Missile\+::\+Seek (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f}]{target,  }\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{player }\end{DoxyParamCaption})}
+
+~\newline
+... // seek to player\mbox{\Hypertarget{class_seeker_missile_af3baaea8b9680a9acb037a1596d9403b}\label{class_seeker_missile_af3baaea8b9680a9acb037a1596d9403b}} 
+\index{Seeker\+Missile@{Seeker\+Missile}!update@{update}}
+\index{update@{update}!Seeker\+Missile@{Seeker\+Missile}}
+\subsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Seeker\+Missile\+::update (\begin{DoxyParamCaption}\item[{float}]{i,  }\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{player,  }\item[{float}]{delta\+Time }\end{DoxyParamCaption})}
+
+~\newline
+... // update seeker missile
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

@@ -148,6 +148,7 @@
     <ClCompile Include="ShieldPowerUp.cpp" />
     <ClCompile Include="SpaceStation.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="SweeperBoid.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Worker.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="ShieldPowerUp.h" />
     <ClInclude Include="SpaceStation.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SweeperBoid.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Worker.h" />

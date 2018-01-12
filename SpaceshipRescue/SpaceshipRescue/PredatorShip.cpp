@@ -134,15 +134,16 @@ void PredatorShip::chooseTarget(float deltaTime) {
 void PredatorShip::seek(float deltaTime, sf::Vector2f v, float dist, bool seekingPlayer) {
 	float targetSpeed;
 
-
-	if (dist < 70) {
-		targetSpeed = 0;
-	}
-	else if (dist > 200) {
-		targetSpeed = m_maxSpeed;
-	}
-	else {
-		targetSpeed = m_maxSpeed * (dist / 200);
+	if (seekingPlayer == false) {
+		if (dist < 70) {
+			targetSpeed = 0;
+		}
+		else if (dist > 200) {
+			targetSpeed = m_maxSpeed;
+		}
+		else {
+			targetSpeed = m_maxSpeed * (dist / 200);
+		}
 	}
 	
 	normalise(v);
@@ -150,13 +151,13 @@ void PredatorShip::seek(float deltaTime, sf::Vector2f v, float dist, bool seekin
 
 	float timeToTarget = 4;
 	
-	m_linearAccel = v - (m_vel / timeToTarget);
+	m_accel = v - (m_vel / timeToTarget);
 
-	if (calculateMagnitude(m_linearAccel) > m_maxAccel) {
-		normalise(m_linearAccel);
+	if (calculateMagnitude(m_accel) > m_maxAccel) {
+		normalise(m_accel);
 	}
 
-	m_vel += m_linearAccel * deltaTime;
+	m_vel += m_accel * deltaTime;
 }
 
 void PredatorShip::setupPath() {

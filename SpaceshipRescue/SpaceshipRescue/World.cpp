@@ -101,7 +101,16 @@ void World::update(float deltaTime) {
 	for (int i = 0; i < m_sweepers.size(); i++) {
 		m_sweepers.at(i)->update(deltaTime);
 
+		// sets any workers by the sweeper to be rescued when the sweeper dies
 		if (m_sweepers.at(i)->getAlive() == false) {
+			for (int j = 0; j < m_sweepers.at(i)->getIndexesOfAbducted().size(); j++) {
+				for (int k = 0; k < m_workers.size(); k++) {
+					if (k == m_sweepers.at(i)->getIndexesOfAbducted().at(j)) {
+						m_workers.at(k)->setRescued(true);
+					}
+				}
+			}
+
 			m_sweepers.erase(m_sweepers.begin() + i);
 		}
 	}

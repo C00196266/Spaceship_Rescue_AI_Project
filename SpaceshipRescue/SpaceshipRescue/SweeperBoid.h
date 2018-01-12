@@ -36,6 +36,7 @@ public:
 	float calculateMagnitude(sf::Vector2f v1, sf::Vector2f v2);
 
 	bool getAlive();
+	std::vector<int> getIndexesOfAbducted();
 
 private:
 	enum Behaviour { PATROL, FLEE, ABDUCT, RETURN };
@@ -78,6 +79,7 @@ private:
 	int m_targetIndex;
 	float m_distToWorker;
 	float m_distToSeekNode;
+	std::vector<int> m_indexesOfAbducted;
 
 	std::vector<Node*> m_returnPath;
 

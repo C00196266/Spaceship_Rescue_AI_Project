@@ -324,9 +324,9 @@ void PredatorShip::checkWallCollisions(Wall* wall, float deltaTime) {
 }
 
 void PredatorShip::checkBulletCollision(Projectile* p) {
-	/********************************************//**
-*  ...  // checks collision between predator bullet and player
-***********************************************/
+	/********************************************//** 
+	*...  // checks collision between predator bullet and player
+	 ***********************************************/
 
 	if (p->getPosition().x < (m_player)->getPosition().x + (m_player)->getRect().width
 		&& p->getPosition().x + p->getWidth() >(m_player)->getPosition().x
@@ -334,7 +334,15 @@ void PredatorShip::checkBulletCollision(Projectile* p) {
 		&& p->getPosition().y + p->getHeight() >(m_player)->getPosition().y)
 	{
 		p->setAlive(false);
-		m_player->setHealth(1);
+		if (m_player->getShielded() == false)
+		{
+			m_player->setHealth(1);
+		}
+		else
+		{
+			m_player->setShieled(false);
+		}
+
 	}
 }
 

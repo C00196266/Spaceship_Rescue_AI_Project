@@ -1,4 +1,3 @@
-
 #include "SeekerMissile.h"
 using namespace std;
 
@@ -30,7 +29,6 @@ void SeekerMissile::initialise(int i, sf::Vector2f pos)
 	lifetime = sf::Time::Zero;
 	lifeClock.restart();
 }
-
 
 void SeekerMissile::Draw(sf::RenderWindow &window)
 {
@@ -96,14 +94,7 @@ void SeekerMissile::update(float i, Player* player, float deltaTime)
 
 		m_image.setPosition(m_position); //set position of sprite
 	}
-	else
-	{
-		//explode
-
-	//	delete this;
-	}
 }
-
 
 bool SeekerMissile::getAlive()
 {
@@ -121,13 +112,10 @@ float SeekerMissile::getOrient(float orientation, sf::Vector2f velocity, sf::Vec
 
 }
 
-
-
 void SeekerMissile::setPosition(sf::Vector2f pos)
 {
 	m_position = pos;
 }
-
 
 float SeekerMissile::Arrive(sf::Vector2f target, Player* player)
 {
@@ -139,21 +127,26 @@ float SeekerMissile::Arrive(sf::Vector2f target, Player* player)
 	float mag = temp.x * temp.x + temp.y * temp.y;
 	mag = sqrt(mag);
 
-
 	if (mag < 20 && m_isAlive == true)//target.getRadius())
 	{
 		m_isAlive = false;
 
-		
 		cout << "kaboom" << endl;
 		int temp = player->getHealth();
 
-		player->setHealth(1);
-		
+		if (player->getShielded() == false)
+		{
+			player->setHealth(1);
+		}
+		else
+		{
+			player->setShieled(false);
+		}
+
 		lifeClock.restart();
 		lifetime = sf::Time::Zero;
 
-		return 0; 
+		return 0;
 	}
 }
 

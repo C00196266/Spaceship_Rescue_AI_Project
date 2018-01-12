@@ -1,6 +1,9 @@
 #include "SweeperBoid.h"
 
 SweeperBoid::SweeperBoid(NodeLayout &nodes, Player* player, std::vector<Wall*> &walls, std::vector<Worker*> &workers, int pathNo) : m_nodeLayout(nodes), m_player(player), m_walls(walls), m_workers(workers) {
+	/********************************************//**
+	*  ...  // initialises sweeper boid
+	***********************************************/
 	m_maxSpeed = 3;
 
 	m_astar = new AStar(nodes);
@@ -388,6 +391,7 @@ void SweeperBoid::seek(float deltaTime, sf::Vector2f v, float dist, bool seeking
 		if (dist < 30) {
 			// abducts player and returns to patrol
 			m_workers.at(m_targetIndex)->setAbducted(true);
+			m_indexesOfAbducted.push_back(m_targetIndex);
 			m_behaviour = RETURN;
 		}
 	}
@@ -578,4 +582,8 @@ float SweeperBoid::calculateMagnitude(sf::Vector2f vec1, sf::Vector2f vec2) {
 
 bool SweeperBoid::getAlive() {
 	return m_alive;
+}
+
+std::vector<int> SweeperBoid::getIndexesOfAbducted() {
+	return m_indexesOfAbducted;
 }

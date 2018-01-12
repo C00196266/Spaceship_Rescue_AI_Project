@@ -24,8 +24,6 @@ void Player::Init()
 	***********************************************/
 	m_isAlive = true; //for test only
 	speed = 1;
-	maxVelo = sf::Vector2f(0, -2);
-	minVelo = sf::Vector2f(0, 0);
 	angle = 0;
 	minSpeed = 0;
 	maxSpeed = 3;
@@ -34,10 +32,6 @@ void Player::Init()
 	circle.setOutlineColor(sf::Color::Red);
 	circle.setOutlineThickness(5);
 	circle.setPosition(m_position);
-
-	//initialization logic for player
-	keyUp = true;
-	
 
 	radarTexture.loadFromFile("assets/blip.png");
 	radarSprite.setTexture(radarTexture);
@@ -176,9 +170,6 @@ void Player::update(float time)
 			canFire = false;
 		}
 
-
-		//m_view.setCenter(m_sprite.getPosition());
-
 		m_sprite.update(sf::seconds(0.05));
 
 		m_sprite.setPosition(m_position);
@@ -292,7 +283,6 @@ void Player::update(float time)
 
 
 void Player::checkCollisions(Wall* wall, float deltaTime) {
-	
 
 	/********************************************//**
  *  ...  checks for intersection between the player and the wall and handles collision
@@ -305,10 +295,6 @@ void Player::checkCollisions(Wall* wall, float deltaTime) {
 	//	cout << "intersect" << endl;
 
 	}
-
-
-
-
 }
 
 std::vector<Projectile*> Player::getBullets()

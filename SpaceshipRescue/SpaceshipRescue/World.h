@@ -5,6 +5,8 @@
 #include "Nest.h"
 #include "AStar.h"
 #include "SweeperBoid.h"
+#include <cstring>
+
 
 class World {
 public:
@@ -20,7 +22,8 @@ public:
 	SpaceStation m_spaceStation;
 	//PredatorShip* m_predator;
 //$$	PredatorShip* m_predator;
-
+	sf::Font font;
+	sf::Text text;
 
 	Nest* m_nest;
 	Nest* m_nest2;
@@ -42,6 +45,7 @@ private:
 	/*Player player;
 	SpaceStation m_spaceStation;
 	*/
+	int activeSweeps;
 	std::vector<Worker*> m_workers;
 	std::vector<SweeperBoid*> m_sweepers;
 };

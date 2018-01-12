@@ -7,6 +7,8 @@ World::World() {
 void World::init() {
 	srand(time(NULL));
 
+
+
 	// gives worker random position on map
 	for (int i = 0; i < 15; i++) {
 		m_workers.push_back(new Worker(m_spaceStation.getFloors().at(rand() % (m_spaceStation.getFloors().size() - 1))->getPos(), m_spaceStation.getNodeLayout(), m_spaceStation.getWalls()));
@@ -34,10 +36,24 @@ void World::init() {
 
 	m_radar.setSize(3996, 2496);
 	aStar = new AStar(m_spaceStation.getNodeLayout());
+
+	font.loadFromFile("ITCBLKAD.TTF");
+
+	// Create a text
+	text.setFont(font);
+	text.setString("Health: " + std::to_string(player->getHealth()));
+
+	text.setCharacterSize(30);
+	text.setStyle(sf::Text::Bold);
+	text.setFillColor(sf::Color::Black);
+	text.setOutlineColor(sf::Color::White);
+	text.setPosition(sf::Vector2f(0, 0));
+	text.setCharacterSize(16);
 }
 
 void World::render(sf::RenderWindow &window) 
 {
+
 	m_spaceStation.render(window);
 
 	m_nest->render(window);
@@ -53,7 +69,7 @@ void World::render(sf::RenderWindow &window)
 	}
 
 	player->Draw(window);
-
+	window.draw(text);
 	//view #2 minimap
 	window.setView(m_radar);
 
@@ -65,15 +81,20 @@ void World::render(sf::RenderWindow &window)
 	m_nest3->radarRender(window);
 
 	player->DrawRadar(window);
+
+
 }
 
 void World::update(float deltaTime) {
 
-	player->update(deltaTime);
 
+
+	player->update(deltaTime);
+	activeSweeps = 0;
 	for (int i = 0; i < m_workers.size(); i++) {
 		if (m_workers.at(i)->getAbducted() == false && m_workers.at(i)->getAbducted() == false) {
 			m_workers.at(i)->update(deltaTime);
+			activeSweeps++;
 		}
 	}
 
@@ -118,4 +139,12 @@ void World::update(float deltaTime) {
 	m_nest->update(deltaTime, player);
 	m_nest2->update(deltaTime, player);
 	m_nest3->update(deltaTime, player);
+
+
+	int temp = player->getHealth();
+
+	text.setString("Health: " + std::to_string(temp) + "                     " + "Workers active: " + std::to_string(activeSweeps));
+
+
+	text.setPosition(player->getPosition() - sf::Vector2f(160, 100));
 }

@@ -1,11 +1,14 @@
 #include "World.h"
+#include "SFML/Audio.hpp"
+#include "SFML\Audio\Music.hpp"
+sf::Music music;
 
 int main() {
 	/********************************************//**
  *  ...  main entry point
 ***********************************************/
 	bool running = true;
-
+	bool played = false;
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Spaceship Rescue");
 	sf::View view = window.getDefaultView();
 	window.setView(view);
@@ -20,7 +23,7 @@ int main() {
 
 	world.init();
 
-
+	
 	// The main loop - ends as soon as the window is closed
 	while (running == true)
 	{
@@ -41,6 +44,19 @@ int main() {
 
 			window.clear(sf::Color::White);
 
+			if (played == false)
+			{
+				if (!music.openFromFile("music.ogg"))
+				{
+
+				}
+				else
+				{
+					music.setLoop(true);
+					music.play();
+				}
+				played = true;
+			}
 			// Displays contents of current frame in the window
 			if (timeSinceLastUpdate > timePerFrame) {
 				world.update(timeSinceLastUpdate.asSeconds());

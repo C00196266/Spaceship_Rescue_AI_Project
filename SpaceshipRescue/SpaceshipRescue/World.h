@@ -4,7 +4,7 @@
 #include "PredatorShip.h"
 #include "Nest.h"
 #include "AStar.h"
-#include "Worker.h"
+#include "SweeperBoid.h"
 
 class World {
 public:
@@ -19,7 +19,6 @@ public:
 	Player* player;
 	SpaceStation m_spaceStation;
 	//PredatorShip* m_predator;
-	Worker* m_worker;
 //$$	PredatorShip* m_predator;
 
 
@@ -43,4 +42,6 @@ private:
 	/*Player player;
 	SpaceStation m_spaceStation;
 	*/
+	std::vector<Worker*> m_workers;
+	std::vector<SweeperBoid*> m_sweepers;
 };

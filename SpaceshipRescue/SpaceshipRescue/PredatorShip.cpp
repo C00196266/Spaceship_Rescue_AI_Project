@@ -94,7 +94,10 @@ void PredatorShip::update(float deltaTime)
 		m_orientation = (atan2(m_vel.x, -m_vel.y) * 180 / 3.14159265);
 		m_sprite.setRotation(m_orientation);
 
+	// only fire bullets if the player is alive
+	if (m_player->getAlive() == true) {
 		fireBullet();
+	}
 
 		for (std::vector<Projectile*>::iterator i = m_bullets.begin(); i != m_bullets.end(); i++) {
 			if ((*i)->getAlive() == true) {
@@ -167,17 +170,18 @@ void PredatorShip::chooseTarget(float deltaTime) {
 }
 
 void PredatorShip::seek(float deltaTime, sf::Vector2f v, float dist, bool seekingPlayer) {
-	float targetSpeed;
+	float targetSpeed = 0;
 
-
-	if (dist < 70) {
-		targetSpeed = 0;
-	}
-	else if (dist > 200) {
-		targetSpeed = m_maxSpeed;
-	}
-	else {
-		targetSpeed = m_maxSpeed * (dist / 200);
+	if (seekingPlayer == false) {
+		if (dist < 70) {
+			targetSpeed = 0;
+		}
+		else if (dist > 200) {
+			targetSpeed = m_maxSpeed;
+		}
+		else {
+			targetSpeed = m_maxSpeed * (dist / 200);
+		}
 	}
 	
 	normalise(v);
@@ -185,13 +189,13 @@ void PredatorShip::seek(float deltaTime, sf::Vector2f v, float dist, bool seekin
 
 	float timeToTarget = 4;
 	
-	m_linearAccel = v - (m_vel / timeToTarget);
+	m_accel = v - (m_vel / timeToTarget);
 
-	if (calculateMagnitude(m_linearAccel) > m_maxAccel) {
-		normalise(m_linearAccel);
+	if (calculateMagnitude(m_accel) > m_maxAccel) {
+		normalise(m_accel);
 	}
 
-	m_vel += m_linearAccel * deltaTime;
+	m_vel += m_accel * deltaTime;
 }
 
 void PredatorShip::setupPath() {
@@ -305,6 +309,29 @@ void PredatorShip::checkBulletCollision(Projectile* p) {
 
 }
 
+void PredatorShip::normalise(sf::Vector2f &v) {
+	float magnitude = calculateMagnitude(v);
+
+	if (magnitude > 0)
+	{
+		v.x = v.x / magnitude;
+		v.y = v.y / magnitude;
+	}
+}
+
+
+float PredatorShip::calculateMagnitude(sf::Vector2f vec) {
+	return sqrt((vec.x * vec.x) + (vec.y * vec.y));
+}
+
+float PredatorShip::calculateMagnitude(sf::Vector2f vec1, sf::Vector2f vec2) {
+	return sqrt(((vec2.x - vec1.x) * (vec2.x - vec1.x)) + ((vec2.y - vec1.y) * (vec2.y - vec1.y)));
+}
+
+sf::FloatRect PredatorShip::getRect() {
+	return m_sprite.getGlobalBounds();
+}
+
 void PredatorShip::checkPlayerBulletColl()
 {
 
@@ -323,28 +350,16 @@ void PredatorShip::checkPlayerBulletColl()
 				(*bulletIterator)->setAlive(false);
 				m_alive = false;
 			}
+			if (m_player->getShielded() == false)
+			{
+				m_player->setHealth(-1);
+			}
+			else
+			{
+				m_player->setShieled(false);
+			}
 		}
 	}
 }
 
-void PredatorShip::normalise(sf::Vector2f &v) {
-	float magnitude = calculateMagnitude(v);
 
-	if (magnitude > 0)
-	{
-		v.x = v.x / magnitude;
-		v.y = v.y / magnitude;
-	}
-}
-
-float PredatorShip::calculateMagnitude(sf::Vector2f vec) {
-	return sqrt((vec.x * vec.x) + (vec.y * vec.y));
-}
-
-float PredatorShip::calculateMagnitude(sf::Vector2f vec1, sf::Vector2f vec2) {
-	return sqrt(((vec2.x - vec1.x) * (vec2.x - vec1.x)) + ((vec2.y - vec1.y) * (vec2.y - vec1.y)));
-}
-
-sf::FloatRect PredatorShip::getRect() {
-	return m_sprite.getGlobalBounds();
-}

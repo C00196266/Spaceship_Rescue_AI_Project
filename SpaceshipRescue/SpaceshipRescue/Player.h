@@ -27,6 +27,9 @@ private:
 	sf::Texture radarTexture;
 	sf::Vector2f m_nextPosX;
 	sf::Vector2f m_nextPosY;
+	sf::Sprite m_shieldSprite;
+	sf::Texture m_shieldTexture;
+
 	std::vector<Wall*>& m_walls;
 	std::vector<Wall*> m_closestWalls;
 	sf::Vector2f maxVelo;
@@ -36,7 +39,7 @@ private:
 	float angle;
 	int m_size;
 	sf::Vector2f m_position; //position of Player
-	const float m_maxHealth = 9999; //max Player health
+	const float m_maxHealth = 10; //max Player health
 	float m_health = m_maxHealth; //Player health
 	bool m_isAlive = false; //is Player alive
 	std::vector<sf::Vector2f> m_waypoint; //vector of vector2s that hold the waypoints set for the Player
@@ -62,6 +65,8 @@ private:
 
 	float m_width = 48;
 	float m_height = 47;
+
+	bool m_shielded;
 public:
 	Player(std::vector<Wall*> &walls);
 	~Player();
@@ -89,6 +94,9 @@ public:
 	sf::FloatRect getRect();
 
 	sf::Vector2f getVelocity();
+
+	bool getShielded();
+	void setShieled(bool shielded);
 };
 
 

@@ -4,30 +4,26 @@
 #include "AStar.h"
 #include "Wall.h"
 #include "Player.h"
+#include "Worker.h"
 
-class PredatorShip {
+class SweeperBoid {
 public:
-	PredatorShip();
-	PredatorShip(sf::Vector2f pos, NodeLayout &nodes, Player* player, std::vector<Wall*> &walls);
+	SweeperBoid();
+	SweeperBoid(NodeLayout &nodes, Player* player, std::vector<Wall*> &walls, std::vector<Worker*> &workers, int pathNo);
 
 	void render(sf::RenderWindow &window);
 
 	void update(float deltaTime);
 	void chooseTarget(float deltaTime);
-	void seek(float deltaTime, sf::Vector2f v, float dist, bool seekingPlayer);
+	void seek(float deltaTime, sf::Vector2f v, float dist, bool seekingWorker);
 	void checkWallCollisions(Wall* wall, float deltaTime);
-	void checkBulletCollision(Projectile* p);
-	void setupPath();
-	void fireBullet();
+	//void checkBulletCollision(Projectile* p);
+	void setupPatrol(int pathNo);
+	void patrol(float deltaTime);
 
 	void normalise(sf::Vector2f &v);
 	float calculateMagnitude(sf::Vector2f v);
 	float calculateMagnitude(sf::Vector2f v1, sf::Vector2f v2);
-	sf::FloatRect getRect();
-
-	void renderRadar(sf::RenderWindow &window);
-	void checkPlayerBulletColl();
-	bool getAlive();
 
 private:
 	sf::Vector2f m_pos;
@@ -38,37 +34,29 @@ private:
 	float m_height;
 
 	sf::Vector2f m_vel;
+	float m_maxSpeed;
 	sf::Vector2f m_accel;
 	float m_magnitudeAccel;
 	float m_maxAccel;
 
-	float m_distToNextPoint;
-	float m_distToPlayer;
-	bool m_alive;
-	float m_orientation;
-	float m_angleToPlayer;
-
 	sf::Image m_image;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
-	sf::Sprite m_radarImage;
-	sf::Texture m_radarTexture;
+
+	float m_orientation;
 
 	Player* m_player;
-	float m_maxSpeed;
 
-	std::vector<Projectile*> m_bullets;
-	float m_fireRange;
-	
-	sf::Clock m_fireClock;
-	sf::Time m_fireTime;
-	bool m_canFire;
-	float m_fireRate;
+	bool m_fleeing;
 
 	std::vector<Wall*>& m_walls;
+	std::vector<Worker*>& m_workers;
 
 	NodeLayout& m_nodeLayout;
-	std::vector<Node*> m_path;
+
+	std::vector<Node*> m_patrolPath;
+	int m_currentPatrolNode;
+	float m_distToNode;
 
 	AStar* m_astar;
 };

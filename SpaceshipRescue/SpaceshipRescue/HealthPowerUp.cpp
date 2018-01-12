@@ -25,7 +25,7 @@ void HealthPowerUp::checkCollision(Player* player) {
 		&& player->getPosition().y + player->getRect().height > m_pos.y)
 	{
 		// restores health... to be complete
-
+		player->setHealth(1);
 		m_alive = false;
 	}
 }

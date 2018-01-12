@@ -25,7 +25,9 @@ void ShieldPowerUp::checkCollision(Player* player) {
 		&& player->getPosition().y + player->getRect().height > m_pos.y)
 	{
 		// adds shield that protects from one attack... to be complete
-
+		if (player->getShielded() == false) {
+			player->setShieled(true);
+		}
 		m_alive = false;
 	}
 }

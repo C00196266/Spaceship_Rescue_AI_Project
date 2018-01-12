@@ -5,7 +5,7 @@ PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, Player* player, 
 	m_nextPosX = pos;
 	m_nextPosY = pos;
 
-	m_maxSpeed = 12.0f;
+	m_maxSpeed = 6.0f;
 
 	m_image.loadFromFile("assets/PredatorShip.png");
 	m_texture.loadFromImage(m_image);
@@ -27,71 +27,106 @@ PredatorShip::PredatorShip(sf::Vector2f pos, NodeLayout &nodes, Player* player, 
 	m_fireClock.restart();
 	m_fireTime = sf::Time::Zero;
 	m_fireRange = 250;
+
+	m_alive = true;
+}
+
+bool PredatorShip::getAlive()
+{
+	return m_alive;
 }
 
 void PredatorShip::render(sf::RenderWindow &window) {
-	for (std::vector<Projectile*>::iterator i = m_bullets.begin(); i != m_bullets.end(); i++) {
-		(*i)->Draw(window);
-	}
+	if (m_alive)
+	{
+		for (std::vector<Projectile*>::iterator i = m_bullets.begin(); i != m_bullets.end(); i++) {
+			(*i)->Draw(window);
+		}
 
-	window.draw(m_sprite);
+		window.draw(m_sprite);
+	}
 }
 
 
 void PredatorShip::renderRadar(sf::RenderWindow &window) {
-	window.draw(m_radarImage);
+	if (m_alive)
+	{
+		window.draw(m_radarImage);
+	}
 }
 
 
 void PredatorShip::update(float deltaTime)
 {
-	setupPath();
-	//m_playerPos = playerPos;
-	m_radarImage.setPosition(m_pos);
-	// seeks towards player
-	setupPath();
+	if (m_alive)
+	{
+		setupPath();
+		//m_playerPos = playerPos;
+		m_radarImage.setPosition(m_pos);
+		// seeks towards player
+		setupPath();
 
-	// chooses whether to seek towards player or next node
-	chooseTarget(deltaTime);
+		// chooses whether to seek towards player or next node
+		chooseTarget(deltaTime);
 
-	// checks if the velocity is greater than its max velocity
-	if (calculateMagnitude(m_vel) > m_maxSpeed) {
-		normalise(m_vel);
-		m_vel *= m_maxSpeed;
-	}
-
-	m_nextPosX.x += m_vel.x;
-	m_nextPosY.y += m_vel.y;
-
-	// check collisions with wall
-	for (std::vector<Wall*>::iterator i = m_walls.begin(); i != m_walls.end(); i++) {
-		checkWallCollisions((*i), deltaTime);
-	}
-
-	m_pos.x = m_nextPosX.x;
-	m_pos.y = m_nextPosY.y;
-
-	m_nextPosX.y = m_pos.y;
-	m_nextPosY.x = m_pos.x;
-
-	m_sprite.setPosition(m_pos.x + m_texture.getSize().x / 2, m_pos.y + m_texture.getSize().y / 2);
-
-	m_orientation = (atan2(m_vel.x, -m_vel.y) * 180 / 3.14159265);
-	m_sprite.setRotation(m_orientation);
-
-	fireBullet();
-
-	for (std::vector<Projectile*>::iterator i = m_bullets.begin(); i != m_bullets.end(); i++) {
-		if ((*i)->getAlive() == true) {
-			checkBulletCollision((*i));
-			(*i)->update(deltaTime);
+		// checks if the velocity is greater than its max velocity
+		if (calculateMagnitude(m_vel) > m_maxSpeed) {
+			normalise(m_vel);
+			m_vel *= m_maxSpeed;
 		}
-	}
 
-	// removes dead projectiles from the vector
-	for (int i = 0; i < m_bullets.size(); i++) {
-		if (m_bullets.at(i)->getAlive() == false) {
-			m_bullets.erase(m_bullets.begin() + i);
+		m_nextPosX.x += m_vel.x;
+		m_nextPosY.y += m_vel.y;
+
+		// check collisions with wall
+		for (std::vector<Wall*>::iterator i = m_walls.begin(); i != m_walls.end(); i++) {
+			checkWallCollisions((*i), deltaTime);
+		}
+
+		m_pos.x = m_nextPosX.x;
+		m_pos.y = m_nextPosY.y;
+
+		m_nextPosX.y = m_pos.y;
+		m_nextPosY.x = m_pos.x;
+
+		m_sprite.setPosition(m_pos.x + m_texture.getSize().x / 2, m_pos.y + m_texture.getSize().y / 2);
+
+		m_orientation = (atan2(m_vel.x, -m_vel.y) * 180 / 3.14159265);
+		m_sprite.setRotation(m_orientation);
+
+		fireBullet();
+
+		for (std::vector<Projectile*>::iterator i = m_bullets.begin(); i != m_bullets.end(); i++) {
+			if ((*i)->getAlive() == true) {
+				checkBulletCollision((*i));
+				(*i)->update(deltaTime);
+			}
+		}
+
+		// removes dead projectiles from the vector
+		for (int i = 0; i < m_bullets.size(); i++) {
+			if (m_bullets.at(i)->getAlive() == false) {
+				m_bullets.erase(m_bullets.begin() + i);
+			}
+		}
+
+
+		std::vector<Projectile*> bulletVector = (*m_player).getBullets();
+		std::vector<Projectile*>::iterator bulletIterator;
+
+		for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
+		{
+			if ((*bulletIterator)->getAlive())
+			{
+				if ((*bulletIterator)->getPosition().x < m_pos.x + m_width
+					&& (*bulletIterator)->getPosition().x + (*m_player).getRect().width > m_pos.x
+					&& (*bulletIterator)->getPosition().y < m_pos.y + m_height
+					&& (*bulletIterator)->getPosition().y + (*m_player).getRect().height > m_pos.y)
+				{
+					(*bulletIterator)->setAlive(false);
+					m_alive = false;
+				}
+			}
 		}
 	}
 }
@@ -126,6 +161,9 @@ void PredatorShip::chooseTarget(float deltaTime) {
 	else {
 		seek(deltaTime, vecToPlayer, m_distToPlayer, true);
 	}
+
+
+
 }
 
 void PredatorShip::seek(float deltaTime, sf::Vector2f v, float dist, bool seekingPlayer) {
@@ -254,11 +292,38 @@ void PredatorShip::checkWallCollisions(Wall* wall, float deltaTime) {
 
 void PredatorShip::checkBulletCollision(Projectile* p) {
 	if (p->getPosition().x < (m_player)->getPosition().x + (m_player)->getRect().width
-		&& p->getPosition().x + p->getWidth() > (m_player)->getPosition().x
+		&& p->getPosition().x + p->getWidth() >(m_player)->getPosition().x
 		&& p->getPosition().y < (m_player)->getPosition().y + (m_player)->getRect().height
-		&& p->getPosition().y + p->getHeight() > (m_player)->getPosition().y) 
+		&& p->getPosition().y + p->getHeight() >(m_player)->getPosition().y)
 	{
 		p->setAlive(false);
+		m_player->setHealth(1);
+	}
+
+
+
+
+}
+
+void PredatorShip::checkPlayerBulletColl()
+{
+
+	std::vector<Projectile*> bulletVector = (*m_player).getBullets();
+	std::vector<Projectile*>::iterator bulletIterator;
+
+	for (bulletIterator = bulletVector.begin(); bulletIterator != bulletVector.end(); ++bulletIterator)
+	{
+		if ((*bulletIterator)->getAlive())
+		{
+			if ((*bulletIterator)->getPosition().x < m_pos.x + m_width
+				&& (*bulletIterator)->getPosition().x + (*m_player).getRect().width > m_pos.x
+				&& (*bulletIterator)->getPosition().y < m_pos.y + m_height
+				&& (*bulletIterator)->getPosition().y + (*m_player).getRect().height > m_pos.y)
+			{
+				(*bulletIterator)->setAlive(false);
+				m_alive = false;
+			}
+		}
 	}
 }
 

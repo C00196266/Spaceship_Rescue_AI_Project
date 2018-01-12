@@ -7,7 +7,7 @@
 class Nest {
 public:
 	Nest();
-	Nest(sf::Vector2f pos, NodeLayout &nodes, Player* player, std::vector<Wall*> &walls);
+	Nest(NodeLayout &nodes, Player* player, std::vector<Wall*> &walls);
 
 
 	void render(sf::RenderWindow &window);
@@ -46,6 +46,9 @@ private:
 	sf::Texture m_radarTexture;
 
 	int m_health = 4;
+
+	sf::Clock spawnClock;
+	sf::Time spawnTime;
 
 //	sf::Vector2f& m_playerPos;
 	NodeLayout& m_nodeLayout;

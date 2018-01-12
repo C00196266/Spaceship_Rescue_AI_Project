@@ -4,7 +4,7 @@
 //
 //}
 
-Nest::Nest(sf::Vector2f pos, NodeLayout &nodes, Player* player, std::vector<Wall*> &walls) : m_nodeLayout(nodes), m_player(player), m_walls(walls) {
+Nest::Nest(NodeLayout &nodes, Player* player, std::vector<Wall*> &walls) : m_nodeLayout(nodes), m_player(player), m_walls(walls) {
 
 	//m_pos = pos;
 	//m_nextPosX = pos;
@@ -41,11 +41,11 @@ void Nest::init(int i)
 	}
 	else if (i == 1)
 	{
-
+		m_position = sf::Vector2f(200, 1500);
 	}
 	else if (i == 2)
 	{
-
+		m_position = sf::Vector2f(2300, 750);
 	}
 	m_isAlive = true; //for test only
 
@@ -68,9 +68,9 @@ void Nest::init(int i)
 
 	predatorVector.push_back(new PredatorShip(m_position, m_nodeLayout, m_player, m_walls));
 
-	seekerMissileArray[0].initialise(0);
+	seekerMissileArray[0].initialise(0, m_position);
 
-	seekerMissileArray[0].setPosition(m_position);
+	//seekerMissileArray[0].setPosition(m_position);
 
 	seekerMissileVector.push_back(seekerMissileArray[0]);
 
@@ -150,12 +150,20 @@ void Nest::update(float deltaTime, Player* player)
 {
 	if (m_isAlive == true)
 	{
+
+		spawnTime += spawnClock.getElapsedTime();
+
+
 		m_radarImage.setPosition(m_position);
 
 		int count = 0;
 
 		for (predatorIterator = predatorVector.begin(); predatorIterator != predatorVector.end(); predatorIterator++)
 		{
+			if ((*predatorIterator)->getAlive())
+			{
+				count++;
+			}
 			(*predatorIterator)->update(deltaTime);
 		}
 
@@ -200,11 +208,20 @@ void Nest::update(float deltaTime, Player* player)
 					if (m_health <= 0)
 					{
 						m_isAlive = false;
+
 					}
 				}
 			}
 		}
 
+
+		if (count < 4 && spawnTime.asMilliseconds() > 1000000)
+		{
+			predatorVector.push_back(new PredatorShip(m_position, m_nodeLayout, m_player, m_walls));
+			spawnClock.restart();
+			spawnTime = sf::Time::Zero;
+			std::cout << "spawn" << std::endl;
+		}
 
 	}
 	//player.update(deltaTime);

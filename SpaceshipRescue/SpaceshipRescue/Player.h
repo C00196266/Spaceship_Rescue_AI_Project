@@ -25,7 +25,8 @@ private:
 
 	sf::Sprite radarSprite;
 	sf::Texture radarTexture;
-
+	sf::Vector2f m_nextPosX;
+	sf::Vector2f m_nextPosY;
 	std::vector<Wall*>& m_walls;
 	std::vector<Wall*> m_closestWalls;
 	sf::Vector2f maxVelo;
@@ -35,7 +36,7 @@ private:
 	float angle;
 	int m_size;
 	sf::Vector2f m_position; //position of Player
-	const float m_maxHealth = 4; //max Player health
+	const float m_maxHealth = 9999; //max Player health
 	float m_health = m_maxHealth; //Player health
 	bool m_isAlive = false; //is Player alive
 	std::vector<sf::Vector2f> m_waypoint; //vector of vector2s that hold the waypoints set for the Player
@@ -45,6 +46,8 @@ private:
 	sf::Vector2f m_velocity;
 	int PlayerType; //fed a random distrubution to see if Player is type 1, 2 or 3
 	float speed;
+	sf::CircleShape circle;
+
 
 	bool firstSpacePressed = false;
 	Projectile* bulletArray[30];
@@ -57,8 +60,8 @@ private:
 
 	std::vector<Projectile*>::iterator bulletIterator;
 
-	float m_width = m_texture.getSize().x;
-	float m_height = m_texture.getSize().y;
+	float m_width = 48;
+	float m_height = 47;
 public:
 	Player(std::vector<Wall*> &walls);
 	~Player();

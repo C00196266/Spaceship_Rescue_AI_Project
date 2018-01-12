@@ -28,6 +28,8 @@ public:
 	sf::FloatRect getRect();
 
 	void renderRadar(sf::RenderWindow &window);
+	void checkPlayerBulletColl();
+	bool getAlive();
 
 private:
 	sf::Vector2f m_pos;
@@ -44,7 +46,7 @@ private:
 
 	float m_distToNextPoint;
 	float m_distToPlayer;
-
+	bool m_alive;
 	float m_orientation;
 	float m_angleToPlayer;
 

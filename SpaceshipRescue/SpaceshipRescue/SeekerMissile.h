@@ -15,7 +15,7 @@ public:
 	SeekerMissile();
 	~SeekerMissile();
 
-	void initialise(int i);
+	void initialise(int i, sf::Vector2f pos);
 	
 	
 	void update(float i, Player* player , float deltaTime);
